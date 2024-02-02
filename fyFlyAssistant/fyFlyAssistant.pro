@@ -1,5 +1,6 @@
 QT       += core gui
 QT       += opengl
+QT       += serialport   #加入串口模块
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
@@ -10,9 +11,17 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
+    mycombobox.cpp \
+    ringbufer.cpp \
+    serialport.cpp \
+    settingwidget.cpp \
     widget.cpp
 
 HEADERS += \
+    mycombobox.h \
+    ringbufer.h \
+    serialport.h \
+    settingwidget.h \
     widget.h
 
 FORMS += \
@@ -25,3 +34,6 @@ RC_ICONS = icon\logo.ico
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    images.qrc

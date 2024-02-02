@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/button/setting.png</file>
+        <file>images/state/connectSuccess.png</file>
+        <file>images/state/waitConnetct.png</file>
+    </qresource>
+</RCC>
