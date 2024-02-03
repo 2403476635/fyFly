@@ -108,10 +108,13 @@ int main(void)
   MX_USART3_UART_Init();
   MX_USART6_UART_Init();
   MX_SPI1_Init();
+  MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
 	sysstemInfo.sysstemClockFrequency = HAL_RCC_GetSysClockFreq();
+	mainApp();
+	HAL_TIM_Base_Start(&htim5);
 	
-
+	
   /* USER CODE END 2 */
 
   /* Init scheduler */

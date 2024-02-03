@@ -31,6 +31,8 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdbool.h>
+#include <string.h>
 
 /* USER CODE END Includes */
 
@@ -53,7 +55,8 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+extern void lis3mdl_Init(void);
+void mainApp(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
