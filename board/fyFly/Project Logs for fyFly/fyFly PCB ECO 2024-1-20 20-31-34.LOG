@@ -1,0 +1,2 @@
+Removed Pin From Net: NetName=W25Q16_CS Pin=U4-42
+Added Pin To Net: NetName=W25Q16_CS Pin=U4-62

@@ -1,0 +1,187 @@
+Removed Pin From Net: NetName=TIM4_CH1 Pin=U9-1
+Removed Pin From Net: NetName=TIM4_CH2 Pin=U10-1
+Removed Pin From Net: NetName=TIM4_CH3 Pin=U11-1
+Removed Pin From Net: NetName=TIM4_CH4 Pin=U12-1
+Removed Pin From Net: NetName=UART1_TX Pin=U16-1
+Removed Pin From Net: NetName=UART1_RX Pin=U16-2
+Removed Pin From Net: NetName=UART2_TX Pin=U17-1
+Removed Pin From Net: NetName=UART2_RX Pin=U17-2
+Removed Pin From Net: NetName=UART3_TX Pin=U18-1
+Removed Pin From Net: NetName=UART3_RX Pin=U18-2
+Removed Pin From Net: NetName=UART4_TX Pin=U19-1
+Removed Pin From Net: NetName=UART4_RX Pin=U19-2
+Removed Pin From Net: NetName=UART6_TX Pin=U20-1
+Removed Pin From Net: NetName=UART6_RX Pin=U20-2
+Removed Pin From Net: NetName=TIM9_CH1 Pin=U24-1
+Removed Pin From Net: NetName=TIM9_CH2 Pin=U26-1
+Added Component: Designator=R8(0603-R)
+Add component (AddParameter): Name = "BOM名称"; Value = "贴片电阻"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "联系卖家，免费查找封装"; Value = "唯一出售店铺网址https://shop463601444.taobao.com"; VariantName = "[No Variations]"
+Added Component: Designator=R13(0603-R)
+Add component (AddParameter): Name = "BOM名称"; Value = "贴片电阻"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "联系卖家，免费查找封装"; Value = "唯一出售店铺网址https://shop463601444.taobao.com"; VariantName = "[No Variations]"
+Added Component: Designator=R14(0603-R)
+Add component (AddParameter): Name = "BOM名称"; Value = "贴片电阻"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "联系卖家，免费查找封装"; Value = "唯一出售店铺网址https://shop463601444.taobao.com"; VariantName = "[No Variations]"
+Added Component: Designator=R15(0603-R)
+Add component (AddParameter): Name = "BOM名称"; Value = "贴片电阻"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "联系卖家，免费查找封装"; Value = "唯一出售店铺网址https://shop463601444.taobao.com"; VariantName = "[No Variations]"
+Added Component: Designator=R19(0603-R)
+Add component (AddParameter): Name = "BOM名称"; Value = "贴片电阻"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "联系卖家，免费查找封装"; Value = "唯一出售店铺网址https://shop463601444.taobao.com"; VariantName = "[No Variations]"
+Added Component: Designator=R20(0603-R)
+Add component (AddParameter): Name = "BOM名称"; Value = "贴片电阻"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "联系卖家，免费查找封装"; Value = "唯一出售店铺网址https://shop463601444.taobao.com"; VariantName = "[No Variations]"
+Added Component: Designator=R21(0603-R)
+Add component (AddParameter): Name = "BOM名称"; Value = "贴片电阻"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "联系卖家，免费查找封装"; Value = "唯一出售店铺网址https://shop463601444.taobao.com"; VariantName = "[No Variations]"
+Added Component: Designator=R23(0603-R)
+Add component (AddParameter): Name = "BOM名称"; Value = "贴片电阻"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "联系卖家，免费查找封装"; Value = "唯一出售店铺网址https://shop463601444.taobao.com"; VariantName = "[No Variations]"
+Added Component: Designator=R24(0603-R)
+Add component (AddParameter): Name = "BOM名称"; Value = "贴片电阻"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "联系卖家，免费查找封装"; Value = "唯一出售店铺网址https://shop463601444.taobao.com"; VariantName = "[No Variations]"
+Added Component: Designator=R25(0603-R)
+Add component (AddParameter): Name = "BOM名称"; Value = "贴片电阻"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "联系卖家，免费查找封装"; Value = "唯一出售店铺网址https://shop463601444.taobao.com"; VariantName = "[No Variations]"
+Added Component: Designator=R28(0603-R)
+Add component (AddParameter): Name = "BOM名称"; Value = "贴片电阻"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "联系卖家，免费查找封装"; Value = "唯一出售店铺网址https://shop463601444.taobao.com"; VariantName = "[No Variations]"
+Added Component: Designator=R29(0603-R)
+Add component (AddParameter): Name = "BOM名称"; Value = "贴片电阻"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "联系卖家，免费查找封装"; Value = "唯一出售店铺网址https://shop463601444.taobao.com"; VariantName = "[No Variations]"
+Added Component: Designator=R30(0603-R)
+Add component (AddParameter): Name = "BOM名称"; Value = "贴片电阻"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "联系卖家，免费查找封装"; Value = "唯一出售店铺网址https://shop463601444.taobao.com"; VariantName = "[No Variations]"
+Added Component: Designator=R31(0603-R)
+Add component (AddParameter): Name = "BOM名称"; Value = "贴片电阻"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "联系卖家，免费查找封装"; Value = "唯一出售店铺网址https://shop463601444.taobao.com"; VariantName = "[No Variations]"
+Added Component: Designator=R32(0603-R)
+Add component (AddParameter): Name = "BOM名称"; Value = "贴片电阻"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "联系卖家，免费查找封装"; Value = "唯一出售店铺网址https://shop463601444.taobao.com"; VariantName = "[No Variations]"
+Added Component: Designator=R33(0603-R)
+Add component (AddParameter): Name = "BOM名称"; Value = "贴片电阻"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "联系卖家，免费查找封装"; Value = "唯一出售店铺网址https://shop463601444.taobao.com"; VariantName = "[No Variations]"
+Added Component: Designator=TVS1(ESDA5V3L)
+Added Component: Designator=TVS2(ESDA5V3L)
+Added Component: Designator=TVS3(ESDA5V3L)
+Added Component: Designator=TVS4(ESDA5V3L)
+Added Component: Designator=TVS5(ESDA5V3L)
+Added Component: Designator=TVS6(ESDA5V3L)
+Added Component: Designator=TVS7(ESDA5V3L)
+Added Component: Designator=TVS8(ESDA5V3L)
+Added Pin To Net: NetName=TIM4_CH1 Pin=R8-1
+Added Pin To Net: NetName=TIM4_CH2 Pin=R13-1
+Added Pin To Net: NetName=TIM4_CH3 Pin=R14-1
+Added Pin To Net: NetName=TIM4_CH4 Pin=R15-1
+Added Pin To Net: NetName=TIM9_CH1 Pin=R19-1
+Added Pin To Net: NetName=TIM9_CH2 Pin=R20-1
+Added Pin To Net: NetName=UART1_TX Pin=R21-1
+Added Pin To Net: NetName=UART2_TX Pin=R23-1
+Added Pin To Net: NetName=UART3_TX Pin=R24-1
+Added Pin To Net: NetName=UART4_TX Pin=R25-1
+Added Pin To Net: NetName=UART6_TX Pin=R28-1
+Added Pin To Net: NetName=UART1_RX Pin=R29-1
+Added Pin To Net: NetName=UART2_RX Pin=R30-1
+Added Pin To Net: NetName=UART3_RX Pin=R31-1
+Added Pin To Net: NetName=UART4_RX Pin=R32-1
+Added Pin To Net: NetName=UART6_RX Pin=R33-1
+Added Pin To Net: NetName=TIM4_CH2 Pin=TVS1-1
+Added Pin To Net: NetName=TIM4_CH1 Pin=TVS1-2
+Added Pin To Net: NetName=GND Pin=TVS1-3
+Added Pin To Net: NetName=TIM4_CH4 Pin=TVS2-1
+Added Pin To Net: NetName=TIM4_CH3 Pin=TVS2-2
+Added Pin To Net: NetName=GND Pin=TVS2-3
+Added Pin To Net: NetName=TIM9_CH2 Pin=TVS3-1
+Added Pin To Net: NetName=TIM9_CH1 Pin=TVS3-2
+Added Pin To Net: NetName=GND Pin=TVS3-3
+Added Pin To Net: NetName=UART1_RX Pin=TVS4-1
+Added Pin To Net: NetName=UART1_TX Pin=TVS4-2
+Added Pin To Net: NetName=GND Pin=TVS4-3
+Added Pin To Net: NetName=UART2_RX Pin=TVS5-1
+Added Pin To Net: NetName=UART2_TX Pin=TVS5-2
+Added Pin To Net: NetName=GND Pin=TVS5-3
+Added Pin To Net: NetName=UART3_RX Pin=TVS6-1
+Added Pin To Net: NetName=UART3_TX Pin=TVS6-2
+Added Pin To Net: NetName=GND Pin=TVS6-3
+Added Pin To Net: NetName=UART4_RX Pin=TVS7-1
+Added Pin To Net: NetName=UART4_TX Pin=TVS7-2
+Added Pin To Net: NetName=GND Pin=TVS7-3
+Added Pin To Net: NetName=UART6_RX Pin=TVS8-1
+Added Pin To Net: NetName=UART6_TX Pin=TVS8-2
+Added Pin To Net: NetName=GND Pin=TVS8-3
+Added Pin To Net: NetName=NetR8_2 Pin=R8-2
+Added Pin To Net: NetName=NetR8_2 Pin=U9-1
+Added Net: Name=NetR8_2
+Added Pin To Net: NetName=NetR13_2 Pin=R13-2
+Added Pin To Net: NetName=NetR13_2 Pin=U10-1
+Added Net: Name=NetR13_2
+Added Pin To Net: NetName=NetR14_2 Pin=R14-2
+Added Pin To Net: NetName=NetR14_2 Pin=U11-1
+Added Net: Name=NetR14_2
+Added Pin To Net: NetName=NetR15_2 Pin=R15-2
+Added Pin To Net: NetName=NetR15_2 Pin=U12-1
+Added Net: Name=NetR15_2
+Added Pin To Net: NetName=NetR19_2 Pin=R19-2
+Added Pin To Net: NetName=NetR19_2 Pin=U24-1
+Added Net: Name=NetR19_2
+Added Pin To Net: NetName=NetR20_2 Pin=R20-2
+Added Pin To Net: NetName=NetR20_2 Pin=U26-1
+Added Net: Name=NetR20_2
+Added Pin To Net: NetName=NetR21_2 Pin=R21-2
+Added Pin To Net: NetName=NetR21_2 Pin=U16-1
+Added Net: Name=NetR21_2
+Added Pin To Net: NetName=NetR23_2 Pin=R23-2
+Added Pin To Net: NetName=NetR23_2 Pin=U17-1
+Added Net: Name=NetR23_2
+Added Pin To Net: NetName=NetR24_2 Pin=R24-2
+Added Pin To Net: NetName=NetR24_2 Pin=U18-1
+Added Net: Name=NetR24_2
+Added Pin To Net: NetName=NetR25_2 Pin=R25-2
+Added Pin To Net: NetName=NetR25_2 Pin=U19-1
+Added Net: Name=NetR25_2
+Added Pin To Net: NetName=NetR28_2 Pin=R28-2
+Added Pin To Net: NetName=NetR28_2 Pin=U20-1
+Added Net: Name=NetR28_2
+Added Pin To Net: NetName=NetR29_2 Pin=R29-2
+Added Pin To Net: NetName=NetR29_2 Pin=U16-2
+Added Net: Name=NetR29_2
+Added Pin To Net: NetName=NetR30_2 Pin=R30-2
+Added Pin To Net: NetName=NetR30_2 Pin=U17-2
+Added Net: Name=NetR30_2
+Added Pin To Net: NetName=NetR31_2 Pin=R31-2
+Added Pin To Net: NetName=NetR31_2 Pin=U18-2
+Added Net: Name=NetR31_2
+Added Pin To Net: NetName=NetR32_2 Pin=R32-2
+Added Pin To Net: NetName=NetR32_2 Pin=U19-2
+Added Net: Name=NetR32_2
+Added Pin To Net: NetName=NetR33_2 Pin=R33-2
+Added Pin To Net: NetName=NetR33_2 Pin=U20-2
+Added Net: Name=NetR33_2
+Added Member To Class: ClassName=00_power Member=Component CN3 XT30PW-M
+Added Member To Class: ClassName=00_power Member=Component CN4 XT30PW-M
+Added Member To Class: ClassName=00_power Member=Component CN5 XT30PW-M
+Added Member To Class: ClassName=03_peripheral Member=Component R8 1K
+Added Member To Class: ClassName=03_peripheral Member=Component R13 1K
+Added Member To Class: ClassName=03_peripheral Member=Component R14 1K
+Added Member To Class: ClassName=03_peripheral Member=Component R15 1K
+Added Member To Class: ClassName=03_peripheral Member=Component R19 1K
+Added Member To Class: ClassName=03_peripheral Member=Component R20 1K
+Added Member To Class: ClassName=03_peripheral Member=Component R21 1K
+Added Member To Class: ClassName=03_peripheral Member=Component R23 1K
+Added Member To Class: ClassName=03_peripheral Member=Component R24 1K
+Added Member To Class: ClassName=03_peripheral Member=Component R25 1K
+Added Member To Class: ClassName=03_peripheral Member=Component R28 1K
+Added Member To Class: ClassName=03_peripheral Member=Component R29 1K
+Added Member To Class: ClassName=03_peripheral Member=Component R30 1K
+Added Member To Class: ClassName=03_peripheral Member=Component R31 1K
+Added Member To Class: ClassName=03_peripheral Member=Component R32 1K
+Added Member To Class: ClassName=03_peripheral Member=Component R33 1K
+Added Member To Class: ClassName=03_peripheral Member=Component TVS1 ESDA5V3L
+Added Member To Class: ClassName=03_peripheral Member=Component TVS2 ESDA5V3L
+Added Member To Class: ClassName=03_peripheral Member=Component TVS3 ESDA5V3L
+Added Member To Class: ClassName=03_peripheral Member=Component TVS4 ESDA5V3L
+Added Member To Class: ClassName=03_peripheral Member=Component TVS5 ESDA5V3L
+Added Member To Class: ClassName=03_peripheral Member=Component TVS6 ESDA5V3L
+Added Member To Class: ClassName=03_peripheral Member=Component TVS7 ESDA5V3L
+Added Member To Class: ClassName=03_peripheral Member=Component TVS8 ESDA5V3L

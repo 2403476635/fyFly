@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=TIM4_CH1 Pin=R8-1
+Removed Pin From Net: NetName=TIM4_CH2 Pin=R13-1
+Removed Pin From Net: NetName=TIM4_CH3 Pin=R14-1
+Removed Pin From Net: NetName=TIM4_CH4 Pin=R15-1
+Change Component Comment : Designator=C30 Old Comment=10nF New Comment=100nF
+Added Pin To Net: NetName=TIM4_CH4 Pin=R8-1
+Added Pin To Net: NetName=TIM4_CH3 Pin=R13-1
+Added Pin To Net: NetName=TIM4_CH2 Pin=R14-1
+Added Pin To Net: NetName=TIM4_CH1 Pin=R15-1

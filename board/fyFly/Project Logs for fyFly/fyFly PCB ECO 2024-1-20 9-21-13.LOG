@@ -1,0 +1,7 @@
+Change Component Comment : Designator=C9 Old Comment=100nF New Comment=1uF
+Added Component: Designator=C34(0603-C)
+Add component (AddParameter): Name = "BOM名称"; Value = "无极性贴片电容"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "联系卖家，免费查找封装"; Value = "唯一出售店铺网址https://shop463601444.taobao.com"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=C34-1
+Added Pin To Net: NetName=VCC-3.3V#1 Pin=C34-2
+Added Member To Class: ClassName=00_power Member=Component C34 1uF

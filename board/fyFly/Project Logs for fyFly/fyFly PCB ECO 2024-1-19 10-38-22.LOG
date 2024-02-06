@@ -1,0 +1,17 @@
+Removed Pin From Net: NetName=GND Pin=CN1-1
+Removed Pin From Net: NetName=VIN Pin=CN1-2
+Removed Pin From Net: NetName=GND Pin=CN1-3
+Removed Pin From Net: NetName=GND Pin=CN1-4
+Removed Member From Class: ClassName=00_power Member=CN1
+Added Component: Designator=J1(XT60PW-M)
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://www.tme.eu/sl/Document/ce4077e36b79046da520ca73227e15de/XT30PW%20SPEC.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "8.4mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Amass"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "XT60PW-F"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "RS Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "RS Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=J1-1
+Added Pin To Net: NetName=VIN Pin=J1-2
+Added Member To Class: ClassName=00_power Member=Component J1 XT60PW-M

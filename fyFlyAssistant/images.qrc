@@ -1,7 +1,8 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/button/setting.png</file>
         <file>images/state/connectSuccess.png</file>
         <file>images/state/waitConnetct.png</file>
+        <file>images/button/settingButton.png</file>
+        <file>images/button/flyBoardDataButton.png</file>
     </qresource>
 </RCC>

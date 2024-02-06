@@ -1,0 +1,12 @@
+Removed Pin From Net: NetName=SPL06_CS Pin=U4-35
+Change Component Designator: OldDesignator=CN? NewDesignator=CN1
+Added Component: Designator=C10(0603-C)
+Add component (AddParameter): Name = "BOM名称"; Value = "无极性贴片电容"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "联系卖家，免费查找封装"; Value = "唯一出售店铺网址https://shop463601444.taobao.com"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=C10-1
+Added Pin To Net: NetName=SPL06_CS Pin=U4-37
+Added Pin To Net: NetName=RGB_DATA Pin=U4-35
+Added Net: Name=RGB_DATA
+Added Pin To Net: NetName=VCC_5.0V#1 Pin=C10-2
+Added Net: Name=VCC_5.0V#1
+Added Member To Class: ClassName=03_peripheral Member=Component C10 100nF

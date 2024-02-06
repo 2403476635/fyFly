@@ -1,0 +1,336 @@
+Removed Pin From Net: NetName=GND Pin=TVS1-3
+Removed Pin From Net: NetName=GND Pin=TVS2-3
+Removed Pin From Net: NetName=GND Pin=TVS3-3
+Removed Pin From Net: NetName=GND Pin=TVS4-3
+Removed Pin From Net: NetName=GND Pin=TVS5-3
+Removed Pin From Net: NetName=GND Pin=TVS6-3
+Removed Pin From Net: NetName=GND Pin=TVS7-3
+Removed Pin From Net: NetName=GND Pin=TVS8-3
+Removed Member From Class: ClassName=03_peripheral Member=TVS1
+Removed Member From Class: ClassName=03_peripheral Member=TVS2
+Removed Member From Class: ClassName=03_peripheral Member=TVS3
+Removed Member From Class: ClassName=03_peripheral Member=TVS4
+Removed Member From Class: ClassName=03_peripheral Member=TVS5
+Removed Member From Class: ClassName=03_peripheral Member=TVS6
+Removed Member From Class: ClassName=03_peripheral Member=TVS7
+Removed Member From Class: ClassName=03_peripheral Member=TVS8
+Added Component: Designator=D4(ESD9X5.0ST5G)
+Add component (AddParameter): Name = "Add into BOM"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Convert to PCB"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://atta.szlcsc.com/upload/public/pdf/source/20220429/68E9B40153609821FAF30C4C48AA4713.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "JLCPCB Part Class"; Value = "Extended Part"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LCSC Part Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "MSKSEMI(美森科)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Footprint"; Value = "SOD-923"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part"; Value = "C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Symbol"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Added Component: Designator=D5(ESD9X5.0ST5G)
+Add component (AddParameter): Name = "Add into BOM"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Convert to PCB"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://atta.szlcsc.com/upload/public/pdf/source/20220429/68E9B40153609821FAF30C4C48AA4713.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "JLCPCB Part Class"; Value = "Extended Part"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LCSC Part Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "MSKSEMI(美森科)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Footprint"; Value = "SOD-923"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part"; Value = "C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Symbol"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Added Component: Designator=D6(ESD9X5.0ST5G)
+Add component (AddParameter): Name = "Add into BOM"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Convert to PCB"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://atta.szlcsc.com/upload/public/pdf/source/20220429/68E9B40153609821FAF30C4C48AA4713.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "JLCPCB Part Class"; Value = "Extended Part"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LCSC Part Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "MSKSEMI(美森科)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Footprint"; Value = "SOD-923"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part"; Value = "C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Symbol"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Added Component: Designator=D7(ESD9X5.0ST5G)
+Add component (AddParameter): Name = "Add into BOM"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Convert to PCB"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://atta.szlcsc.com/upload/public/pdf/source/20220429/68E9B40153609821FAF30C4C48AA4713.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "JLCPCB Part Class"; Value = "Extended Part"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LCSC Part Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "MSKSEMI(美森科)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Footprint"; Value = "SOD-923"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part"; Value = "C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Symbol"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Added Component: Designator=D8(ESD9X5.0ST5G)
+Add component (AddParameter): Name = "Add into BOM"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Convert to PCB"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://atta.szlcsc.com/upload/public/pdf/source/20220429/68E9B40153609821FAF30C4C48AA4713.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "JLCPCB Part Class"; Value = "Extended Part"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LCSC Part Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "MSKSEMI(美森科)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Footprint"; Value = "SOD-923"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part"; Value = "C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Symbol"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Added Component: Designator=D9(ESD9X5.0ST5G)
+Add component (AddParameter): Name = "Add into BOM"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Convert to PCB"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://atta.szlcsc.com/upload/public/pdf/source/20220429/68E9B40153609821FAF30C4C48AA4713.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "JLCPCB Part Class"; Value = "Extended Part"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LCSC Part Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "MSKSEMI(美森科)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Footprint"; Value = "SOD-923"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part"; Value = "C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Symbol"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Added Component: Designator=D10(ESD9X5.0ST5G)
+Add component (AddParameter): Name = "Add into BOM"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Convert to PCB"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://atta.szlcsc.com/upload/public/pdf/source/20220429/68E9B40153609821FAF30C4C48AA4713.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "JLCPCB Part Class"; Value = "Extended Part"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LCSC Part Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "MSKSEMI(美森科)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Footprint"; Value = "SOD-923"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part"; Value = "C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Symbol"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Added Component: Designator=D11(ESD9X5.0ST5G)
+Add component (AddParameter): Name = "Add into BOM"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Convert to PCB"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://atta.szlcsc.com/upload/public/pdf/source/20220429/68E9B40153609821FAF30C4C48AA4713.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "JLCPCB Part Class"; Value = "Extended Part"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LCSC Part Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "MSKSEMI(美森科)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Footprint"; Value = "SOD-923"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part"; Value = "C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Symbol"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Added Component: Designator=D12(ESD9X5.0ST5G)
+Add component (AddParameter): Name = "Add into BOM"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Convert to PCB"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://atta.szlcsc.com/upload/public/pdf/source/20220429/68E9B40153609821FAF30C4C48AA4713.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "JLCPCB Part Class"; Value = "Extended Part"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LCSC Part Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "MSKSEMI(美森科)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Footprint"; Value = "SOD-923"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part"; Value = "C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Symbol"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Added Component: Designator=D13(ESD9X5.0ST5G)
+Add component (AddParameter): Name = "Add into BOM"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Convert to PCB"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://atta.szlcsc.com/upload/public/pdf/source/20220429/68E9B40153609821FAF30C4C48AA4713.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "JLCPCB Part Class"; Value = "Extended Part"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LCSC Part Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "MSKSEMI(美森科)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Footprint"; Value = "SOD-923"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part"; Value = "C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Symbol"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Added Component: Designator=D14(ESD9X5.0ST5G)
+Add component (AddParameter): Name = "Add into BOM"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Convert to PCB"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://atta.szlcsc.com/upload/public/pdf/source/20220429/68E9B40153609821FAF30C4C48AA4713.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "JLCPCB Part Class"; Value = "Extended Part"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LCSC Part Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "MSKSEMI(美森科)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Footprint"; Value = "SOD-923"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part"; Value = "C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Symbol"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Added Component: Designator=D15(ESD9X5.0ST5G)
+Add component (AddParameter): Name = "Add into BOM"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Convert to PCB"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://atta.szlcsc.com/upload/public/pdf/source/20220429/68E9B40153609821FAF30C4C48AA4713.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "JLCPCB Part Class"; Value = "Extended Part"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LCSC Part Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "MSKSEMI(美森科)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Footprint"; Value = "SOD-923"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part"; Value = "C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Symbol"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Added Component: Designator=D16(ESD9X5.0ST5G)
+Add component (AddParameter): Name = "Add into BOM"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Convert to PCB"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://atta.szlcsc.com/upload/public/pdf/source/20220429/68E9B40153609821FAF30C4C48AA4713.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "JLCPCB Part Class"; Value = "Extended Part"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LCSC Part Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "MSKSEMI(美森科)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Footprint"; Value = "SOD-923"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part"; Value = "C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Symbol"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Added Component: Designator=D17(ESD9X5.0ST5G)
+Add component (AddParameter): Name = "Add into BOM"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Convert to PCB"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://atta.szlcsc.com/upload/public/pdf/source/20220429/68E9B40153609821FAF30C4C48AA4713.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "JLCPCB Part Class"; Value = "Extended Part"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LCSC Part Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "MSKSEMI(美森科)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Footprint"; Value = "SOD-923"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part"; Value = "C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Symbol"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Added Component: Designator=D18(ESD9X5.0ST5G)
+Add component (AddParameter): Name = "Add into BOM"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Convert to PCB"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://atta.szlcsc.com/upload/public/pdf/source/20220429/68E9B40153609821FAF30C4C48AA4713.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "JLCPCB Part Class"; Value = "Extended Part"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LCSC Part Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "MSKSEMI(美森科)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Footprint"; Value = "SOD-923"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part"; Value = "C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Symbol"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Added Component: Designator=D19(ESD9X5.0ST5G)
+Add component (AddParameter): Name = "Add into BOM"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Convert to PCB"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://atta.szlcsc.com/upload/public/pdf/source/20220429/68E9B40153609821FAF30C4C48AA4713.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "JLCPCB Part Class"; Value = "Extended Part"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LCSC Part Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "MSKSEMI(美森科)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Name"; Value = "ESD9X5.0ST5G"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Footprint"; Value = "SOD-923"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part"; Value = "C3008066"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Symbol"; Value = "ESD9X5.0ST5G_C3008066"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=D4-2
+Added Pin To Net: NetName=GND Pin=D5-2
+Added Pin To Net: NetName=GND Pin=D6-2
+Added Pin To Net: NetName=GND Pin=D7-2
+Added Pin To Net: NetName=GND Pin=D8-2
+Added Pin To Net: NetName=GND Pin=D9-2
+Added Pin To Net: NetName=GND Pin=D10-2
+Added Pin To Net: NetName=GND Pin=D11-2
+Added Pin To Net: NetName=GND Pin=D12-2
+Added Pin To Net: NetName=GND Pin=D13-2
+Added Pin To Net: NetName=GND Pin=D14-2
+Added Pin To Net: NetName=GND Pin=D15-2
+Added Pin To Net: NetName=GND Pin=D16-2
+Added Pin To Net: NetName=GND Pin=D17-2
+Added Pin To Net: NetName=GND Pin=D18-2
+Added Pin To Net: NetName=GND Pin=D19-2
+Added Pin To Net: NetName=NetD4_1 Pin=D4-1
+Added Pin To Net: NetName=NetD4_1 Pin=R21-2
+Added Pin To Net: NetName=NetD4_1 Pin=U16-1
+Added Net: Name=NetD4_1
+Added Pin To Net: NetName=NetD5_1 Pin=D5-1
+Added Pin To Net: NetName=NetD5_1 Pin=R23-2
+Added Pin To Net: NetName=NetD5_1 Pin=U17-1
+Added Net: Name=NetD5_1
+Added Pin To Net: NetName=NetD6_1 Pin=D6-1
+Added Pin To Net: NetName=NetD6_1 Pin=R24-2
+Added Pin To Net: NetName=NetD6_1 Pin=U18-1
+Added Net: Name=NetD6_1
+Added Pin To Net: NetName=NetD7_1 Pin=D7-1
+Added Pin To Net: NetName=NetD7_1 Pin=R29-2
+Added Pin To Net: NetName=NetD7_1 Pin=U16-2
+Added Net: Name=NetD7_1
+Added Pin To Net: NetName=NetD8_1 Pin=D8-1
+Added Pin To Net: NetName=NetD8_1 Pin=R30-2
+Added Pin To Net: NetName=NetD8_1 Pin=U17-2
+Added Net: Name=NetD8_1
+Added Pin To Net: NetName=NetD9_1 Pin=D9-1
+Added Pin To Net: NetName=NetD9_1 Pin=R31-2
+Added Pin To Net: NetName=NetD9_1 Pin=U18-2
+Added Net: Name=NetD9_1
+Added Pin To Net: NetName=NetD10_1 Pin=D10-1
+Added Pin To Net: NetName=NetD10_1 Pin=R25-2
+Added Pin To Net: NetName=NetD10_1 Pin=U19-1
+Added Net: Name=NetD10_1
+Added Pin To Net: NetName=NetD11_1 Pin=D11-1
+Added Pin To Net: NetName=NetD11_1 Pin=R28-2
+Added Pin To Net: NetName=NetD11_1 Pin=U20-1
+Added Net: Name=NetD11_1
+Added Pin To Net: NetName=NetD12_1 Pin=D12-1
+Added Pin To Net: NetName=NetD12_1 Pin=R32-2
+Added Pin To Net: NetName=NetD12_1 Pin=U19-2
+Added Net: Name=NetD12_1
+Added Pin To Net: NetName=NetD13_1 Pin=D13-1
+Added Pin To Net: NetName=NetD13_1 Pin=R33-2
+Added Pin To Net: NetName=NetD13_1 Pin=U20-2
+Added Net: Name=NetD13_1
+Added Pin To Net: NetName=NetD14_1 Pin=D14-1
+Added Pin To Net: NetName=NetD14_1 Pin=R8-2
+Added Pin To Net: NetName=NetD14_1 Pin=U9-1
+Added Net: Name=NetD14_1
+Added Pin To Net: NetName=NetD15_1 Pin=D15-1
+Added Pin To Net: NetName=NetD15_1 Pin=R13-2
+Added Pin To Net: NetName=NetD15_1 Pin=U10-1
+Added Net: Name=NetD15_1
+Added Pin To Net: NetName=NetD16_1 Pin=D16-1
+Added Pin To Net: NetName=NetD16_1 Pin=R14-2
+Added Pin To Net: NetName=NetD16_1 Pin=U11-1
+Added Net: Name=NetD16_1
+Added Pin To Net: NetName=NetD17_1 Pin=D17-1
+Added Pin To Net: NetName=NetD17_1 Pin=R15-2
+Added Pin To Net: NetName=NetD17_1 Pin=U12-1
+Added Net: Name=NetD17_1
+Added Pin To Net: NetName=NetD18_1 Pin=D18-1
+Added Pin To Net: NetName=NetD18_1 Pin=R19-2
+Added Pin To Net: NetName=NetD18_1 Pin=U24-1
+Added Net: Name=NetD18_1
+Added Pin To Net: NetName=NetD19_1 Pin=D19-1
+Added Pin To Net: NetName=NetD19_1 Pin=R20-2
+Added Pin To Net: NetName=NetD19_1 Pin=U26-1
+Added Net: Name=NetD19_1
+Added Member To Class: ClassName=03_peripheral Member=Component D4 ESD9X5.0ST5G
+Added Member To Class: ClassName=03_peripheral Member=Component D5 ESD9X5.0ST5G
+Added Member To Class: ClassName=03_peripheral Member=Component D6 ESD9X5.0ST5G
+Added Member To Class: ClassName=03_peripheral Member=Component D7 ESD9X5.0ST5G
+Added Member To Class: ClassName=03_peripheral Member=Component D8 ESD9X5.0ST5G
+Added Member To Class: ClassName=03_peripheral Member=Component D9 ESD9X5.0ST5G
+Added Member To Class: ClassName=03_peripheral Member=Component D10 ESD9X5.0ST5G
+Added Member To Class: ClassName=03_peripheral Member=Component D11 ESD9X5.0ST5G
+Added Member To Class: ClassName=03_peripheral Member=Component D12 ESD9X5.0ST5G
+Added Member To Class: ClassName=03_peripheral Member=Component D13 ESD9X5.0ST5G
+Added Member To Class: ClassName=03_peripheral Member=Component D14 ESD9X5.0ST5G
+Added Member To Class: ClassName=03_peripheral Member=Component D15 ESD9X5.0ST5G
+Added Member To Class: ClassName=03_peripheral Member=Component D16 ESD9X5.0ST5G
+Added Member To Class: ClassName=03_peripheral Member=Component D17 ESD9X5.0ST5G
+Added Member To Class: ClassName=03_peripheral Member=Component D18 ESD9X5.0ST5G
+Added Member To Class: ClassName=03_peripheral Member=Component D19 ESD9X5.0ST5G

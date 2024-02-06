@@ -1,0 +1,21 @@
+Removed Pin From Net: NetName=VCC-5.0V#1 Pin=LED4-2
+Removed Pin From Net: NetName=GND Pin=Q2-2
+Removed Pin From Net: NetName=GND Pin=Q3-2
+Removed Pin From Net: NetName=GND Pin=Q4-2
+Removed Pin From Net: NetName=GND Pin=R23-1
+Removed Pin From Net: NetName=GND Pin=R24-1
+Removed Pin From Net: NetName=GND Pin=R25-1
+Removed Member From Class: ClassName=03_peripheral Member=LED4
+Removed Member From Class: ClassName=03_peripheral Member=Q2
+Removed Member From Class: ClassName=03_peripheral Member=Q3
+Removed Member From Class: ClassName=03_peripheral Member=Q4
+Removed Member From Class: ClassName=03_peripheral Member=R13
+Removed Member From Class: ClassName=03_peripheral Member=R14
+Removed Member From Class: ClassName=03_peripheral Member=R15
+Removed Member From Class: ClassName=03_peripheral Member=R19
+Removed Member From Class: ClassName=03_peripheral Member=R20
+Removed Member From Class: ClassName=03_peripheral Member=R21
+Removed Member From Class: ClassName=03_peripheral Member=R23
+Removed Member From Class: ClassName=03_peripheral Member=R24
+Removed Member From Class: ClassName=03_peripheral Member=R25
+Added Member To Class: ClassName=03_peripheral Member=Component CN2 Type-c

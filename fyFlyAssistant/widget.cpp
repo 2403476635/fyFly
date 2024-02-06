@@ -33,6 +33,18 @@ void Widget::settingButton_clicked_slot()
     }
 }
 
+void Widget::flyBoardDataShowButton_clicked_slot()
+{
+    if(true == mflyBoardDataShowWidget->isHidden())
+    {
+        mflyBoardDataShowWidget->windowShow();
+    }
+    else
+    {
+        mflyBoardDataShowWidget->windowHide();
+    }
+}
+
 void Widget::showLogMessage_slot(QByteArray logMessage)
 {
     logTextEdit->append(logMessage);
@@ -43,21 +55,37 @@ void Widget::windowInit()
     this->setWindowTitle("fyFlyAssistant");     /* 设置窗口名称 */
     this->resize(800,600);
     this->setMinimumSize(800, 600);             /* 设置窗口最小尺寸 */
+
     /*设置按钮 */
     settingButton = new QPushButton(this);
-    QIcon settingButtonIcon("://images/button/setting.png");
+    QIcon settingButtonIcon("://images/button/settingButton.png");
     settingButton->setIconSize(QSize(32,32));
     settingButton->move(800-32,600-32);
     settingButton->setIcon(settingButtonIcon);
-
     settingButton->setStyleSheet( "QPushButton{border:0px;background:white;}"
                                   "QPushButton:hover{border:0px;background:blue;}"
                                   "QPushButton:pressed{border:0px;background:red;}");
+
+    /* 飞控数据显示按钮 */
+    flyBoardDataShowButton = new QPushButton(this);
+    QIcon flyBoardDataShowIcon("://images/button/flyBoardDataButton.png");
+    flyBoardDataShowButton->setIconSize(QSize(32,32));
+    flyBoardDataShowButton->move(800-64,600-32);
+    flyBoardDataShowButton->setIcon(flyBoardDataShowIcon);
+    flyBoardDataShowButton->setStyleSheet( "QPushButton{border:0px;background:white;}"
+                                  "QPushButton:hover{border:0px;background:blue;}"
+                                  "QPushButton:pressed{border:0px;background:red;}");
+
 
     /* 新建设置窗口 */
     settingWindow = new QWidget(this);
     mSettingWindow = new settingWidget(settingWindow);
     mSettingWindow->setWindowSize(800,300);
+
+    /* 新建飞控数据显示窗口 */
+    flyDataShowWindow = new QWidget(this);
+    mflyBoardDataShowWidget = new flyBoardDataShowWidget(flyDataShowWindow);
+    mflyBoardDataShowWidget->setWindowSize(800,300);
 
     /* 创建QTextEdit对象 */
     logTextEdit = new QTextEdit(this);
@@ -67,7 +95,8 @@ void Widget::windowInit()
     connect(this,&Widget::appLogMessage_signal,this,&Widget::showLogMessage_slot);                      /* 连接log信息打印的信号,信号发出者:Widget */
     connect(mSettingWindow,&settingWidget::appLogMessage_signal,this,&Widget::showLogMessage_slot);     /* 连接log信息打印的信号,信号发出者:mSettingWindow */
 
-    connect(settingButton, &QPushButton::clicked,this,&Widget::settingButton_clicked_slot);   /* 连接设置按键的单击信号和槽 */
+    connect(settingButton, &QPushButton::clicked,this,&Widget::settingButton_clicked_slot);             /* 连接设置按键的单击信号和槽 */
+    connect(flyBoardDataShowButton, &QPushButton::clicked,this,&Widget::flyBoardDataShowButton_clicked_slot);             /* 连接飞控数据显示按键的单击信号和槽 */
 }
 
 void Widget::resizeEvent(QResizeEvent *event)
@@ -75,8 +104,10 @@ void Widget::resizeEvent(QResizeEvent *event)
     Q_UNUSED(event);
 
     settingButton->move(this->width()-32,this->height()-32);
+    flyBoardDataShowButton->move(this->width()-64,this->height()-32);
 
     mSettingWindow->setWindowSize(this->width(),300);
+    mflyBoardDataShowWidget->setWindowSize(this->width(),300);
 }
 
 bool Widget::nativeEvent(const QByteArray &eventType, void *message, qintptr *result)

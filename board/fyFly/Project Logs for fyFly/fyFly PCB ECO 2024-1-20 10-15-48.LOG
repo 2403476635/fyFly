@@ -1,0 +1,62 @@
+Added Component: Designator=U13(GH1.25-2P)
+Add component (AddParameter): Name = "Add into BOM"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Material"; Value = "Á×Í­"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Plating"; Value = "Îý"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Convert to PCB"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Current Rating (Max)"; Value = "1A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://atta.szlcsc.com/upload/public/pdf/source/20231017/25DD0A5C9398B9B8D9D2789B9E1BDAD3.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device"; Value = "BX-GH1.25-2PWT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "JLCPCB Part Class"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LCSC Part Name"; Value = "BX-GH1.25-2PWT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Bossie(²©Îý)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part"; Value = "BX-GH1.25-2PWT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mounting Style"; Value = "ÎÔÌù"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Name"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of Pins"; Value = "2P"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of PINs Per Row"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of Rows"; Value = "1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Operating Temperature Range"; Value = "-25¡æ~+85¡æ"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pins Structure"; Value = "1x2P"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pitch"; Value = "1.25mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Reference Series"; Value = "GH"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Row Spacing"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Footprint"; Value = "SMD,P=1.25mm,ÎÔÌù"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part"; Value = "C18077718"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Symbol"; Value = "BX-GH1.25-2PWT"; VariantName = "[No Variations]"
+Added Component: Designator=U14(GH1.25-2P)
+Add component (AddParameter): Name = "Add into BOM"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Material"; Value = "Á×Í­"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Plating"; Value = "Îý"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Convert to PCB"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Current Rating (Max)"; Value = "1A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://atta.szlcsc.com/upload/public/pdf/source/20231017/25DD0A5C9398B9B8D9D2789B9E1BDAD3.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device"; Value = "BX-GH1.25-2PWT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "JLCPCB Part Class"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LCSC Part Name"; Value = "BX-GH1.25-2PWT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Bossie(²©Îý)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part"; Value = "BX-GH1.25-2PWT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mounting Style"; Value = "ÎÔÌù"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Name"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of Pins"; Value = "2P"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of PINs Per Row"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of Rows"; Value = "1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Operating Temperature Range"; Value = "-25¡æ~+85¡æ"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pins Structure"; Value = "1x2P"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pitch"; Value = "1.25mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Reference Series"; Value = "GH"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Row Spacing"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Footprint"; Value = "SMD,P=1.25mm,ÎÔÌù"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part"; Value = "C18077718"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Symbol"; Value = "BX-GH1.25-2PWT"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=VIN Pin=U13-1
+Added Pin To Net: NetName=GND Pin=U13-2
+Added Pin To Net: NetName=GND Pin=U13-3
+Added Pin To Net: NetName=GND Pin=U13-4
+Added Pin To Net: NetName=VIN_ADC Pin=U14-1
+Added Pin To Net: NetName=GND Pin=U14-2
+Added Pin To Net: NetName=GND Pin=U14-3
+Added Pin To Net: NetName=GND Pin=U14-4
+Added Member To Class: ClassName=00_power Member=Component U13 GH1.25-2P
+Added Member To Class: ClassName=00_power Member=Component U14 GH1.25-2P

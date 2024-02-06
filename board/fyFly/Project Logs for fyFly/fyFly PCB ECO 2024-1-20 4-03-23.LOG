@@ -1,0 +1,36 @@
+Removed Pin From Net: NetName=VCC-5.0V_OUT Pin=U3-1
+Removed Pin From Net: NetName=GND Pin=U3-2
+Removed Pin From Net: NetName=GND Pin=U3-3
+Removed Pin From Net: NetName=GND Pin=U3-4
+Removed Pin From Net: NetName=VCC-5.0V#1 Pin=U8-1
+Removed Pin From Net: NetName=GND Pin=U8-2
+Removed Pin From Net: NetName=GND Pin=U8-3
+Removed Pin From Net: NetName=GND Pin=U8-4
+Added Component: Designator=U3(CONN-SMD_GH1.25-4PWBPZ)
+Add component (AddParameter): Name = "BOM_Manufacturer"; Value = "BOOMELE(²©ÄÂ¾«ÃÜ)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "BOM_Manufacturer Part"; Value = "GH1.25-4PWBPZ"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "BOM_Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "BOM_Supplier Part"; Value = "C2829253"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contributor"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "spicePre"; Value = "U"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "spiceSymbolName"; Value = "GH1.25-4PWBPZ"; VariantName = "[No Variations]"
+Added Component: Designator=U8(CONN-SMD_GH1.25-4PWBPZ)
+Add component (AddParameter): Name = "BOM_Manufacturer"; Value = "BOOMELE(²©ÄÂ¾«ÃÜ)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "BOM_Manufacturer Part"; Value = "GH1.25-4PWBPZ"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "BOM_Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "BOM_Supplier Part"; Value = "C2829253"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contributor"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "spicePre"; Value = "U"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "spiceSymbolName"; Value = "GH1.25-4PWBPZ"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=VCC-5.0V_OUT Pin=U3-1
+Added Pin To Net: NetName=VCC-5.0V_OUT Pin=U3-2
+Added Pin To Net: NetName=GND Pin=U3-3
+Added Pin To Net: NetName=GND Pin=U3-4
+Added Pin To Net: NetName=GND Pin=U3-5
+Added Pin To Net: NetName=GND Pin=U3-6
+Added Pin To Net: NetName=VCC-5.0V#1 Pin=U8-1
+Added Pin To Net: NetName=VCC-5.0V#1 Pin=U8-2
+Added Pin To Net: NetName=GND Pin=U8-3
+Added Pin To Net: NetName=GND Pin=U8-4
+Added Pin To Net: NetName=GND Pin=U8-5
+Added Pin To Net: NetName=GND Pin=U8-6

@@ -1,0 +1,3 @@
+Removed Pin From Net: NetName=VCC-3.3V#1 Pin=C33-1
+Removed Pin From Net: NetName=GND Pin=C33-2
+Removed Member From Class: ClassName=03_peripheral Member=C33

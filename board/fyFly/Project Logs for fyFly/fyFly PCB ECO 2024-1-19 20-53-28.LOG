@@ -1,0 +1,29 @@
+Added Component: Designator=LED3(WS2812B-5050)
+Add component (AddParameter): Name = "Add into BOM"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Color Temperature"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Convert to PCB"; Value = "yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://atta.szlcsc.com/upload/public/pdf/source/20230111/86AAD2096485A2E5BCAB883FF8CBE6FD.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device"; Value = "XL-5050RGBC-WS2812B"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Diode Configuration"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Dominant Wavelength"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Emitted Color"; Value = "RGB三色"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Forward Current"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "JLCPCB Part Class"; Value = "Extended Part"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LCSC Part Name"; Value = "RGB三色 正贴 幻彩"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Lens Color"; Value = "无色透明"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "XINGLIGHT(成兴光)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part"; Value = "XL-5050RGBC-WS2812B"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mounting Sytle"; Value = "正贴"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Name"; Value = "XL-5050RGBC-WS2812B"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Operating Temperature"; Value = "-30℃~+70℃"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Peak Wavelength"; Value = "625nm；470nm；530nm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Power Dissipation"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Footprint"; Value = "SMD5050"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part"; Value = "C2843785"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Symbol"; Value = "XL-5050RGBC-WS2812B"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Viewing Angle"; Value = "120°"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=VCC_5.0V#1 Pin=LED3-1
+Added Pin To Net: NetName=GND Pin=LED3-3
+Added Pin To Net: NetName=RGB_DATA Pin=LED3-4
+Added Member To Class: ClassName=03_peripheral Member=Component LED3 WS2812B-5050

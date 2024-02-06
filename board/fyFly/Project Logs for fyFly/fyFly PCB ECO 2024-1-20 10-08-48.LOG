@@ -1,0 +1,6 @@
+Removed Pin From Net: NetName=ICM42670P_CS Pin=U4-33
+Removed Pin From Net: NetName=LIS3MD_CS Pin=U4-34
+Removed Pin From Net: NetName=SPL06_CS Pin=U4-37
+Added Pin To Net: NetName=LIS3MD_CS Pin=U4-33
+Added Pin To Net: NetName=ICM42670P_CS Pin=U4-34
+Added Pin To Net: NetName=SPL06_CS Pin=U4-36
