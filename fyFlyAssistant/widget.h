@@ -4,6 +4,7 @@
 #include <QPushButton>
 #include <QWidget>
 #include <QTextEdit>
+#include <QTemporaryDir>
 
 #include "settingwidget.h"
 #include "flyboarddatashowwidget.h"
@@ -11,6 +12,8 @@
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
 QT_END_NAMESPACE
+
+class ModelWindow;
 
 class Widget : public QWidget
 {
@@ -43,6 +46,9 @@ private:
     flyBoardDataShowWidget *mflyBoardDataShowWidget = nullptr;        /* 实现飞控数据显示窗口的各项功能的具体实现 */
 
     QTextEdit* logTextEdit;                   /* 输出应用内的log信息 */
+
+    QTemporaryDir tempDir;
+    ModelWindow *modelWidget = nullptr;           /* opengl的实现窗口 */
 
     void windowInit();  /* 执行所有的窗口初始化操作 */
 protected:

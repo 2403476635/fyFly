@@ -1,11 +1,13 @@
 #include "widget.h"
 #include "ui_widget.h"
 
+#include <QFileDialog>
 #include <QIcon>
 #include <QPushButton>
 #include <QResizeEvent>
 #include <QTabWidget>
 
+#include "loadModel/ModelWindow.h"
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -14,6 +16,21 @@ Widget::Widget(QWidget *parent)
     ui->setupUi(this);
 
     windowInit();/* 窗口初始化 */
+
+    if (tempDir.isValid())  /* 将qrc下的文件复制到临时文件目录下，当对象销毁时，临时文件夹也会销毁 */
+    {
+        const QString tempFlyModelFile = tempDir.path() + "/flyModule.obj";
+        if (QFile::copy("://3dFlyModel/flyModule.obj", tempFlyModelFile))
+        {
+            qInfo() << "=============loadModel:" << tempFlyModelFile;
+            if (!tempFlyModelFile.isEmpty())
+            {
+                modelWidget = new ModelWindow(tempFlyModelFile, this);
+                modelWidget->resize(600,400);
+            }
+        }
+    }
+
 }
 
 Widget::~Widget()

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>3dFlyModel/flyModule.obj</file>
+    </qresource>
+</RCC>

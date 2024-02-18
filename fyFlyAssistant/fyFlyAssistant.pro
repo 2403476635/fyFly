@@ -1,6 +1,7 @@
 QT       += core gui
 QT       += opengl
 QT       += serialport   #加入串口模块
+QT       += openglwidgets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
@@ -11,6 +12,9 @@ CONFIG += c++17
 
 SOURCES += \
     flyboarddatashowwidget.cpp \
+    loadModel/ModelWindow.cpp \
+    loadModel/Q3DMesh.cpp \
+    loadModel/Q3DModel.cpp \
     main.cpp \
     mycombobox.cpp \
     ringbufer.cpp \
@@ -20,6 +24,9 @@ SOURCES += \
 
 HEADERS += \
     flyboarddatashowwidget.h \
+    loadModel/ModelWindow.h \
+    loadModel/Q3DMesh.h \
+    loadModel/Q3DModel.h \
     mycombobox.h \
     ringbufer.h \
     serialport.h \
@@ -38,4 +45,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    images.qrc
+    flyModel.qrc \
+    images.qrc \
+    loadModel/shader.qrc
+
+win32: LIBS += -L$$PWD/3dparty/assimp/lib/ -llibassimp.dll
+
+INCLUDEPATH += $$PWD/3dparty/assimp
+DEPENDPATH += $$PWD/3dparty/assimp
