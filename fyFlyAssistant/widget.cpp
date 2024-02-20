@@ -17,19 +17,7 @@ Widget::Widget(QWidget *parent)
 
     windowInit();/* 窗口初始化 */
 
-    if (tempDir.isValid())  /* 将qrc下的文件复制到临时文件目录下，当对象销毁时，临时文件夹也会销毁 */
-    {
-        const QString tempFlyModelFile = tempDir.path() + "/flyModule.obj";
-        if (QFile::copy("://3dFlyModel/flyModule.obj", tempFlyModelFile))
-        {
-            qInfo() << "=============loadModel:" << tempFlyModelFile;
-            if (!tempFlyModelFile.isEmpty())
-            {
-                modelWidget = new ModelWindow(tempFlyModelFile, this);
-                modelWidget->resize(600,400);
-            }
-        }
-    }
+
 
 }
 
@@ -73,6 +61,21 @@ void Widget::windowInit()
     this->resize(800,600);
     this->setMinimumSize(800, 600);             /* 设置窗口最小尺寸 */
 
+    /* 加载模型 */
+    /* 这里这样实现实现是想试试应用内加载文件的方式 */
+    if (tempDir.isValid())  /* 将qrc下的文件复制到临时文件目录下，当对象销毁时，临时文件夹也会销毁 */
+    {
+        const QString tempFlyModelFile = tempDir.path() + "/flyModule.obj";
+        if (QFile::copy("://3dFlyModel/flyModule.obj", tempFlyModelFile))
+        {
+            if (!tempFlyModelFile.isEmpty())
+            {
+                modelWidget = new ModelWindow(tempFlyModelFile, this);
+                modelWidget->resize(600,400);
+            }
+        }
+    }
+
     /*设置按钮 */
     settingButton = new QPushButton(this);
     QIcon settingButtonIcon("://images/button/settingButton.png");
@@ -108,6 +111,15 @@ void Widget::windowInit()
     logTextEdit = new QTextEdit(this);
     logTextEdit->setGeometry(0, 300, 200, 100); /* 设置QTextEdit的位置和大小 */
     logTextEdit->show();                        /* 将QTextEdit添加到主窗口 */
+
+    QSlider *slider = new QSlider(Qt::Horizontal,this);
+    slider->show();
+    slider->setRange(0,360);
+    slider->setGeometry(100, 100, 200, 30);
+    connect(slider, &QSlider::valueChanged, [=](int value){
+        modelWidget->setRotation(value,0,0);
+        qDebug() << "Slider value: " << value;
+    });
 
     connect(this,&Widget::appLogMessage_signal,this,&Widget::showLogMessage_slot);                      /* 连接log信息打印的信号,信号发出者:Widget */
     connect(mSettingWindow,&settingWidget::appLogMessage_signal,this,&Widget::showLogMessage_slot);     /* 连接log信息打印的信号,信号发出者:mSettingWindow */

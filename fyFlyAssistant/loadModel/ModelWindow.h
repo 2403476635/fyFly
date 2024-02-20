@@ -13,19 +13,14 @@ class ModelWindow : public QOpenGLWidget, public QOpenGLExtraFunctions
 public:
     ModelWindow(const QString &filePath, QWidget *parent = nullptr);
     ~ModelWindow() override;
+
+    void setRotation(float m_xRotation, float m_yRotation, float m_zRotation);
 protected:
     void initializeGL() override;
     void resizeGL(int w, int h) override;
     void paintGL() override;
-    void timerEvent(QTimerEvent *) override;
-    void mousePressEvent(QMouseEvent *event) override;
-    void mouseMoveEvent(QMouseEvent *event) override;
-    void mouseReleaseEvent(QMouseEvent *event) override;
-    void keyPressEvent(QKeyEvent *event) override;
-    void keyReleaseEvent(QKeyEvent *event) override;
-    void wheelEvent(QWheelEvent *event) override;
-    void checkKey();
     void initShaders();
+
 private:
     QOpenGLShaderProgram m_program;
     QMatrix4x4 m_model, m_view, m_project;
