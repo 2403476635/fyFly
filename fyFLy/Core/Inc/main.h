@@ -33,7 +33,8 @@ extern "C" {
 /* USER CODE BEGIN Includes */
 #include <stdbool.h>
 #include <string.h>
-
+#include <math.h>
+	
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -55,7 +56,7 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-extern void lis3mdl_Init(void);
+
 void mainApp(void);
 /* USER CODE END EFP */
 

@@ -474,3 +474,16 @@ float Drv_Spl0601_Read ( void )
 
     return alt_high;
 }
+/* 读取SPL06的原始数据 */
+void spl06ReadData(float *temperature,float *barPressure)
+{
+    spl0601_get_raw_temp();
+    *temperature = spl0601_get_temperature();
+
+    spl0601_get_raw_pressure();
+    *barPressure = spl0601_get_pressure();
+}
+
+
+
+

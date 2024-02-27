@@ -36,4 +36,6 @@ float Drv_Spl0601_Read(void);
 float spl0601_get_temperature(void);
 float spl0601_get_pressure(void);
 float Drv_Spl0601_Read (void);
+
+void spl06ReadData(float *temperature,float *barPressure);
 #endif

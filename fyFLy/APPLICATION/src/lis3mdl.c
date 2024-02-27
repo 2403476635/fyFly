@@ -41,7 +41,7 @@
 #include "stm32f4xx_hal.h"
 #include "usbd_cdc_if.h"
 #include "spi.h"
-
+#include "lis3mdl.h"
 /* Private macro -------------------------------------------------------------*/
 
 #define TX_BUF_DIM          1000
@@ -49,10 +49,8 @@
 /* Private variables ---------------------------------------------------------*/
 static axis3bit16_t data_raw_magnetic;
 static axis1bit16_t data_raw_temperature;
-static float magnetic_mG[3];
-static float temperature_degC;
 static uint8_t whoamI, rst;
-
+static lis3mdl_ctx_t dev_ctx;
 /* Extern variables ----------------------------------------------------------*/
 
 /* Private functions ---------------------------------------------------------*/
@@ -102,7 +100,6 @@ void lis3mdl_Init(void)
   /*
    *  Initialize mems driver interface
    */
-  lis3mdl_ctx_t dev_ctx;
   dev_ctx.write_reg = platform_write;
   dev_ctx.read_reg = platform_read;
   dev_ctx.handle = &hspi1;  
@@ -134,7 +131,7 @@ void lis3mdl_Init(void)
   /*
    * Set Output Data Rate
    */
-  lis3mdl_data_rate_set(&dev_ctx, LIS3MDL_LP_1kHz);
+  lis3mdl_data_rate_set(&dev_ctx, LIS3MDL_UHP_155Hz);
   /*
    * Set full scale
    */  
@@ -147,13 +144,13 @@ void lis3mdl_Init(void)
    * Set device in continuos mode
    */   
   lis3mdl_operating_mode_set(&dev_ctx, LIS3MDL_CONTINUOUS_MODE);
-  
+}
   /*
    * Read samples in polling mode (no int)
    */
-  while(1)
-  {
-    /*
+void lis3mdlRead(float *temperature, float *mag_x, float *mag_y, float *mag_z)
+{
+	    /*
      * Read output only if new value is available
      */
     lis3mdl_reg_t reg;
@@ -164,9 +161,9 @@ void lis3mdl_Init(void)
       /* Read magnetic field data */
       memset(data_raw_magnetic.u8bit, 0x00, 3*sizeof(int16_t));
       lis3mdl_magnetic_raw_get(&dev_ctx, data_raw_magnetic.u8bit);
-      magnetic_mG[0] = 1000 * LIS3MDL_FROM_FS_16G_TO_G( data_raw_magnetic.i16bit[0]);
-      magnetic_mG[1] = 1000 * LIS3MDL_FROM_FS_16G_TO_G( data_raw_magnetic.i16bit[1]);
-      magnetic_mG[2] = 1000 * LIS3MDL_FROM_FS_16G_TO_G( data_raw_magnetic.i16bit[2]);
+      *mag_x = 1000 * LIS3MDL_FROM_FS_16G_TO_G( data_raw_magnetic.i16bit[0]);
+      *mag_y = 1000 * LIS3MDL_FROM_FS_16G_TO_G( data_raw_magnetic.i16bit[1]);
+      *mag_z = 1000 * LIS3MDL_FROM_FS_16G_TO_G( data_raw_magnetic.i16bit[2]);
       
 //      sprintf((char*)tx_buffer, "Magnetic field [mG]:%4.2f\t%4.2f\t%4.2f\r\n",
 //              magnetic_mG[0], magnetic_mG[1], magnetic_mG[2]);
@@ -175,10 +172,11 @@ void lis3mdl_Init(void)
 //      /* Read temperature data */
       memset(data_raw_temperature.u8bit, 0x00, sizeof(int16_t));
       lis3mdl_temperature_raw_get(&dev_ctx, data_raw_temperature.u8bit);
-      temperature_degC = LIS3MDL_FROM_LSB_TO_degC( data_raw_temperature.i16bit );
+      *temperature = LIS3MDL_FROM_LSB_TO_degC( data_raw_temperature.i16bit );
 //       
 //      sprintf((char*)tx_buffer, "Temperature [degC]:%6.2f\r\n", temperature_degC );
 //      tx_com( tx_buffer, strlen( (char const*)tx_buffer ) );
     }
-  }
 }
+
+
