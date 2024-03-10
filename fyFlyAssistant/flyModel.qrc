@@ -1,5 +1,27 @@
 <RCC>
     <qresource prefix="/">
-        <file>3dFlyModel/flyModule.obj</file>
+        <file>3dFlyModel/model/Su-27.obj</file>
+        <file>3dFlyModel/model/textures/cloud2.png</file>
+        <file>3dFlyModel/model/textures/FgearAO.png</file>
+        <file>3dFlyModel/model/textures/Su-27_detail.png</file>
+        <file>3dFlyModel/model/textures/Su-27_detail_nrm.tif</file>
+        <file>3dFlyModel/model/textures/su-27_k36.bmp.png</file>
+        <file>3dFlyModel/model/textures/Su-27_numbers_red.png</file>
+        <file>3dFlyModel/model/textures/su27_pylon.bmp.png</file>
+        <file>3dFlyModel/model/textures/Su27_pylon2.png</file>
+        <file>3dFlyModel/model/textures/Su27_tex01_2013.bmp.png</file>
+        <file>3dFlyModel/model/textures/Su27_tex02_2013.bmp.png</file>
+        <file>3dFlyModel/model/textures/Su27_tex03_2013.bmp.png</file>
+        <file>3dFlyModel/model/textures/Su27_tex04_2013.bmp.png</file>
+        <file>3dFlyModel/model/textures/Su27_tex05_2013.bmp.png</file>
+        <file>3dFlyModel/model/textures/Su27_tex06_2013.bmp.png</file>
+        <file>3dFlyModel/model/textures/su27_tex07.bmp.png</file>
+        <file>3dFlyModel/model/textures/Su33_tex01.bmp.png</file>
+        <file>3dFlyModel/model/textures/Tex_3288_0.png</file>
+        <file>3dFlyModel/model/textures/Tex_3306_0.png</file>
+        <file>3dFlyModel/model/textures/Tex_23055_0.png</file>
+        <file>3dFlyModel/model/textures/Tex_23119_0.png</file>
+        <file>3dFlyModel/model/textures/Tex_26279_0.png</file>
+        <file>3dFlyModel/model/Su-27.mtl</file>
     </qresource>
 </RCC>

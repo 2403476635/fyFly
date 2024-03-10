@@ -44,7 +44,6 @@ void ModelWindow::paintGL()
 {
     // 清空颜色缓冲和深度缓冲
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
     // view/projection transformations
     m_view.setToIdentity();
     m_view.lookAt(m_cameraPos, m_cameraPos + m_cameraFront, m_cameraUp);
@@ -53,8 +52,8 @@ void ModelWindow::paintGL()
     m_project.perspective(m_aspect, width() / height(), c_near, c_far);
 
     QMatrix4x4 matrix;
-    matrix.translate(0.0f, 0.0f, 0.0f); /* 水平移动 */
-    matrix.scale(0.01f);                /* 缩放 */
+    matrix.translate(0.0f, -0.5f, -5.0f); /* 水平移动 */
+    matrix.scale(0.005f);               /* 缩放 */
     matrix.rotate(m_rotation);
     m_model = matrix;
 
@@ -64,6 +63,8 @@ void ModelWindow::paintGL()
 
     if (!ourModel.isNull())
         ourModel->drawModel(&m_program);
+
+
 }
 
 void ModelWindow::initShaders()

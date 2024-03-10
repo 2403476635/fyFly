@@ -55,6 +55,7 @@ void SerialPortThread::openSerialPort()
     serialPortBuffer = new RingBuff_t;
     bufferObj->RingBuffer_Init(serialPortBuffer);
 
+    systemInfo.flyState = &flyState;
 }
 
 void SerialPortThread::SerialPortClose()
@@ -111,37 +112,73 @@ void SerialPortThread::DataRead()
                                     emit appLogMessage_signal(frameData.mid(4,(uint8_t)frameData.at(3)));
                                     break;
                                 }
-                                case CMD_JPEG_DATA_PACK_SIZE:   /* 设备发送的图片大小信息 */
+                                case CMD_ORIGINAL_IMU_DATA:   /* 设备发送的IMU数据 */
                                 {
-                                    jpegData.clear();
-                                    getJpegDataSize = (uint8_t)frameData.at(4) | (uint8_t)frameData.at(5) << 8 |
-                                                       (uint8_t)frameData.at(6)  << 16 | (uint8_t)frameData.at(7)  << 24;
-                                    QByteArray logMessage = "图片文件大小 = " + QByteArray::number(getJpegDataSize);
-                                    emit appLogMessage_signal(logMessage);
+                                    QByteArray tempData = frameData.mid(4,frameData.at(3));
+                                    int32_t temp = 0;
+
+                                    temp = (uint8_t)tempData.at(0) | (uint8_t)tempData.at(1)<<8 |
+                                           (uint8_t)tempData.at(2)<<16 | (uint8_t)tempData.at(3)<<24;
+                                    imuData.spl06Temperature = (float)temp/1000.0f;
+                                    temp = (uint8_t)tempData.at(4) | (uint8_t)tempData.at(5)<<8 |
+                                           (uint8_t)tempData.at(6)<<16 | (uint8_t)tempData.at(7)<<24;
+                                    imuData.barPressure = (float)temp/1000.0f;
+
+                                    temp = (uint8_t)tempData.at(8) | (uint8_t)tempData.at(9)<<8 |
+                                           (uint8_t)tempData.at(10)<<16 | (uint8_t)tempData.at(11)<<24;
+                                    imuData.icm42670pTemperature = temp/1000.0f;
+
+                                    imuData.accel_x = (uint8_t)tempData.at(12) | (uint8_t)tempData.at(13)<<8;
+                                    imuData.accel_y = (uint8_t)tempData.at(14) | (uint8_t)tempData.at(15)<<8;
+                                    imuData.accel_z = (uint8_t)tempData.at(16) | (uint8_t)tempData.at(17)<<8;
+
+                                    imuData.gyro_x = (uint8_t)tempData.at(18) | (uint8_t)tempData.at(19)<<8;
+                                    imuData.gyro_y = (uint8_t)tempData.at(20) | (uint8_t)tempData.at(21)<<8;
+                                    imuData.gyro_z = (uint8_t)tempData.at(22) | (uint8_t)tempData.at(23)<<8;
+
+                                    temp = (uint8_t)tempData.at(24) | (uint8_t)tempData.at(25)<<8 |
+                                           (uint8_t)tempData.at(26)<<16 | (uint8_t)tempData.at(27)<<24;
+                                    imuData.lis3mdlTemperature = temp/1000.0f;
+
+                                    temp = (uint8_t)tempData.at(28) | (uint8_t)tempData.at(29)<<8 |
+                                           (uint8_t)tempData.at(30)<<16 | (uint8_t)tempData.at(31)<<24;
+                                    imuData.mag_x = temp/1000.0f;
+                                    temp = (uint8_t)tempData.at(32) | (uint8_t)tempData.at(33)<<8 |
+                                           (uint8_t)tempData.at(34)<<16 | (uint8_t)tempData.at(35)<<24;
+                                    imuData.mag_y = temp/1000.0f;
+                                    temp = (uint8_t)tempData.at(36) | (uint8_t)tempData.at(37)<<8 |
+                                           (uint8_t)tempData.at(38)<<16 | (uint8_t)tempData.at(39)<<24;
+                                    imuData.mag_z = temp/1000.0f;
+
+                                    temp = (uint8_t)tempData.at(40) | (uint8_t)tempData.at(41)<<8 |
+                                           (uint8_t)tempData.at(42)<<16 | (uint8_t)tempData.at(43)<<24;
+                                    imuData.pitch = temp/1000.0f;
+
+                                    temp = (uint8_t)tempData.at(44) | (uint8_t)tempData.at(45)<<8 |
+                                           (uint8_t)tempData.at(46)<<16 | (uint8_t)tempData.at(47)<<24;
+                                    imuData.roll = temp/1000.0f;
+
+                                    temp = (uint8_t)tempData.at(48) | (uint8_t)tempData.at(49)<<8 |
+                                           (uint8_t)tempData.at(50)<<16 | (uint8_t)tempData.at(51)<<24;
+                                    imuData.yaw = temp/1000.0f;
+
+                                    emit imuData_signal(imuData);
                                     break;
                                 }
-                                case CMD_JPEG_DATA_PACK:
+                                case CMD_FLY_INFO:
                                 {
-                                    jpegData += frameData.mid(4,(uint8_t)frameData.at(3));
-                                    float percent = (float)jpegData.size()/(float)getJpegDataSize * 100.0;
-                                    QByteArray tempData = "接收进度:" + QByteArray::number(percent) + "%";
-                                    emit appLogMessage_signal(tempData);
-                                    break;
-                                }
-                                case CMD_JPEG_DATA_SEND_END:
-                                {
-                                    QByteArray logMessage = "图片接收完成";
-                                    emit appLogMessage_signal(logMessage);
-                                    emit pictureData_signal(jpegData);
+                                    QByteArray tempData = frameData.mid(4,frameData.at(3));
+                                    systemInfo.systemClockFrequency = (uint8_t)tempData.at(0) | (uint8_t)tempData.at(1)<<8 |
+                                                                      (uint8_t)tempData.at(2)<<16 | (uint8_t)tempData.at(3)<<24;
 
-                                    QString filePath = QCoreApplication::applicationDirPath() + "/" + "test.jpg";
-                                    QFile *RecFile = new QFile(filePath);
-                                    RecFile->open(QFile::WriteOnly);
-                                    RecFile->write(jpegData);
-                                    RecFile->close();
-                                    delete RecFile;
-                                    RecFile = NULL;
+                                    systemInfo.accGyroSensorInitState = tempData.at(4);
+                                    systemInfo.baroSensorInitState  = tempData.at(5);
+                                    systemInfo.magSensorInitState  = tempData.at(6);
 
+                                    systemInfo.flyState->flyTakeOffState = tempData.at(7);
+                                    systemInfo.flyState->flyLockState = tempData.at(8);
+                                    systemInfo.flyState->rcState = tempData.at(9);
+                                    emit flySystemInfoData_signal(systemInfo);
                                     break;
                                 }
                                 case CMD_NOW_APP_STATE:
@@ -225,7 +262,7 @@ void SerialPortThread::sendBinFile(QByteArray binFileData)
 
     if(SerialPortIsOK == true)
     {
-        SerialPort->write(setSerialPortStringDataFormat(0xAA,SerialPortThread::frameAddress::PC,SerialPortThread::frameCmd::CMD_SEND_BIN_FILE_SIZE,tempData));
+        SerialPort->write(setSerialPortStringDataFormat(0xAA,frameAddress::PC,frameCmd::CMD_SEND_BIN_FILE_SIZE,tempData));
 
         QByteArray data;
         data.resize(dataLen);
@@ -242,16 +279,16 @@ void SerialPortThread::sendBinFile(QByteArray binFileData)
         for(uint32_t i=0;i<clcTimes;i++)
         {
             QByteArray tempData = data.mid(0,240);
-            SerialPort->write(setSerialPortStringDataFormat(0xAA,SerialPortThread::frameAddress::PC,SerialPortThread::frameCmd::CMD_SEND_BIN_FILE_PACK,tempData));
+            SerialPort->write(setSerialPortStringDataFormat(0xAA,frameAddress::PC,frameCmd::CMD_SEND_BIN_FILE_PACK,tempData));
             data.remove(0,240);
         }
 
         tempData.clear();
         tempData = data.mid(0,dataLen%240);
 
-        SerialPort->write(setSerialPortStringDataFormat(0xAA,SerialPortThread::frameAddress::PC,SerialPortThread::frameCmd::CMD_SEND_BIN_FILE_PACK,tempData));
+        SerialPort->write(setSerialPortStringDataFormat(0xAA,frameAddress::PC,frameCmd::CMD_SEND_BIN_FILE_PACK,tempData));
         data.remove(0,dataLen%240);
-        SerialPort->write(setSerialPortStringDataFormat(0xAA,SerialPortThread::frameAddress::PC,SerialPortThread::frameCmd::CMD_SEND_BIN_FILE_END,0));
+        SerialPort->write(setSerialPortStringDataFormat(0xAA,frameAddress::PC,CMD_SEND_BIN_FILE_END,0));
     }
 }
 

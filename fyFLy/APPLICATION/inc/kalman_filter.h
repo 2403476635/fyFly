@@ -24,11 +24,11 @@
 
 
 
-//#include "dsp/matrix_functions.h"
-//#include "math.h"
+#include "dsp/matrix_functions.h"
+#include "math.h"
 #include "stdint.h"
 #include "stdlib.h"
-//#include "arm_math.h"
+#include "arm_math.h"
 #include "dsp/matrix_functions.h"
 #include "dsp/fast_math_functions.h"        
 

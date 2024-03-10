@@ -56,8 +56,9 @@ uint8_t vcpSendData(uint8_t frameHead, uint8_t frameAddress, uint8_t frameID, ui
     frameData[dataLen + 4] = sumcheck;
     frameData[dataLen + 5] = addcheck;
 
-		while(USBD_OK != CDC_Transmit_FS((uint8_t *)frameData,dataLen + 4 + 2)){};
-    return dataLen + 4 + 2;
+//		while(USBD_OK != CDC_Transmit_FS((uint8_t *)frameData,dataLen + 4 + 2)){};
+    CDC_Transmit_FS((uint8_t *)frameData,dataLen + 4 + 2);
+		return dataLen + 4 + 2;
 }
 #endif
 /* 发送传感器的原始数据 */
@@ -67,7 +68,7 @@ void sendImuData(const _imuDataStruct data)
 	int32_t temp  = 0;	/* 临时存放的数据 */
 	uint8_t cnt = 0;
 	
-	/* float 数据会被方法1000倍 */
+	/* float 数据会被放大1000倍 */
 	temp = data.spl06Temperature *1000;	
 	sendDataBuffer[cnt++] = temp;
 	sendDataBuffer[cnt++] = temp>>8;
@@ -124,12 +125,55 @@ void sendImuData(const _imuDataStruct data)
 	sendDataBuffer[cnt++] = temp>>16;
 	sendDataBuffer[cnt++] = temp>>24;
 	
+	temp = data.pitch *1000;	
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	
+	temp = data.roll *1000;	
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	
+	temp = data.yaw *1000;	
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	
+	
 #if defined(USB_DEBUG)
 	vcpSendData(0xAA,MCU,CMD_ORIGINAL_IMU_DATA,sendDataBuffer,cnt);
 #endif
 }
 
-
+void sendFlyInfo(const _systemInfoStruct info)
+{
+	uint8_t sendDataBuffer[100];
+	int32_t temp  = 0;	/* 临时存放的数据 */
+	uint8_t cnt = 0;
+	
+	/* float 数据会被放大1000倍 */
+	temp = info.systemClockFrequency;
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	
+	sendDataBuffer[cnt++] = info.accGyroSensorInitState;	
+	sendDataBuffer[cnt++] = info.baroSensorInitState;
+	sendDataBuffer[cnt++] = info.magSensorInitState;
+	
+	sendDataBuffer[cnt++] = info.flyState->flyTakeOffState;
+	sendDataBuffer[cnt++] = info.flyState->flyLockState;
+	sendDataBuffer[cnt++] = info.flyState->rcState;
+	
+#if defined(USB_DEBUG)
+	vcpSendData(0xAA,MCU,CMD_FLY_INFO,sendDataBuffer,cnt);
+#endif
+}
 
 
 

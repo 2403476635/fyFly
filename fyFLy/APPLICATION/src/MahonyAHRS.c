@@ -29,8 +29,8 @@ static float invSqrt(float x)  // if use other platform please use float Mahony_
 }
 
 
-#define twoKpDef	(2.0f * 0.5f)	// 2 * proportional gain
-#define twoKiDef	(2.0f * 0.0f)	// 2 * integral gain
+#define twoKpDef	(2.0f * 20.0f)	// 2 * proportional gain
+#define twoKiDef	(2.0f * 0.2f)	// 2 * integral gain
 void Mahony_Init(float sampleFrequency)
 {
 	twoKi = twoKiDef;	// 2 * integral gain (Ki)

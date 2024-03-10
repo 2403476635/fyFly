@@ -29,10 +29,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "sbus.h"
-#include "stm32f4xx_hal_uart.h"
-#include "kalman_filter.h"
-#include "QuaternionEKF.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,7 +44,6 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-SYSTEM_INFO sysstemInfo;
 
 /* USER CODE END PM */
 
@@ -61,12 +57,12 @@ SYSTEM_INFO sysstemInfo;
 void SystemClock_Config(void);
 void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
-
+extern void mainApp(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t sbusBuffer[100];
+
 /* USER CODE END 0 */
 
 /**
@@ -102,7 +98,6 @@ int main(void)
   MX_SPI2_Init();
   MX_SPI3_Init();
   MX_TIM2_Init();
-  MX_TIM3_Init();
   MX_TIM4_Init();
   MX_TIM9_Init();
   MX_UART4_Init();
@@ -114,12 +109,9 @@ int main(void)
   MX_SPI1_Init();
   MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
-	sysstemInfo.sysstemClockFrequency = HAL_RCC_GetSysClockFreq();
-	mainApp();
-	HAL_TIM_Base_Start(&htim5);
-	/* SBUS 的串口接收 */
-	__HAL_UART_ENABLE_IT(&huart5, UART_IT_IDLE);
-	HAL_UART_Receive_IT(&huart5, (uint8_t *)sbusBuffer, 25);
+	
+	mainApp();	/* 开算 */
+
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -187,15 +179,7 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-void HAL_UART_IdleCallback(UART_HandleTypeDef *huart)
-{
-  if (huart->Instance == UART5) 
-	{
-		sbusDataAnalysis(sbusBuffer);
-		HAL_UART_Receive_IT(&huart5, (uint8_t *)sbusBuffer, 25);
-//		Sbus_Decode(sbusBuffer[0]);
-  }
-}
+
 /* USER CODE END 4 */
 
 /**

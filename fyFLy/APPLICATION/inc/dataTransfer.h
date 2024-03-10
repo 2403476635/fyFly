@@ -5,7 +5,8 @@
 #include "main.h"
 
 uint8_t sendLogMessage(unsigned char frameHead, unsigned char frameAddress, unsigned char frameID, char* data);
-	
+
+void sendFlyInfo(const _systemInfoStruct info);	
 void sendImuData(const _imuDataStruct data);
 
 #endif /* __DATA_TRANSFER_H__ */

@@ -149,4 +149,7 @@ float OLS_Smooth(Ordinary_Least_Squares_t *OLS, float deltax, float y);
 float Get_OLS_Derivative(Ordinary_Least_Squares_t *OLS);
 float Get_OLS_Smooth(Ordinary_Least_Squares_t *OLS);
 
+float *Norm3d(float *v);
+float Dot3d(float *v1, float *v2);
+void Cross3d(float *v1, float *v2, float *res);
 #endif

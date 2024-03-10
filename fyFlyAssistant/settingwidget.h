@@ -10,6 +10,8 @@
 
 #include "mycombobox.h"
 #include "serialport.h"
+#include "common.h"
+
 class settingWidget : public QWidget
 {
     Q_OBJECT
@@ -44,6 +46,9 @@ signals:
     void sendSerialPortData(QByteArray serialPortData);
 
     void appLogMessage_signal(QByteArray logMessage);
+
+    void imuData_signal(_imuDataStruct imuData);     /* 传感器的数据 */
+    void flySystemInfoData_signal(_systemInfoStruct systemInfo);  /* 飞机的系统信息 */
 private:
     QIcon openSerialPortSuccess;         /* 串口连接成功显示的图标 */
     QIcon waitOpenSerialPort;            /* 等待串口连接时显示的图标 */

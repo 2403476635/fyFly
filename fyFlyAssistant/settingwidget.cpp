@@ -135,6 +135,8 @@ void settingWidget::openSerialPortPushButton_clicked_slot()
 //        connect(this,&Widget::sendBinFileData_signal,serialPortTask,&SerialPortThread::sendBinFile,Qt::UniqueConnection);               /* 发送bin文件 */
 
         connect(serialPortTask,&SerialPortThread::OpenSerialPortOK_signal,this,&settingWidget::openSerialPortState_slot);  /* 连接串口设备连接状态的处理槽函数 */
+        connect(serialPortTask,&SerialPortThread::imuData_signal,this,&settingWidget::imuData_signal);                     /* 串口接收的传感器数据 */
+        connect(serialPortTask,&SerialPortThread::flySystemInfoData_signal,this,&settingWidget::flySystemInfoData_signal); /* 串口接收的飞机信息数据 */
 
         connect(serialPortThread, &QThread::started, serialPortTask,&SerialPortThread::openSerialPort);                    /* 连接线程启动后的槽函数 */
 

@@ -2,6 +2,8 @@ QT       += core gui
 QT       += opengl
 QT       += serialport   #加入串口模块
 QT       += openglwidgets
+QT       += axcontainer
+QT       += printsupport
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
@@ -17,17 +19,22 @@ SOURCES += \
     loadModel/Q3DModel.cpp \
     main.cpp \
     mycombobox.cpp \
+    myexcel.cpp \
+    qcustomplot.cpp \
     ringbufer.cpp \
     serialport.cpp \
     settingwidget.cpp \
     widget.cpp
 
 HEADERS += \
+    common.h \
     flyboarddatashowwidget.h \
     loadModel/ModelWindow.h \
     loadModel/Q3DMesh.h \
     loadModel/Q3DModel.h \
     mycombobox.h \
+    myexcel.h \
+    qcustomplot.h \
     ringbufer.h \
     serialport.h \
     settingwidget.h \
@@ -50,6 +57,6 @@ RESOURCES += \
     loadModel/shader.qrc
 
 win32: LIBS += -L$$PWD/3dparty/assimp/lib/ -llibassimp.dll
-
 INCLUDEPATH += $$PWD/3dparty/assimp
 DEPENDPATH += $$PWD/3dparty/assimp
+

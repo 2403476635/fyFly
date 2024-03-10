@@ -15,6 +15,7 @@
  */
 #include "QuaternionEKF.h"
 #include "arm_math.h"
+#include "user_lib.h"
 
 QEKF_INS_t QEKF_INS={0};
 
@@ -55,7 +56,7 @@ static inline void IMU_QuaternionEKF_xhatUpdate(KalmanFilter_t *kf);
  * @param[in] lambda			fading coefficient          0.9996
  * @param[in] dt					update period in s
  */
-void IMU_QuaternionEKF_Init(float process_noise1, float process_noise2, float measure_noise, float lambda, float dt, float lpf)
+void IMU_QuaternionEKF_Init(float *init_quaternion, float process_noise1, float process_noise2, float measure_noise, float lambda, float dt, float lpf)
 {
     QEKF_INS.Initialized = 1;
     QEKF_INS.Q1 = process_noise1;
@@ -78,10 +79,10 @@ void IMU_QuaternionEKF_Init(float process_noise1, float process_noise2, float me
     Matrix_Init(&QEKF_INS.ChiSquare, 1, 1, (float *)QEKF_INS.ChiSquare_Data);
 
     // 姿态初始化
-    QEKF_INS.IMU_QuaternionEKF.xhat_data[0] = 1;
-    QEKF_INS.IMU_QuaternionEKF.xhat_data[1] = 0;
-    QEKF_INS.IMU_QuaternionEKF.xhat_data[2] = 0;
-    QEKF_INS.IMU_QuaternionEKF.xhat_data[3] = 0;
+    for(int i = 0; i < 4; i++)
+    {
+        QEKF_INS.IMU_QuaternionEKF.xhat_data[i] = init_quaternion[i];
+    }
 
     // 自定义函数初始化,用于扩展或增加kf的基础功能
     QEKF_INS.IMU_QuaternionEKF.User_Func0_f = IMU_QuaternionEKF_Observe;

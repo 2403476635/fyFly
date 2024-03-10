@@ -57,7 +57,6 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
 
-void mainApp(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
@@ -69,12 +68,6 @@ void mainApp(void);
 #define SPL06_CS_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
-typedef struct 
-{
-    uint32_t sysstemClockFrequency; /* 记录系统的运行频率 */
-}SYSTEM_INFO;
-extern SYSTEM_INFO sysstemInfo;			/* 记录系统信息 */
-
 
 /* USER CODE END Private defines */
 

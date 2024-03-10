@@ -4,5 +4,6 @@
         <file>images/state/waitConnetct.png</file>
         <file>images/button/settingButton.png</file>
         <file>images/button/flyBoardDataButton.png</file>
+        <file>images/button/flyModelButton.png</file>
     </qresource>
 </RCC>

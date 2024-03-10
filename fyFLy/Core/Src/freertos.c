@@ -25,17 +25,22 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "spi.h"
-#include "icm42670p.h"
-#include "spl06.h"
-#include "ringBuffer.h"
 #include "common.h"
+#include "spi.h"
+#include "bsp_icm42670p.h"
+#include "bsp_spl06.h"
+#include "bsp_sbus.h"
+#include "bsp_lis3mdl.h"
+#include "ringBuffer.h"
 #include "usbd_cdc_if.h"
 #include "dataTransfer.h"
-#include "lis3mdl.h"
 #include "MahonyAHRS.h"
 #include "kalman_filter.h"
 #include "QuaternionEKF.h"
+#include "user_lib.h"
+#include "flyRcCtr.h"
+#include "fyFilter.h"
+#include "motoCtr.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -65,16 +70,48 @@ _imuDataStruct imuData;
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
-  .stack_size = 1024 * 4,
+  .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for taskFor1000Hz */
+osThreadId_t taskFor1000HzHandle;
+const osThreadAttr_t taskFor1000Hz_attributes = {
+  .name = "taskFor1000Hz",
+  .stack_size = 256 * 4,
+  .priority = (osPriority_t) osPriorityNormal7,
+};
+/* Definitions for taskFor200Hz */
+osThreadId_t taskFor200HzHandle;
+const osThreadAttr_t taskFor200Hz_attributes = {
+  .name = "taskFor200Hz",
+  .stack_size = 256 * 4,
+  .priority = (osPriority_t) osPriorityNormal5,
+};
+/* Definitions for taskFor500Hz */
+osThreadId_t taskFor500HzHandle;
+const osThreadAttr_t taskFor500Hz_attributes = {
+  .name = "taskFor500Hz",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal6,
+};
+/* Definitions for taskFor100Hz */
+osThreadId_t taskFor100HzHandle;
+const osThreadAttr_t taskFor100Hz_attributes = {
+  .name = "taskFor100Hz",
+  .stack_size = 256 * 4,
+  .priority = (osPriority_t) osPriorityNormal4,
 };
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
-
+void InitQuaternion(float *init_q4, inv_imu_sensor_event_t *evt);
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
+void StartTaskFor1000Hz(void *argument);
+void StartTaskFor200Hz(void *argument);
+void StartTaskFor500Hz(void *argument);
+void StartTaskFor100Hz(void *argument);
 
 extern void MX_USB_DEVICE_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -109,6 +146,18 @@ void MX_FREERTOS_Init(void) {
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
+  /* creation of taskFor1000Hz */
+  taskFor1000HzHandle = osThreadNew(StartTaskFor1000Hz, NULL, &taskFor1000Hz_attributes);
+
+  /* creation of taskFor200Hz */
+  taskFor200HzHandle = osThreadNew(StartTaskFor200Hz, NULL, &taskFor200Hz_attributes);
+
+  /* creation of taskFor500Hz */
+  taskFor500HzHandle = osThreadNew(StartTaskFor500Hz, NULL, &taskFor500Hz_attributes);
+
+  /* creation of taskFor100Hz */
+  taskFor100HzHandle = osThreadNew(StartTaskFor100Hz, NULL, &taskFor100Hz_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -131,70 +180,184 @@ void StartDefaultTask(void *argument)
   /* init code for USB_DEVICE */
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN StartDefaultTask */
-	HAL_GPIO_WritePin(LIS3MD_CS_GPIO_Port, LIS3MD_CS_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(ICM42670P_CS_GPIO_Port, ICM42670P_CS_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(SPL06_CS_GPIO_Port, SPL06_CS_Pin, GPIO_PIN_SET);
-	
-	Drv_Spl0601Init();
-	
-	icm42670p_Init();
-	lis3mdl_Init();
-//	
-	startAccel(1600,16);
-	startGyro(1600,2000);
-	inv_imu_sensor_event_t imu_event;
-	
-	Mahony_Init(1000);
-	IMU_QuaternionEKF_Init(10, 0.001, 10000000, 1, 0.001f,0); //ekf初始化
-	
-	TickType_t xLastWakeTime;
-	const TickType_t xFrequency = pdMS_TO_TICKS(1);  // 定义任务的运行频率
-
-	// 初始化xLastWakeTime为当前的系统节拍计数
-	xLastWakeTime = xTaskGetTickCount();
   /* Infinite loop */
   for(;;)
   {
-//		HAL_GPIO_TogglePin(SPL06_CS_GPIO_Port, SPL06_CS_Pin);
-//		inv_imu_sleep_us(10);
-			
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
+		HAL_Delay(1);
+  }
+  /* USER CODE END StartDefaultTask */
+}
+
+/* USER CODE BEGIN Header_StartTaskFor1000Hz */
+/**
+* @brief Function implementing the taskFor1000Hz thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartTaskFor1000Hz */
+void StartTaskFor1000Hz(void *argument)
+{
+  /* USER CODE BEGIN StartTaskFor1000Hz */
+	TickType_t xLastWakeTime;
+	const TickType_t xFrequency = pdMS_TO_TICKS(1);  // 定义任务的运行频率 1000Hz
+	xLastWakeTime = xTaskGetTickCount();
+  /* Infinite loop */
+	
+  for(;;)
+  {
+    vTaskDelayUntil(&xLastWakeTime, xFrequency);
+  }
+  /* USER CODE END StartTaskFor1000Hz */
+}
+
+/* USER CODE BEGIN Header_StartTaskFor200Hz */
+/**
+* @brief Function implementing the taskFor200Hz thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartTaskFor200Hz */
+void StartTaskFor200Hz(void *argument)
+{
+  /* USER CODE BEGIN StartTaskFor200Hz */
+	TickType_t xLastWakeTime;
+	const TickType_t xFrequency = pdMS_TO_TICKS(5);  // 定义任务的运行频率 200Hz
+	xLastWakeTime = xTaskGetTickCount();
+  /* Infinite loop */
+	
+  for(;;)
+  {
+//		float tempValue;
+//		if(ch[CH_THR] > 0)
+//			tempValue = 4 * ch[CH_THR];
+//		else
+//			tempValue = 0;
+		
+		
+		
+		
+    vTaskDelayUntil(&xLastWakeTime, xFrequency);
+  }
+  /* USER CODE END StartTaskFor200Hz */
+}
+
+/* USER CODE BEGIN Header_StartTaskFor500Hz */
+/**
+* @brief Function implementing the taskFor500Hz thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartTaskFor500Hz */
+void StartTaskFor500Hz(void *argument)
+{
+  /* USER CODE BEGIN StartTaskFor500Hz */
+	TickType_t xLastWakeTime;
+	const TickType_t xFrequency = pdMS_TO_TICKS(2);  // 定义任务的运行频率 500Hz
+	xLastWakeTime = xTaskGetTickCount();
+  /* Infinite loop */
+	inv_imu_sensor_event_t imu_event;
+	memset(&imu_event,0,sizeof(inv_imu_sensor_event_t));
+	
+	Mahony_Init(500);
+	
+	float init_quaternion[4] = {0};
+	for(int i=0;i<100;i++)
+	{
+		getDataFromRegisters(&imu_event);
+		HAL_Delay(2);
+	}
+	
+  InitQuaternion(init_quaternion, &imu_event);
+	IMU_QuaternionEKF_Init(init_quaternion, 10, 0.001, 10000000, 1, 0.002f,0);
+	
+  for(;;)
+  {
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
 			getDataFromRegisters(&imu_event);
 			
 			spl06ReadData(&imuData.spl06Temperature,&imuData.barPressure);	/* 读气压计的原始数据 */
 		
 			imuData.icm42670pTemperature = (imu_event.temperature / 128.0f) + 25.0f;
-			imuData.accel_x = imu_event.accel[0];
-			imuData.accel_y = imu_event.accel[1];
+		
+			imuData.accel_x = -imu_event.accel[1];
+			imuData.accel_y = -imu_event.accel[0];
 			imuData.accel_z = imu_event.accel[2];
 			
-			imuData.gyro_x = imu_event.gyro[0];
-			imuData.gyro_y = imu_event.gyro[1]; 
-			imuData.gyro_z = imu_event.gyro[2];
+			imuData.gyro_x = -imu_event.gyro[1];
+			imuData.gyro_y = -imu_event.gyro[0]; 
+			imuData.gyro_z = -imu_event.gyro[2];
 		
 			lis3mdlRead(&imuData.lis3mdlTemperature,&imuData.mag_x,&imuData.mag_y,&imuData.mag_z);
-		
-			MahonyAHRSupdateIMU(imuData.gyro_x / 16.4f /57.3f,imuData.gyro_y / 16.4f/57.3f,imuData.gyro_z / 16.4f/57.3f,imuData.accel_x/2048.0f,imuData.accel_y/2048.0f,imuData.accel_z/2048.0f);
-		
-			IMU_QuaternionEKF_Update(imuData.gyro_x / 16.4f /57.3f,imuData.gyro_y / 16.4f/57.3f,imuData.gyro_z / 16.4f/57.3f,imuData.accel_x/2048.0f,imuData.accel_y/2048.0f,imuData.accel_z/2048.0f);
-//		
-			Mahony_computeAngles();
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
-//			computeAngles();
-		
+			
+//			MahonyAHRSupdateIMU(imuData.gyro_x / 16.4f /57.3f,imuData.gyro_y / 16.4f/57.3f,imuData.gyro_z / 16.4f/57.3f,
+//													imuData.accel_x/2048.0f,imuData.accel_y/2048.0f,imuData.accel_z/2048.0f);
+			
+//			imuData.accel_x = -imu_event.accel[1];
+//			imuData.accel_y = -imu_event.accel[0];
+//			imuData.accel_z = imu_event.accel[2];
+//			
+//			imuData.gyro_x = imu_event.gyro[1];
+//			imuData.gyro_y = imu_event.gyro[0]; 
+//			imuData.gyro_z = -imu_event.gyro[2];
+//			
+//			IMU_QuaternionEKF_Update(	imuData.gyro_x / 16.4f /57.3f,imuData.gyro_y / 16.4f/57.3f,imuData.gyro_z / 16.4f/57.3f,
+//																imuData.accel_x/2048.0f,imuData.accel_y/2048.0f,imuData.accel_z/2048.0f);
+																
+//			Mahony_computeAngles();
+//			
+//			imuData.pitch = getPitch();
+//			imuData.roll = getRoll();
+//			imuData.yaw = getYaw();
+
 //			sendImuData(imuData);																						/* 向上位机发送数据 */
-		
-			vTaskDelayUntil(&xLastWakeTime, xFrequency);
+		motoPowerOut(outPwmValue[0], outPwmValue[1], outPwmValue[2], outPwmValue[3],&flyState);
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
+    vTaskDelayUntil(&xLastWakeTime, xFrequency);
   }
-  /* USER CODE END StartDefaultTask */
+  /* USER CODE END StartTaskFor500Hz */
+}
+
+/* USER CODE BEGIN Header_StartTaskFor100Hz */
+/**
+* @brief Function implementing the taskFor100Hz thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartTaskFor100Hz */
+void StartTaskFor100Hz(void *argument)
+{
+  /* USER CODE BEGIN StartTaskFor100Hz */
+	TickType_t xLastWakeTime;
+	const TickType_t xFrequency = pdMS_TO_TICKS(10);  // 定义任务的运行频率 100Hz
+	xLastWakeTime = xTaskGetTickCount();
+	
+	_imuDataStruct testFilterData;
+	
+  /* Infinite loop */
+	armIirFilterInit();
+  for(;;)
+  {
+		
+		updateRcValue(ch,sbusCh);
+		updateRcState(&flyState,10);
+		
+		electricalCalibration(ch,&flyState);		/* 电调校准 */
+		
+		testFilterData.roll = imuData.gyro_x;
+		testFilterData.pitch = imuData.pitch;
+		
+    armIirFilter(&testFilterData.roll, &testFilterData.pitch);
+//		sendFlyInfo(systemInfo);
+		
+		sendImuData(testFilterData);	
+		
+		vTaskDelayUntil(&xLastWakeTime, xFrequency);
+  }
+  /* USER CODE END StartTaskFor100Hz */
 }
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-void mainApp(void)
-{
-	
-}
 #if defined(USB_DEBUG)
 /*
 	vcpDataAnalysis(_RingBuffer *ringbuffer)
@@ -282,6 +445,33 @@ static void vcpDataAnalysis(_RingBuffer *ringbuffer)
 	}
 }
 #endif
-
+// 使用加速度计的数据初始化Roll和Pitch,而Yaw置0,这样可以避免在初始时候的姿态估计误差
+void InitQuaternion(float *init_q4, inv_imu_sensor_event_t *evt)
+{
+    float acc_init[3] = {0};
+    float gravity_norm[3] = {0, 0, 1}; // 导航系重力加速度矢量,归一化后为(0,0,1)
+    float axis_rot[3] = {0};           // 旋转轴
+    // 读取100次加速度计数据,取平均值作为初始值
+    for (uint8_t i = 0; i < 100; ++i)
+    {
+        getDataFromRegisters(evt);
+        acc_init[0] += -evt->accel[1]/2024.0f;
+        acc_init[1] += -evt->accel[0]/2024.0f;
+        acc_init[2] += evt->accel[2]/2024.0f;
+        HAL_Delay(1);
+    }
+    for (uint8_t i = 0; i < 3; ++i)
+        acc_init[i] /= 100;
+		
+		
+    Norm3d(acc_init);
+    // 计算原始加速度矢量和导航系重力加速度矢量的夹角
+    float angle = acosf(Dot3d(acc_init, gravity_norm));
+    Cross3d(acc_init, gravity_norm, axis_rot);
+    Norm3d(axis_rot);
+    init_q4[0] = cosf(angle / 2.0f);
+    for (uint8_t i = 0; i < 2; ++i)
+        init_q4[i + 1] = axis_rot[i] * sinf(angle / 2.0f); // 轴角公式,第三轴为0(没有z轴分量)
+}
 /* USER CODE END Application */
 
