@@ -4,28 +4,27 @@ flyBoardDataShowWidget::flyBoardDataShowWidget(QWidget *parent)
     : QWidget{parent}
 {
     flyBoardDataShowWindow = parent;
-    flyBoardDataShowWindow->setStyleSheet("background-color: red;");
     flyBoardDataShowWindow->setWindowFlags(Qt::FramelessWindowHint); /* 设置窗口为无边框 */
     flyBoardDataShowWindow->hide();
 
     flyBoardDataTreeWidget = new QTreeWidget(flyBoardDataShowWindow);
     flyBoardDataTreeWidget->resize(QSize(800,300));
     flyBoardDataTreeWidget->setStyle(QStyleFactory::create("windows"));                           /*设置让节点之间显示连线*/
-    flyBoardDataTreeWidget->setStyleSheet(QString(                                  /*设置TreeWidget的样式*/
-                                      " QTreeWidget::item {"
-                                      "     border-left:   1px solid rgb(200,200,200);"
-                                      "     border-bottom: 1px solid rgb(200,200,200);"
-                                      " }"
-                                      "QTreeWidget{"
-                                      "    color: black;"
-                                      "    background:rgb(255,255,255);"
-                                      "}"
-                                      "QTreeWidget::item:selected {"
-                                      "    color: black;"
-                                      "    background:rgb(255,255,255);"
-                                      //"border: 1px solid rgb(65,173,255);"
-                                      "}"
-                                      ));
+//    flyBoardDataTreeWidget->setStyleSheet(QString(                                  /*设置TreeWidget的样式*/
+//                                      " QTreeWidget::item {"
+//                                      "     border-left:   1px solid rgb(200,200,200);"
+//                                      "     border-bottom: 1px solid rgb(200,200,200);"
+//                                      " }"
+//                                      "QTreeWidget{"
+//                                      "    color: black;"
+//                                      "    background:rgb(255,255,255);"
+//                                      "}"
+//                                      "QTreeWidget::item:selected {"
+//                                      "    color: black;"
+//                                      "    background:rgb(255,255,255);"
+//                                      //"border: 1px solid rgb(65,173,255);"
+//                                      "}"
+//                                      ));
     /*表头设置*/
     flyBoardDataTreeWidget->setHeaderLabels(QStringList()<<"帧ID"<<"数据位"<<"数据类型"<<"数据缩放");
     flyBoardDataTreeWidget->header()->setStretchLastSection(false);                  /*取消最后一列自适应列宽*/
@@ -41,7 +40,6 @@ flyBoardDataShowWidget::flyBoardDataShowWidget(QWidget *parent)
     flyBoardDataTreeWidget->header()->setSectionsMovable(false);                     /*设置表头内容不能拖动*/
 
 
-
     //创建父节点
     QList<QTreeWidgetItem*> TopItems;   /*父节点*/
     QList<QCheckBox*> TopItemCheckBoxs; /*父节点的CheckBox*/
@@ -53,15 +51,12 @@ flyBoardDataShowWidget::flyBoardDataShowWidget(QWidget *parent)
     {
         QString TopItemName = "F" + QString::number(i);
         TopItems.append(new QTreeWidgetItem(QStringList() << TopItemName << "使能该帧"));
-//        TopItems.at(i)->setTextAlignment(0,Qt::AlignHCenter);
-//        TopItems.at(i)->setTextAlignment(1,Qt::AlignHCenter);                   /*设置居中显示*/
-
+        TopItems.at(i)->setTextAlignment(0,Qt::AlignHCenter);
+        TopItems.at(i)->setTextAlignment(1,Qt::AlignHCenter);                   /*设置居中显示*/
         flyBoardDataTreeWidget->addTopLevelItem(TopItems.at(i));         /*添加父节点*/
-//        TopItemCheckBoxs.append(new QCheckBox());
 
-//        flyBoardDataTreeWidget->setItemWidget(TopItems.at(i),1,TopItemCheckBoxs.at(i));
-
-//        TopItems.at(i)->setFirstColumnSpanned(true);
+        TopItemCheckBoxs.append(new QCheckBox());
+        flyBoardDataTreeWidget->setItemWidget(TopItems.at(i),1,TopItemCheckBoxs.at(i));
     }
 
     for (int i = 0; i < 10; ++i)

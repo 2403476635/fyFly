@@ -71,6 +71,30 @@ typedef struct
     float pitch;
     float roll;
     float yaw;
+
+    float mag_x_filter;
+    float mag_y_filter;
+    float mag_z_filter;
+
+    float accel_x_filter;
+    float accel_y_filter;
+    float accel_z_filter;
+
+    float gyro_x_filter;
+    float gyro_y_filter;
+    float gyro_z_filter;
+    /* g/s/s */
+    float accel_x_gss;
+    float accel_y_gss;
+    float accel_z_gss;
+    /* °/s */
+    float gyro_x_deg;
+    float gyro_y_deg;
+    float gyro_z_deg;
+    /* rad/s */
+    float gyro_x_rad;
+    float gyro_y_rad;
+    float gyro_z_rad;
 }_imuDataStruct;
 
 enum frameAddress
@@ -82,6 +106,12 @@ enum frameAddress
 enum frameCmd
 {
     CMD_ORIGINAL_IMU_DATA = 0,                          /* 发送IMU的原始数据 */
+    CMD_IMU_ACCEL_DATA,									/* 发送加速度转换后的值 */
+    CMD_IMU_GYRO_DATA,									/* 发送角速度转换后的值 */
+    CMD_READ_CORRECT_PARAMETER,                         /* 读取磁力计校正数据 */
+    CMD_SEND_CORRECT_PARAMETER,                         /* 发送磁力计校正数据 */
+    CMD_READ_PID_PARAMETER,                             /* 读取PID参数信息 */
+    CMD_SET_PID_PARAMETER,                              /* 设置PID参数信息 */
     CMD_FLY_INFO,										/* 飞行信息 */
     CMD_RESET_DEVICE,                                   /* 设备复位 */
     CMD_SEND_BIN_FILE_SIZE,                             /* 发送的固件文件大小 */
@@ -91,6 +121,27 @@ enum frameCmd
     CMD_NOW_IAP_STATE,									/* 当前运行IAP程序 */
     CMD_NOW_APP_STATE,                                  /* 当前运行APP程序 */
     CMD_LOG_MESSAGE,
-    CMD_SHOW_DEVICE_INFO
+    CMD_SHOW_DEVICE_INFO,
+    CMD_ACK                                             /* 响应 */
 };
+
+typedef struct
+{
+    float kp;								/* 比例系数 */
+    float kp_feedforward;		/* 前馈比例系数 */
+    float ki;								/* 积分项系数 */
+    float kd_feedback;			/* 微分先行 反馈量的系数 */
+
+    float thisError;				/* 当前误差 */
+    float lastError;				/* 上次的误差 */
+    float lastFeedforward;	/* 上次的反馈量 */
+    float integralError;		/* 积分误差 */
+
+    float kpOutValue;				/* 计算的微分 */
+    float kiOutValue;				/* 计算的积分 */
+    float kdOutValue;				/* 计算的微分 */
+
+    float pidOutValue;			/* PID总输出 */
+}_pid;
+
 #endif // COMMON_H

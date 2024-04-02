@@ -57,6 +57,8 @@ signals:
 
     void imuData_signal(_imuDataStruct imuData);        /* 传感器的数据 */
     void flySystemInfoData_signal(_systemInfoStruct systemInfo);  /* 飞机的系统信息 */
+    void calibrationParameter_signal(QList<double> data);   /* 磁力计校准参数 */
+    void pidParameter_signal(QList<_pid> data);
 
 private:
     QString mPortName;
@@ -70,10 +72,6 @@ private:
 
     bool SerialPortIsOK = false;
 
-    bool FrameDataCheck(QByteArray Frame);
-
-    int QByteToUint(QByteArray Data);
-
     RingBuff_t *serialPortBuffer;
 
     ringbufer *bufferObj;
@@ -82,12 +80,20 @@ private:
 
     QByteArray jpegData;            /* 存放当前接受的JPEG图片数据 */
 
-    QByteArray setSerialPortStringDataFormat(unsigned char frameHead, unsigned char frameAddress, unsigned char frameID, QByteArray data);
-
     _imuDataStruct imuData;
     _flyStateStruct flyState;
     _systemInfoStruct systemInfo;                         /* 记录飞机的系统信息 */
 
+    bool FrameDataCheck(QByteArray Frame);
+
+    int QByteToUint(QByteArray Data);
+
+    QByteArray setSerialPortStringDataFormat(unsigned char frameHead, unsigned char frameAddress, unsigned char frameID, QByteArray data);
+    /* 对接收指令处理的函数 */
+    void CMD_ORIGINAL_IMU_DATA_handle(QByteArray &tempData);
+    void CMD_IMU_GYRO_DATA_handle(QByteArray &tempData);
+    void CMD_READ_CORRECT_PARAMETER_handle(QByteArray &tempData);
+    void CMD_READ_PID_PARAMETER_handle(QByteArray &tempData);
 };
 
 

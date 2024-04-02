@@ -49,6 +49,8 @@ signals:
 
     void imuData_signal(_imuDataStruct imuData);     /* 传感器的数据 */
     void flySystemInfoData_signal(_systemInfoStruct systemInfo);  /* 飞机的系统信息 */
+    void calibrationParameter_signal(QList<double> data);   /* 磁力计校准参数 */
+    void pidParameter_signal(QList<_pid> data);             /* PID参数 */
 private:
     QIcon openSerialPortSuccess;         /* 串口连接成功显示的图标 */
     QIcon waitOpenSerialPort;            /* 等待串口连接时显示的图标 */

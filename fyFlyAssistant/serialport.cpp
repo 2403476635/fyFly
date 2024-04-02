@@ -82,24 +82,30 @@ void SerialPortThread::DataRead()
     bufferObj->ReadBytes(serialPortBuffer,&bufferData,nowBufferSize);/*读取缓冲区中的所有数据*/
     unsigned int startFramePlace = 0;
     unsigned int endFramePlace = 0;
-
+//    qDebug() << receiveData.size();
+//    qDebug() << "receiveData" << receiveData.toHex(' ').toUpper();
+//    qDebug() << "bufferData" << bufferData.toHex(' ').toUpper();
     for(unsigned int i=0;i<bufferData.size();)
     {
         if((uint8_t)bufferData.at(i) == 0xAA)
         {
             startFramePlace = i;
-            if((nowBufferSize - i) > 3)
+            if((bufferData.size() - i) > 3)
             {
 //                qDebug() << "getFrameHead";
-//                qDebug() << "nowBufferSize = " << nowBufferSize;
+//                qDebug() << "nowBufferSize = " << bufferData.size();
+//                qDebug() << "i = " << i;
 //                qDebug() << "i + 3 + bufferData.at(i+3) + 2 = " << i + 3 + bufferData.at(i+3) + 2;
-                if(nowBufferSize >= (unsigned int)( i + 3 + (uint8_t)bufferData.at(i+3) + 2))
+                if(bufferData.size() >= (unsigned int)( i + 4 + (uint8_t)bufferData.at(i+3) + 2))
                 {
                     endFramePlace = i + 4 + (uint8_t)bufferData.at(i+3) + 2;
+//                    qDebug() << "startFramePlace" << startFramePlace << "endFramePlace" << endFramePlace;
                     QByteArray frameData = bufferData.mid(startFramePlace,endFramePlace - startFramePlace);
+//                    qDebug() << "frameData.size" << frameData.size();
+//                    qDebug() << "frameData" << frameData.toHex(' ').toUpper();
                     if(FrameDataCheck(frameData) == true)/*检验帧数据是否正确*/
                     {
-                        bufferData.remove(i,frameData.size());
+                        bufferData.remove(0,endFramePlace);
                         /***********************得到下位机的完整数据**********************************/
                         if((unsigned char)frameData.at(1) == MCU)
                         {
@@ -112,57 +118,28 @@ void SerialPortThread::DataRead()
                                     emit appLogMessage_signal(frameData.mid(4,(uint8_t)frameData.at(3)));
                                     break;
                                 }
+                                case CMD_READ_CORRECT_PARAMETER:
+                                {
+                                    QByteArray tempData = frameData.mid(4,frameData.at(3));
+                                    CMD_READ_CORRECT_PARAMETER_handle(tempData);
+                                    break;
+                                }
+                                case CMD_READ_PID_PARAMETER:        /* 设备发送的PID参数 */
+                                {
+                                    QByteArray tempData = frameData.mid(4,frameData.at(3));
+                                    CMD_READ_PID_PARAMETER_handle(tempData);
+                                    break;
+                                }
                                 case CMD_ORIGINAL_IMU_DATA:   /* 设备发送的IMU数据 */
                                 {
                                     QByteArray tempData = frameData.mid(4,frameData.at(3));
-                                    int32_t temp = 0;
-
-                                    temp = (uint8_t)tempData.at(0) | (uint8_t)tempData.at(1)<<8 |
-                                           (uint8_t)tempData.at(2)<<16 | (uint8_t)tempData.at(3)<<24;
-                                    imuData.spl06Temperature = (float)temp/1000.0f;
-                                    temp = (uint8_t)tempData.at(4) | (uint8_t)tempData.at(5)<<8 |
-                                           (uint8_t)tempData.at(6)<<16 | (uint8_t)tempData.at(7)<<24;
-                                    imuData.barPressure = (float)temp/1000.0f;
-
-                                    temp = (uint8_t)tempData.at(8) | (uint8_t)tempData.at(9)<<8 |
-                                           (uint8_t)tempData.at(10)<<16 | (uint8_t)tempData.at(11)<<24;
-                                    imuData.icm42670pTemperature = temp/1000.0f;
-
-                                    imuData.accel_x = (uint8_t)tempData.at(12) | (uint8_t)tempData.at(13)<<8;
-                                    imuData.accel_y = (uint8_t)tempData.at(14) | (uint8_t)tempData.at(15)<<8;
-                                    imuData.accel_z = (uint8_t)tempData.at(16) | (uint8_t)tempData.at(17)<<8;
-
-                                    imuData.gyro_x = (uint8_t)tempData.at(18) | (uint8_t)tempData.at(19)<<8;
-                                    imuData.gyro_y = (uint8_t)tempData.at(20) | (uint8_t)tempData.at(21)<<8;
-                                    imuData.gyro_z = (uint8_t)tempData.at(22) | (uint8_t)tempData.at(23)<<8;
-
-                                    temp = (uint8_t)tempData.at(24) | (uint8_t)tempData.at(25)<<8 |
-                                           (uint8_t)tempData.at(26)<<16 | (uint8_t)tempData.at(27)<<24;
-                                    imuData.lis3mdlTemperature = temp/1000.0f;
-
-                                    temp = (uint8_t)tempData.at(28) | (uint8_t)tempData.at(29)<<8 |
-                                           (uint8_t)tempData.at(30)<<16 | (uint8_t)tempData.at(31)<<24;
-                                    imuData.mag_x = temp/1000.0f;
-                                    temp = (uint8_t)tempData.at(32) | (uint8_t)tempData.at(33)<<8 |
-                                           (uint8_t)tempData.at(34)<<16 | (uint8_t)tempData.at(35)<<24;
-                                    imuData.mag_y = temp/1000.0f;
-                                    temp = (uint8_t)tempData.at(36) | (uint8_t)tempData.at(37)<<8 |
-                                           (uint8_t)tempData.at(38)<<16 | (uint8_t)tempData.at(39)<<24;
-                                    imuData.mag_z = temp/1000.0f;
-
-                                    temp = (uint8_t)tempData.at(40) | (uint8_t)tempData.at(41)<<8 |
-                                           (uint8_t)tempData.at(42)<<16 | (uint8_t)tempData.at(43)<<24;
-                                    imuData.pitch = temp/1000.0f;
-
-                                    temp = (uint8_t)tempData.at(44) | (uint8_t)tempData.at(45)<<8 |
-                                           (uint8_t)tempData.at(46)<<16 | (uint8_t)tempData.at(47)<<24;
-                                    imuData.roll = temp/1000.0f;
-
-                                    temp = (uint8_t)tempData.at(48) | (uint8_t)tempData.at(49)<<8 |
-                                           (uint8_t)tempData.at(50)<<16 | (uint8_t)tempData.at(51)<<24;
-                                    imuData.yaw = temp/1000.0f;
-
-                                    emit imuData_signal(imuData);
+                                    CMD_ORIGINAL_IMU_DATA_handle(tempData);
+                                    break;
+                                }
+                                case CMD_IMU_GYRO_DATA:
+                                {
+                                    QByteArray tempData = frameData.mid(4,frameData.at(3));
+                                    CMD_IMU_GYRO_DATA_handle(tempData);
                                     break;
                                 }
                                 case CMD_FLY_INFO:
@@ -298,7 +275,7 @@ bool SerialPortThread::FrameDataCheck(QByteArray Frame)
     unsigned char addcheck = 0;
 
     //qDebug() << Frame;
-    for(uint8_t i=0; i < (uint8_t)Frame[3] + 4 ; i++)
+    for(int16_t i=0; i < (uint8_t)Frame[3] + 4 ; i++)
     {
         sumcheck += (uint8_t)Frame[i]; //从帧头开始，对每一字节进行求和，直到DATA区结束
         addcheck += sumcheck; //每一字节的求和操作，进行一次sumcheck的累加
@@ -349,5 +326,195 @@ QByteArray SerialPortThread::setSerialPortStringDataFormat(unsigned char frameHe
     frameData[frameDataLen + 5] = addcheck;
     return frameData;
 }
+
+void SerialPortThread::CMD_ORIGINAL_IMU_DATA_handle(QByteArray &tempData)
+{
+    int32_t temp = 0;
+    uint16_t index = 0;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    imuData.spl06Temperature = (float)temp/1000.0f;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    imuData.barPressure = (float)temp/1000.0f;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    imuData.icm42670pTemperature = temp/1000.0f;
+    index += 4;
+
+    imuData.accel_x = (uint8_t)tempData.at(index+0) | (uint8_t)tempData.at(index+1)<<8;
+    index += 2;
+    imuData.accel_y = (uint8_t)tempData.at(index+0) | (uint8_t)tempData.at(index+1)<<8;
+    index += 2;
+    imuData.accel_z = (uint8_t)tempData.at(index+0) | (uint8_t)tempData.at(index+1)<<8;
+    index += 2;
+
+    imuData.gyro_x = (uint8_t)tempData.at(index+0) | (uint8_t)tempData.at(index+1)<<8;
+    index += 2;
+    imuData.gyro_y = (uint8_t)tempData.at(index+0) | (uint8_t)tempData.at(index+1)<<8;
+    index += 2;
+    imuData.gyro_z = (uint8_t)tempData.at(index+0) | (uint8_t)tempData.at(index+1)<<8;
+    index += 2;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    imuData.lis3mdlTemperature = temp/1000.0f;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    imuData.mag_x = temp/1000.0f;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    imuData.mag_y = temp/1000.0f;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    imuData.mag_z = temp/1000.0f;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    imuData.pitch = temp/1000.0f;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    imuData.roll = temp/1000.0f;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    imuData.yaw = temp/1000.0f;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    imuData.accel_x_filter = temp/1000.0f;
+    index += 4;
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    imuData.accel_y_filter = temp/1000.0f;
+    index += 4;
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    imuData.accel_z_filter = temp/1000.0f;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    imuData.gyro_x_filter = temp/1000.0f;
+    index += 4;
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    imuData.gyro_y_filter = temp/1000.0f;
+    index += 4;
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    imuData.gyro_z_filter = temp/1000.0f;
+    emit imuData_signal(imuData);
+}
+
+void SerialPortThread::CMD_IMU_GYRO_DATA_handle(QByteArray &tempData)
+{
+    int32_t temp = 0;
+    uint16_t index = 0;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    imuData.gyro_x_deg = (float)temp/1000.0f;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    imuData.gyro_y_deg = (float)temp/1000.0f;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    imuData.gyro_z_deg = (float)temp/1000.0f;
+    emit imuData_signal(imuData);
+}
+
+void SerialPortThread::CMD_READ_CORRECT_PARAMETER_handle(QByteArray &tempData)
+{
+    int32_t temp = 0;
+    uint16_t index = 0;
+    QList<double> data;
+    for(uint8_t i=0;i<12;i++)
+    {
+        temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+               (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+        data.append((double)temp/1000000.0f);
+        index += 4;
+    }
+    emit calibrationParameter_signal(data);
+}
+
+void SerialPortThread::CMD_READ_PID_PARAMETER_handle(QByteArray &tempData)
+{
+    int32_t temp = 0;
+    uint16_t index = 0;
+
+    _pid tempPidParameter;
+    QList<_pid> data;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    tempPidParameter.kp = (float)temp;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    tempPidParameter.ki = (float)temp;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    tempPidParameter.kd_feedback = (float)temp;
+    index += 4;
+    data.append(tempPidParameter);
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    tempPidParameter.kp = (float)temp;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    tempPidParameter.ki = (float)temp;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    tempPidParameter.kd_feedback = (float)temp;
+    index += 4;
+    data.append(tempPidParameter);
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    tempPidParameter.kp = (float)temp;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    tempPidParameter.ki = (float)temp;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    tempPidParameter.kd_feedback = (float)temp;
+    data.append(tempPidParameter);
+    emit pidParameter_signal(data);
+}
+
 
 

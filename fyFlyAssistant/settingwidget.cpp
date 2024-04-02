@@ -75,10 +75,9 @@ settingWidget::settingWidget(QWidget *parent)
     openSerialPortPushButton->resize(120,20);
     openSerialPortPushButton->move(10,60);
 
-
     connect(openSerialPortPushButton, &QPushButton::clicked,this,&settingWidget::openSerialPortPushButton_clicked_slot);   /* 连接打开串口响应的单击信号和槽 */
 
-    connect(serialPortComboBox,&myComboBox::clicked_signals,this,[=](){searchSerialPort();});
+    connect(serialPortComboBox,&myComboBox::clicked_signals,this,[=](){searchSerialPort();});                               /* 点击ComboBox执行一次串口扫描 */
 
     searchSerialPort();
 }
@@ -137,6 +136,8 @@ void settingWidget::openSerialPortPushButton_clicked_slot()
         connect(serialPortTask,&SerialPortThread::OpenSerialPortOK_signal,this,&settingWidget::openSerialPortState_slot);  /* 连接串口设备连接状态的处理槽函数 */
         connect(serialPortTask,&SerialPortThread::imuData_signal,this,&settingWidget::imuData_signal);                     /* 串口接收的传感器数据 */
         connect(serialPortTask,&SerialPortThread::flySystemInfoData_signal,this,&settingWidget::flySystemInfoData_signal); /* 串口接收的飞机信息数据 */
+        connect(serialPortTask,&SerialPortThread::calibrationParameter_signal,this,&settingWidget::calibrationParameter_signal); /* 串口接收的测力计校准数据 */
+        connect(serialPortTask,&SerialPortThread::pidParameter_signal,this,&settingWidget::pidParameter_signal);
 
         connect(serialPortThread, &QThread::started, serialPortTask,&SerialPortThread::openSerialPort);                    /* 连接线程启动后的槽函数 */
 

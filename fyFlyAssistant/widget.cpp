@@ -17,11 +17,12 @@ Widget::Widget(QWidget *parent)
     ui->setupUi(this);
 
     windowInit();/* 窗口初始化 */
-    excelWriteTest = new myexcel(this);
+
 }
 
 Widget::~Widget()
 {
+    delete mWaveWindow;
     delete ui;
 }
 
@@ -61,11 +62,29 @@ void Widget::flyModelShowShowButton_clicked_slot()
     }
 }
 
-void Widget::readImuDataButton_clicked_slot()
+void Widget::dataWaveShowShowButton_clicked_slot()
 {
-    readImuDataFlag = 1;
+    if(mWaveWindow->isHidden())
+    {
+        mWaveWindow->show();
+    }
+    else
+    {
+        mWaveWindow->hide();
+    }
 }
 
+void Widget::ellipsoidfitShowShowButton_clicked_slot()
+{
+    if(mEllipsoidfitWidget->isHidden())
+    {
+        mEllipsoidfitWidget->show();
+    }
+    else
+    {
+        mEllipsoidfitWidget->hide();
+    }
+}
 void Widget::showLogMessage_slot(QByteArray logMessage)
 {
     logTextEdit->append(logMessage);
@@ -73,34 +92,18 @@ void Widget::showLogMessage_slot(QByteArray logMessage)
 
 void Widget::imuDataDeal_slot(_imuDataStruct imuData)
 {
-    static int32_t readDataCount = 0;
-    if(1 == readImuDataFlag && readDataCount < 4000)
-    {
-        dataGyrox.append(imuData.roll);
-        dataGyroy.append(imuData.pitch);
-        readDataCount++;
-        qDebug() << readDataCount;
-    }
-    else if(readDataCount >= 4000)
-    {
-        excelWriteTest->saveData(dataGyrox,dataGyroy,dataGyroz);
-        readImuDataFlag = 0;
-        readDataCount = 0;
-        qDebug() << "save done";
-    }
-
     QByteArray dataShowString = "<html><font color='blue'>ICM TEMP" + QByteArray::number(imuData.icm42670pTemperature) + "</font><br>" +
-                                "<font color='blue'>ICM ACC_X" + QByteArray::number(imuData.accel_x) + "</font><br>" +
-                                "<font color='blue'>ICM ACC_Y" + QByteArray::number(imuData.accel_y) + "</font><br>" +
-                                "<font color='blue'>ICM ACC_Z" + QByteArray::number(imuData.accel_z) + "</font><br>" +
+                                "<font color='blue'>ICM ACC_X" + QByteArray::number(imuData.accel_x_filter) + "</font><br>" +
+                                "<font color='blue'>ICM ACC_Y" + QByteArray::number(imuData.accel_y_filter) + "</font><br>" +
+                                "<font color='blue'>ICM ACC_Z" + QByteArray::number(imuData.accel_z_filter) + "</font><br>" +
 
-                                "<font color='blue'>ICM GRY_X" + QByteArray::number(imuData.gyro_x) + "</font><br>" +
-                                "<font color='blue'>ICM GRY_Y" + QByteArray::number(imuData.gyro_y) + "</font><br>" +
-                                "<font color='blue'>ICM GRY_Z" + QByteArray::number(imuData.gyro_z) + "</font><br>" +
+                                "<font color='blue'>ICM GRY_X" + QByteArray::number(imuData.gyro_x_filter) + "</font><br>" +
+                                "<font color='blue'>ICM GRY_Y" + QByteArray::number(imuData.gyro_y_filter) + "</font><br>" +
+                                "<font color='blue'>ICM GRY_Z" + QByteArray::number(imuData.gyro_z_filter) + "</font><br>" +
 
-                                "<font color='blue'>ICM MAG_X" + QByteArray::number(imuData.mag_x) + "</font><br>" +
-                                "<font color='blue'>ICM MAG_Y" + QByteArray::number(imuData.mag_y) + "</font><br>" +
-                                "<font color='blue'>ICM MAG_Z" + QByteArray::number(imuData.mag_z) + "</font><br>" +
+                                "<font color='blue'>ICM MAG_X" + QByteArray::number(imuData.mag_x_filter) + "</font><br>" +
+                                "<font color='blue'>ICM MAG_Y" + QByteArray::number(imuData.mag_y_filter) + "</font><br>" +
+                                "<font color='blue'>ICM MAG_Z" + QByteArray::number(imuData.mag_z_filter) + "</font><br>" +
 
                                 "<font color='blue'>PITCH" + QByteArray::number(imuData.pitch) + "</font><br>" +
                                 "<font color='blue'>ROLL" + QByteArray::number(imuData.roll) + "</font><br>" +
@@ -192,29 +195,29 @@ void Widget::windowInit()
     this->resize(800,600);
     this->setMinimumSize(800, 600);             /* 设置窗口最小尺寸 */
 
-    /* 加载模型 */
-    /* 这里这样实现是想试试应用内加载文件的方式 */
-    if (tempDir.isValid())
-    {
-        const QString tempDirPath = tempDir.path();
-        QDirIterator it("://3dFlyModel", QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
-        while (it.hasNext())
-        {
-            it.next();
-            const QString relativeFilePath = it.filePath().mid(14); // 移除开头的 "://3dFlyModel/"
-            const QString tempFilePath = tempDirPath + "/" + relativeFilePath;
-            if (it.fileInfo().isDir()) {
-                QDir().mkpath(tempFilePath);
-            } else {
-                QFile::copy(it.filePath(), tempFilePath);
-            }
-        }
+//    /* 加载模型 */
+//    /* 这里这样实现是想试试应用内加载文件的方式 */
+//    if (tempDir.isValid())
+//    {
+//        const QString tempDirPath = tempDir.path();
+//        QDirIterator it("://3dFlyModel", QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
+//        while (it.hasNext())
+//        {
+//            it.next();
+//            const QString relativeFilePath = it.filePath().mid(14); // 移除开头的 "://3dFlyModel/"
+//            const QString tempFilePath = tempDirPath + "/" + relativeFilePath;
+//            if (it.fileInfo().isDir()) {
+//                QDir().mkpath(tempFilePath);
+//            } else {
+//                QFile::copy(it.filePath(), tempFilePath);
+//            }
+//        }
 
-        modelWidget = new ModelWindow(tempDirPath + "/model/Su-27.obj", this);
-        modelWidget->resize(600, 400);
-        modelWidget->setRotation(0, 0, 0);
-        modelWidget->show();
-    }
+//        modelWidget = new ModelWindow(tempDirPath + "/model/Su-27.obj", this);
+//        modelWidget->resize(600, 400);
+//        modelWidget->setRotation(0, 0, 0);
+//        modelWidget->show();
+//    }
 
 
     /*设置按钮 */
@@ -247,11 +250,19 @@ void Widget::windowInit()
                                   "QPushButton:hover{border:0px;background:blue;}"
                                   "QPushButton:pressed{border:0px;background:red;}");
 
-    readImuDataButton = new QPushButton(this);
-    readImuDataButton->resize(32,32);
-    readImuDataButton->setText("R");
-    readImuDataButton->move(800-32*4,600-32);
-    connect(readImuDataButton, &QPushButton::clicked,this,&Widget::readImuDataButton_clicked_slot);
+    /* 显示数据波形按键 */
+    dataWaveShowShowButton = new QPushButton(this);
+    dataWaveShowShowButton->resize(32,32);
+    dataWaveShowShowButton->setText("W");
+    dataWaveShowShowButton->move(800-32*5,600-32);
+    connect(dataWaveShowShowButton, &QPushButton::clicked,this,&Widget::dataWaveShowShowButton_clicked_slot);
+
+    /* 椭球拟合显示按钮 */
+    ellipsoidfitShowShowButton = new QPushButton(this);
+    ellipsoidfitShowShowButton->resize(32,32);
+    ellipsoidfitShowShowButton->setText("E");
+    ellipsoidfitShowShowButton->move(800-32*6,600-32);
+    connect(ellipsoidfitShowShowButton, &QPushButton::clicked,this,&Widget::ellipsoidfitShowShowButton_clicked_slot);
 
     /* 新建设置窗口 */
     settingWindow = new QWidget(this);
@@ -263,9 +274,25 @@ void Widget::windowInit()
     mflyBoardDataShowWidget = new flyBoardDataShowWidget(flyDataShowWindow);
     mflyBoardDataShowWidget->setWindowSize(800,300);
 
+    /* 新建数据波形显示窗口 */
+    mWaveWindow = new waveWidget();
+    mWaveWindow->windowInit();
+    mWaveWindow->resize(800,600);
+
+    /* 新建参数设置窗口 */
+    mParamterSettingWidget = new paramterSettingWidget();
+    mParamterSettingWidget->windowInit();
+    mParamterSettingWidget->resize(800,600);
+
+    /* 新建椭球拟合显示窗口 */
+    mEllipsoidfitWidget = new ellipsoidfitWidget();
+    mEllipsoidfitWidget->windowInit();
+    mEllipsoidfitWidget->resize(800,600);
+
+
     /* 创建QTextEdit对象 */
     logTextEdit = new QTextEdit(this);
-    logTextEdit->setGeometry(0, 600, 400, 100); /* 设置QTextEdit的位置和大小 */
+    logTextEdit->setGeometry(0, 500, 400, 100); /* 设置QTextEdit的位置和大小 */
     logTextEdit->show();                        /* 将QTextEdit添加到主窗口 */
 
 //    QSlider *xSlider = new QSlider(Qt::Horizontal,this);
@@ -304,13 +331,19 @@ void Widget::windowInit()
     flySystemInfoDataShowLabel = new QLabel(this);
     flySystemInfoDataShowLabel->setGeometry(600, 200, 200, 200);
 
+    connect(mEllipsoidfitWidget,&ellipsoidfitWidget::correctSend_signal,mSettingWindow,&settingWidget::sendSerialPortData);                 /* 连接校准窗口的数据发送信号到设置串口窗口的数据发送信号 */
+    connect(mParamterSettingWidget,&paramterSettingWidget::sendParameterData_signal,mSettingWindow,&settingWidget::sendSerialPortData);     /* 连接参数设置窗口的数据发送信号到设置串口窗口的数据发送信号 */
+
+    connect(mSettingWindow,&settingWidget::calibrationParameter_signal,mEllipsoidfitWidget,&ellipsoidfitWidget::showFlyBoardCalibrationParameter_slot); /* 飞控发送回来的校准参数 */
     connect(mSettingWindow,&settingWidget::appLogMessage_signal,this,&Widget::showLogMessage_slot);             /* 连接log信息打印的信号,信号发出者:mSettingWindow */
     connect(mSettingWindow,&settingWidget::imuData_signal,this,&Widget::imuDataDeal_slot);                      /* mSettingWindow中创建的串口线程发送的传感器数据到主界面串口进行显示 */
+    connect(mSettingWindow,&settingWidget::imuData_signal,mWaveWindow,&waveWidget::imuDataDeal_slot);           /* mSettingWindow中创建的串口线程发送的传感器数据到波形窗口进行显示 */
     connect(mSettingWindow,&settingWidget::flySystemInfoData_signal,this,&Widget::flySystemInfoData_slot);      /* mSettingWindow中创建的串口线程发送的飞控数据到主界面串口进行显示 */
+    connect(mSettingWindow,&settingWidget::pidParameter_signal,mParamterSettingWidget,&paramterSettingWidget::pidParameterShow_slot);            /* 飞控发回的PID参数 */
 
     connect(settingButton, &QPushButton::clicked,this,&Widget::settingButton_clicked_slot);                     /* 连接设置按键的单击信号和槽 */
     connect(flyBoardDataShowButton, &QPushButton::clicked,this,&Widget::flyBoardDataShowButton_clicked_slot);   /* 连接飞控数据显示按键的单击信号和槽 */
-    connect(flyModelShowShowButton, &QPushButton::clicked,this,&Widget::flyModelShowShowButton_clicked_slot);   /* 连接飞控模型显示按键的单击信号和槽 */
+    connect(flyModelShowShowButton, &QPushButton::clicked,this,&Widget::flyModelShowShowButton_clicked_slot);   /* 连接飞控模型显示按键的单击信号和槽 */  
 }
 
 void Widget::resizeEvent(QResizeEvent *event)
@@ -368,4 +401,10 @@ bool Widget::nativeEvent(const QByteArray &eventType, void *message, qintptr *re
            }
        }
        return false;
+}
+
+void Widget::closeEvent(QCloseEvent *event)
+{
+    Q_UNUSED(event);
+    mWaveWindow->close();
 }
