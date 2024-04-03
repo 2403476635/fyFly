@@ -241,34 +241,37 @@ void Widget::windowInit()
                                   "QPushButton:pressed{border:0px;background:red;}");
 
     /* 飞机模型显示按钮 */
-    flyModelShowShowButton = new QPushButton(this);
+    flyModelShowButton = new QPushButton(this);
     QIcon flyModelShowShowIcon("://images/button/flyModelButton.png");
-    flyModelShowShowButton->setIconSize(QSize(32,32));
-    flyModelShowShowButton->move(800-96,600-32);
-    flyModelShowShowButton->setIcon(flyModelShowShowIcon);
-    flyModelShowShowButton->setStyleSheet( "QPushButton{border:0px;background:white;}"
+    flyModelShowButton->setIconSize(QSize(32,32));
+    flyModelShowButton->move(800-96,600-32);
+    flyModelShowButton->setIcon(flyModelShowShowIcon);
+    flyModelShowButton->setStyleSheet( "QPushButton{border:0px;background:white;}"
                                   "QPushButton:hover{border:0px;background:blue;}"
                                   "QPushButton:pressed{border:0px;background:red;}");
 
     /* 显示数据波形按键 */
-    dataWaveShowShowButton = new QPushButton(this);
-    dataWaveShowShowButton->resize(32,32);
-    dataWaveShowShowButton->setText("W");
-    dataWaveShowShowButton->move(800-32*5,600-32);
-    connect(dataWaveShowShowButton, &QPushButton::clicked,this,&Widget::dataWaveShowShowButton_clicked_slot);
-
+    dataWaveShowButton = new QPushButton(this);
+    dataWaveShowButton->resize(32,32);
+    dataWaveShowButton->setText("W");
+    dataWaveShowButton->move(800-32*5,600-32);
+    connect(dataWaveShowButton, &QPushButton::clicked,this,&Widget::dataWaveShowShowButton_clicked_slot);
     /* 椭球拟合显示按钮 */
-    ellipsoidfitShowShowButton = new QPushButton(this);
-    ellipsoidfitShowShowButton->resize(32,32);
-    ellipsoidfitShowShowButton->setText("E");
-    ellipsoidfitShowShowButton->move(800-32*6,600-32);
-    connect(ellipsoidfitShowShowButton, &QPushButton::clicked,this,&Widget::ellipsoidfitShowShowButton_clicked_slot);
-
+    ellipsoidfitShowButton = new QPushButton(this);
+    ellipsoidfitShowButton->resize(32,32);
+    ellipsoidfitShowButton->setText("E");
+    ellipsoidfitShowButton->move(800-32*6,600-32);
+    connect(ellipsoidfitShowButton, &QPushButton::clicked,this,&Widget::ellipsoidfitShowShowButton_clicked_slot);
+    /* 参数设置显示按钮 */
+    setFlyParameterShowButton = new QPushButton(this);
+    ellipsoidfitShowButton->resize(32,32);
+    ellipsoidfitShowButton->setText("E");
+    ellipsoidfitShowButton->move(800-32*6,600-32);
+/********************************************************窗口的设置***********************************************************************/
     /* 新建设置窗口 */
     settingWindow = new QWidget(this);
     mSettingWindow = new settingWidget(settingWindow);
     mSettingWindow->setWindowSize(800,300);
-
     /* 新建飞控数据显示窗口 */
     flyDataShowWindow = new QWidget(this);
     mflyBoardDataShowWidget = new flyBoardDataShowWidget(flyDataShowWindow);
@@ -343,7 +346,7 @@ void Widget::windowInit()
 
     connect(settingButton, &QPushButton::clicked,this,&Widget::settingButton_clicked_slot);                     /* 连接设置按键的单击信号和槽 */
     connect(flyBoardDataShowButton, &QPushButton::clicked,this,&Widget::flyBoardDataShowButton_clicked_slot);   /* 连接飞控数据显示按键的单击信号和槽 */
-    connect(flyModelShowShowButton, &QPushButton::clicked,this,&Widget::flyModelShowShowButton_clicked_slot);   /* 连接飞控模型显示按键的单击信号和槽 */  
+    connect(flyModelShowButton, &QPushButton::clicked,this,&Widget::flyModelShowShowButton_clicked_slot);   /* 连接飞控模型显示按键的单击信号和槽 */
 }
 
 void Widget::resizeEvent(QResizeEvent *event)
@@ -352,7 +355,7 @@ void Widget::resizeEvent(QResizeEvent *event)
 
     settingButton->move(this->width()-32,this->height()-32);
     flyBoardDataShowButton->move(this->width()-64,this->height()-32);
-    flyModelShowShowButton->move(this->width()-96,this->height()-32);
+    flyModelShowButton->move(this->width()-96,this->height()-32);
 
     mSettingWindow->setWindowSize(this->width(),300);
     mflyBoardDataShowWidget->setWindowSize(this->width(),300);

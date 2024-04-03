@@ -19,6 +19,7 @@ float q0, q1, q2, q3;	// quaternion of sensor frame relative to auxiliary frame
 float integralFBx, integralFBy, integralFBz;  // integral error terms scaled by Ki
 float invSampleFreq;
 float roll_mahony, pitch_mahony, yaw_mahony;
+float roll_deg_mahony, pitch_deg_mahony, yaw_deg_mahony;
 char anglesComputed;
 //*-*-*-**-----------------------------------------------------------------------------
 static float invSqrt(float x)  // if use other platform please use float Mahony_invSqrt(float x)
@@ -29,7 +30,7 @@ static float invSqrt(float x)  // if use other platform please use float Mahony_
 }
 
 
-#define twoKpDef	(2.0f * 20.0f)	// 2 * proportional gain
+#define twoKpDef	(2.0f * 10.0f)	// 2 * proportional gain
 #define twoKiDef	(2.0f * 0.2f)	// 2 * integral gain
 void Mahony_Init(float sampleFrequency)
 {
@@ -298,23 +299,39 @@ void MahonyAHRSupdateIMU(float gx, float gy, float gz, float ax, float ay, float
 void Mahony_computeAngles()
 {
 	arm_atan2_f32(q0*q1 + q2*q3, 0.5f - q1*q1 - q2*q2,&roll_mahony);  
+	roll_deg_mahony = roll_mahony;
 	roll_mahony *= 57.29578f;  
-	pitch_mahony =57.29578f * asinf(-2.0f * (q1*q3 - q0*q2));
+	pitch_deg_mahony = asinf(-2.0f * (q1*q3 - q0*q2));
+	pitch_mahony = pitch_deg_mahony * 57.29578f;
 	arm_atan2_f32(q1*q2 + q0*q3, 0.5f - q2*q2 - q3*q3,&yaw_mahony); 
+	yaw_deg_mahony = yaw_mahony;
 	yaw_mahony *=57.29578f;
 	anglesComputed = 1;
 }
-float getRoll() {
+float getRoll(void) {
 	if (!anglesComputed) Mahony_computeAngles();
 	return roll_mahony;
 }
-float getPitch() {
+float getPitch(void) {
 	if (!anglesComputed) Mahony_computeAngles();
 	return pitch_mahony;
 }
-float getYaw() {
+float getYaw(void) {
 	if (!anglesComputed) Mahony_computeAngles();
 	return yaw_mahony;
+}
+
+float getDegRoll(void) {
+	if (!anglesComputed) Mahony_computeAngles();
+	return roll_deg_mahony;
+}
+float getDegPitch(void) {
+	if (!anglesComputed) Mahony_computeAngles();
+	return pitch_deg_mahony;
+}
+float getDegYaw(void) {
+	if (!anglesComputed) Mahony_computeAngles();
+	return yaw_deg_mahony;
 }
 //============================================================================================
 // END OF CODE

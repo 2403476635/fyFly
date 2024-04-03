@@ -8,6 +8,9 @@
 #include "common.h"
 #include "qcustomplot.h"
 
+
+#define SHOW_RANGE 10000
+
 class waveWidget : public QWidget
 {
     Q_OBJECT
@@ -43,6 +46,8 @@ private:
     QTimer *refreshTimer;
 
     uint8_t pauseWaveDataFlag = 0;
+
+    uint32_t waveShowRange = 0;/* 设置X轴波形显示的范围 */
 protected:
     void resizeEvent(QResizeEvent *event) override;
 };

@@ -7,7 +7,7 @@
 
 #define PWM_MAX_RANGE 2000
 
-extern uint16_t outPwmValue[4];
+extern int32_t outPwmValue[4];
 
 void motoInit(void);
 void electricalCalibration(const int16_t *channel,_flyStateStruct *state);

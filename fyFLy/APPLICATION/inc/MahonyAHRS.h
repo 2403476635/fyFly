@@ -23,4 +23,7 @@ float getYaw(void);
 float getRollRadians(void);
 float getPitchRadians(void);
 float getYawRadians(void);
+float getDegRoll(void);
+float getDegPitch(void);
+float getDegYaw(void);
 #endif

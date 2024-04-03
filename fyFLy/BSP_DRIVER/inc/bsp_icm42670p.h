@@ -15,6 +15,7 @@ typedef void (*ICM42670P_irq_handler)(void);
 
 
 int icm42670p_Init(void);
+void checkIcm4260pSettings(void);
 	
 int startAccel(uint16_t odr, uint16_t fsr);
 int startGyro(uint16_t odr, uint16_t fsr);

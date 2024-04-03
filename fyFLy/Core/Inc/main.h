@@ -66,6 +66,8 @@ void Error_Handler(void);
 #define ICM42670P_CS_GPIO_Port GPIOC
 #define SPL06_CS_Pin GPIO_PIN_1
 #define SPL06_CS_GPIO_Port GPIOB
+#define W25QXX_CS_Pin GPIO_PIN_15
+#define W25QXX_CS_GPIO_Port GPIOD
 
 /* USER CODE BEGIN Private defines */
 

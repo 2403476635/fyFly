@@ -132,7 +132,7 @@ uint8_t lis3mdl_Init(void)
   /*
    * Set Output Data Rate
    */
-  lis3mdl_data_rate_set(&dev_ctx, LIS3MDL_UHP_155Hz);
+  lis3mdl_data_rate_set(&dev_ctx, LIS3MDL_MP_560Hz);
   /*
    * Set full scale
    */  

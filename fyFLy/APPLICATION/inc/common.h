@@ -1,24 +1,20 @@
 #ifndef __COMMON_H__
 #define __COMMON_H__
 
-#include "main.h"
+#include <stdint.h>
+
 /* 调试的方式 */
 /* 默认USB发送的数据都是做了阻塞发送检测的，所以在USB没插入时，USB数据是检测不到发送成功的，会导致卡死 */
-//#define WIRELESS_DEBUG 					
-#define USB_DEBUG 
+#define WIRELESS_DEBUG 					
+//#define USB_DEBUG 
 
 #define LIMT(X,MIN,MAX) ( (X) < (MIN) ? (MIN) : ( (X) > (MAX) ? (MAX) : (X) ) )	/* 限幅 */
 
-/* 飞机状态 */
-typedef struct 
-{
-	uint8_t flyTakeOffState;
- 	uint8_t flyLockState;
-	uint8_t rcState;
-}_flyStateStruct;
-extern _flyStateStruct flyState;
+#define USE_MAHONY_AHRS 
+//#define USE_EKF 
 
-enum ENUM_FLY_STATE
+/* 飞机状态 */
+typedef enum 
 {
 	FLY_LOCK = 0,								/* 飞控上锁 */
 	FLY_UNLOCK,									/* 飞控解锁 */
@@ -33,9 +29,17 @@ enum ENUM_FLY_STATE
 	TAKE_OFF_DONE,							/* 起飞完成 */
 	ELECTRICAL_CAIBRATION,			/* 电调校准 */
 	EMERGENCY_STOP							/* 急停 */
-};
+}ENUM_FLY_STATE;
 
-typedef struct 
+typedef struct  
+{
+	ENUM_FLY_STATE flyTakeOffState;
+ 	ENUM_FLY_STATE flyLockState;
+	ENUM_FLY_STATE rcState;
+}_flyStateStruct;
+extern _flyStateStruct flyState;
+
+typedef struct
 {
 	uint32_t systemClockFrequency; /* 记录系统的运行频率 */
 	uint8_t accGyroSensorInitState;
@@ -55,7 +59,6 @@ enum ENUM_SYS_STATE
 	BARO_SENSOR_INIT_ERROR,								/* 气压计初始化失败 */
 	MAG_SENSOR_INIT_SUCCESS,							/* 磁力计初始化成功 */
 	MAG_SENSOR_INIT_ERROR									/* 磁力计初始化失败 */
-	
 };
 
 /* 用于串口通信 */
@@ -66,21 +69,28 @@ enum ENUM_FRAME_ADDRESS
 };
 enum ENUM_FRAME_CMD
 {
-		CMD_ORIGINAL_IMU_DATA = 0,                          /* 发送IMU的原始数据 */
-		CMD_FLY_INFO,																				/* 飞行信息 */
-		CMD_RESET_DEVICE,                                   /* 设备复位 */
-		CMD_SEND_BIN_FILE_SIZE,                             /* 发送的固件文件大小 */
-		CMD_SEND_BIN_FILE_PACK,                             /* 固件数据包 */
-		CMD_SEND_BIN_FILE_END,                              /* 固件数据发送完成 */
-		CMD_RUN_IAP,                                        /* 运行IAP程序 */
-		CMD_NOW_IAP_STATE,																	/* 当前运行IAP程序 */
-		CMD_NOW_APP_STATE,                                  /* 当前运行APP程序 */
-		CMD_LOG_MESSAGE,
-		CMD_SHOW_DEVICE_INFO
+    CMD_ORIGINAL_IMU_DATA = 0,                          /* 发送IMU的原始数据 */
+		CMD_IMU_ACCEL_DATA,																			/* 发送加速度转换后的值 */
+		CMD_IMU_GYRO_DATA,																			/* 发送角速度转换后的值 */
+    CMD_READ_CORRECT_PARAMETER,                         /* 读取磁力计校正数据 */
+    CMD_SEND_CORRECT_PARAMETER,                         /* 发送磁力计校正数据 */
+    CMD_READ_PID_PARAMETER,                             /* 读取PID参数信息 */
+    CMD_SET_PID_PARAMETER,                              /* 设置PID参数信息 */
+    CMD_FLY_INFO,																				/* 飞行信息 */
+    CMD_RESET_DEVICE,                                   /* 设备复位 */
+    CMD_SEND_BIN_FILE_SIZE,                             /* 发送的固件文件大小 */
+    CMD_SEND_BIN_FILE_PACK,                             /* 固件数据包 */
+    CMD_SEND_BIN_FILE_END,                              /* 固件数据发送完成 */
+    CMD_RUN_IAP,                                        /* 运行IAP程序 */
+    CMD_NOW_IAP_STATE,																	/* 当前运行IAP程序 */
+    CMD_NOW_APP_STATE,                                  /* 当前运行APP程序 */
+    CMD_LOG_MESSAGE,
+    CMD_SHOW_DEVICE_INFO,
+    CMD_ACK                                             /* 响应 */
 };
 
 /* 传感器数据 */
-typedef struct
+typedef struct 
 {
 	float lis3mdlTemperature;
 	float mag_x;
@@ -103,6 +113,29 @@ typedef struct
 	float roll;
 	float yaw;
 	
+	float mag_x_filter;
+	float mag_y_filter;
+	float mag_z_filter;
+	
+	float accel_x_filter;
+	float accel_y_filter;
+	float accel_z_filter;
+	
+	float gyro_x_filter;
+	float gyro_y_filter;
+	float gyro_z_filter;
+	/* g/s/s */
+	float accel_x_gss;
+	float accel_y_gss;
+	float accel_z_gss;
+	/* °/s */
+	float gyro_x_deg;
+	float gyro_y_deg;
+	float gyro_z_deg;
+	/* rad/s */
+	float gyro_x_rad;
+	float gyro_y_rad;
+	float gyro_z_rad;
 }_imuDataStruct;
 
 /* 遥控的通道 */	
@@ -119,8 +152,13 @@ enum ENUM_CH
 	CH_NUM
 }; 
 
+#define PI (3.141592654f)
 
+#define MAX_ANGULAR_VELOCITY (1500)
+#define MAX_ANGULAR_VELOCITY_PID_OUT (1500)
 
+#define GYRORANGE  1000
+#define ACCELRANGE 8
 #endif /* __RINGBUFFER_H__ */
 
 

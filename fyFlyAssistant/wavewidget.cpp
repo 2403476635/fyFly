@@ -34,7 +34,7 @@ void waveWidget::windowInit()
     waveShowPlot->yAxis->setLabel("Y轴");
 
     waveShowPlot->yAxis->rescale();
-    waveShowPlot->xAxis->setRange(0, 4000);
+    waveShowPlot->xAxis->setRange(0, SHOW_RANGE);
     waveShowPlot->setGeometry(0,0,this->width()-80,this->height()-64);
 
     /* 用于改变坐标轴的滑块 */
@@ -188,28 +188,28 @@ void waveWidget::imuDataDeal_slot(_imuDataStruct imuData)
         waveShowPlot->xAxis->setRange(x, 4000, Qt::AlignRight);
         waveShowPlot->yAxis->rescale();
         x++;
-        if(0 == x%4000)
+        if(0 == x%SHOW_RANGE)
         {
             if(dataShowCheckBox.at(0)->checkState())
-                waveShowPlot->graph(0)->data()->removeBefore(x-4000);
+                waveShowPlot->graph(0)->data()->removeBefore(x-SHOW_RANGE);
             if(dataShowCheckBox.at(1)->checkState())
-                waveShowPlot->graph(1)->data()->removeBefore(x-4000);
+                waveShowPlot->graph(1)->data()->removeBefore(x-SHOW_RANGE);
             if(dataShowCheckBox.at(2)->checkState())
-                waveShowPlot->graph(2)->data()->removeBefore(x-4000);
+                waveShowPlot->graph(2)->data()->removeBefore(x-SHOW_RANGE);
             if(dataShowCheckBox.at(3)->checkState())
-                waveShowPlot->graph(3)->data()->removeBefore(x-4000);
+                waveShowPlot->graph(3)->data()->removeBefore(x-SHOW_RANGE);
             if(dataShowCheckBox.at(4)->checkState())
-                waveShowPlot->graph(4)->data()->removeBefore(x-4000);
+                waveShowPlot->graph(4)->data()->removeBefore(x-SHOW_RANGE);
             if(dataShowCheckBox.at(5)->checkState())
-                waveShowPlot->graph(5)->data()->removeBefore(x-4000);
+                waveShowPlot->graph(5)->data()->removeBefore(x-SHOW_RANGE);
             if(dataShowCheckBox.at(6)->checkState())
-                waveShowPlot->graph(6)->data()->removeBefore(x-4000);
+                waveShowPlot->graph(6)->data()->removeBefore(x-SHOW_RANGE);
             if(dataShowCheckBox.at(7)->checkState())
-                waveShowPlot->graph(7)->data()->removeBefore(x-4000);
+                waveShowPlot->graph(7)->data()->removeBefore(x-SHOW_RANGE);
             if(dataShowCheckBox.at(8)->checkState())
-                waveShowPlot->graph(8)->data()->removeBefore(x-4000);
+                waveShowPlot->graph(8)->data()->removeBefore(x-SHOW_RANGE);
 
-            waveShowPlot->xAxis->setRange(x, 4000, Qt::AlignRight);
+            waveShowPlot->xAxis->setRange(x, SHOW_RANGE, Qt::AlignRight);
         }
     }
 

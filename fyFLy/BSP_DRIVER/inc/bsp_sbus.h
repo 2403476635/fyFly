@@ -25,7 +25,6 @@ typedef struct
 }SBUS_CH_Struct;
 
 extern SBUS_CH_Struct sbusCh;
-extern uint8_t sbusBuffer[25];
 
 uint8_t sbusDataAnalysis(uint8_t *buf);
 void Sbus_Decode(uint8_t data);

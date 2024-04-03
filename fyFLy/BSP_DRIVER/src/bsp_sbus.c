@@ -1,7 +1,6 @@
 #include "bsp_sbus.h"
 
 SBUS_CH_Struct sbusCh;
-uint8_t sbusBuffer[25];
 
 uint8_t sbusDataAnalysis(uint8_t *buf)
 {

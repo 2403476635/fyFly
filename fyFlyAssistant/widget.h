@@ -50,9 +50,10 @@ private:
 
     QPushButton *settingButton = nullptr;               /* 设置按钮 */
     QPushButton *flyBoardDataShowButton = nullptr;      /* 飞控数据显示按钮 */
-    QPushButton *flyModelShowShowButton = nullptr;      /* 飞控姿态模型显示按钮 */
-    QPushButton *dataWaveShowShowButton = nullptr;      /* 数据波形显示按钮 */
-    QPushButton *ellipsoidfitShowShowButton = nullptr;  /* 矫正窗口按键 */
+    QPushButton *flyModelShowButton = nullptr;      /* 飞控姿态模型显示按钮 */
+    QPushButton *dataWaveShowButton = nullptr;          /* 数据波形显示按钮 */
+    QPushButton *ellipsoidfitShowButton = nullptr;      /* 矫正窗口按键 */
+    QPushButton *setFlyParameterShowButton = nullptr;   /* 参数设置窗口按键 */
 
     QLabel *imuDataShowLabel = nullptr;                 /* 显示传感器的数据 */
     QLabel *flySystemInfoDataShowLabel = nullptr;       /* 显示飞控系统的数据 */

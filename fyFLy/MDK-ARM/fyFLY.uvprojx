@@ -80,9 +80,9 @@
             <nStopB2X>0</nStopB2X>
           </BeforeMake>
           <AfterMake>
-            <RunUserProg1>0</RunUserProg1>
-            <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name></UserProg1Name>
+            <RunUserProg1>1</RunUserProg1>
+            <RunUserProg2>1</RunUserProg2>
+            <UserProg1Name>$K\ARM\ARMCC\bin\fromelf.exe --bin --output=@L.bin !L</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -328,8 +328,8 @@
             <uC99>1</uC99>
             <uGnu>0</uGnu>
             <useXO>0</useXO>
-            <v6Lang>5</v6Lang>
-            <v6LangP>3</v6LangP>
+            <v6Lang>1</v6Lang>
+            <v6LangP>1</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
             <v6Lto>0</v6Lto>
@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx,__CC_ARM,__TARGET_FPU_VFP,ARM_MATH_CM4,ARM_MATH_DSP</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../USB_DEVICE/App;../USB_DEVICE/Target;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS-DSP/PrivateInclude;../Drivers/CMSIS-DSP/Include;../Drivers/CMSIS/Include;../APPLICATION/inc;../BSP_DRIVER/inc;../BSP_DRIVER/Invn;../BSP_DRIVER/imu;../BSP_DRIVER</IncludePath>
+              <IncludePath>../Core/Inc;../USB_DEVICE/App;../USB_DEVICE/Target;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS-DSP/PrivateInclude;../Drivers/CMSIS-DSP/Include;../Drivers/CMSIS/Include;../BSP_DRIVER/inc;../BSP_DRIVER/Invn;../BSP_DRIVER/imu;../BSP_DRIVER;..\APPLICATION\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -352,7 +352,7 @@
             <NoWarn>0</NoWarn>
             <uSurpInc>0</uSurpInc>
             <useXO>0</useXO>
-            <ClangAsOpt>1</ClangAsOpt>
+            <ClangAsOpt>4</ClangAsOpt>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define></Define>
@@ -441,7 +441,7 @@
                     <v6LangP>0</v6LangP>
                     <vShortEn>2</vShortEn>
                     <vShortWch>2</vShortWch>
-                    <v6Lto>2</v6Lto>
+                    <v6Lto>0</v6Lto>
                     <v6WtE>2</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
@@ -502,7 +502,7 @@
                     <v6LangP>0</v6LangP>
                     <vShortEn>2</vShortEn>
                     <vShortWch>2</vShortWch>
-                    <v6Lto>2</v6Lto>
+                    <v6Lto>0</v6Lto>
                     <v6WtE>2</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
@@ -558,7 +558,7 @@
                     <v6LangP>0</v6LangP>
                     <vShortEn>2</vShortEn>
                     <vShortWch>2</vShortWch>
-                    <v6Lto>2</v6Lto>
+                    <v6Lto>0</v6Lto>
                     <v6WtE>2</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
@@ -614,7 +614,7 @@
                     <v6LangP>0</v6LangP>
                     <vShortEn>2</vShortEn>
                     <vShortWch>2</vShortWch>
-                    <v6Lto>2</v6Lto>
+                    <v6Lto>0</v6Lto>
                     <v6WtE>2</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
@@ -670,7 +670,7 @@
                     <v6LangP>0</v6LangP>
                     <vShortEn>2</vShortEn>
                     <vShortWch>2</vShortWch>
-                    <v6Lto>2</v6Lto>
+                    <v6Lto>0</v6Lto>
                     <v6WtE>2</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
@@ -726,7 +726,7 @@
                     <v6LangP>0</v6LangP>
                     <vShortEn>2</vShortEn>
                     <vShortWch>2</vShortWch>
-                    <v6Lto>2</v6Lto>
+                    <v6Lto>0</v6Lto>
                     <v6WtE>2</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
@@ -1000,11 +1000,6 @@
           <GroupName>BSP_DRIVER</GroupName>
           <Files>
             <File>
-              <FileName>bsp_uartCallBack.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\BSP_DRIVER\src\bsp_uartCallBack.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_icm42670p.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\BSP_DRIVER\src\bsp_icm42670p.c</FilePath>
@@ -1065,9 +1060,34 @@
               <FilePath>..\APPLICATION\inc\common.h</FilePath>
             </File>
             <File>
-              <FileName>ringBuffer.c</FileName>
+              <FileName>fyFilter.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\APPLICATION\src\ringBuffer.c</FilePath>
+              <FilePath>..\APPLICATION\src\fyFilter.c</FilePath>
+            </File>
+            <File>
+              <FileName>fyPid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APPLICATION\src\fyPid.c</FilePath>
+            </File>
+            <File>
+              <FileName>flyRcCtr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APPLICATION\src\flyRcCtr.c</FilePath>
+            </File>
+            <File>
+              <FileName>flyStateCtr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APPLICATION\src\flyStateCtr.c</FilePath>
+            </File>
+            <File>
+              <FileName>fyCalibration.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APPLICATION\src\fyCalibration.c</FilePath>
+            </File>
+            <File>
+              <FileName>fyAttitudeCtr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APPLICATION\src\fyAttitudeCtr.c</FilePath>
             </File>
             <File>
               <FileName>dataTransfer.c</FileName>
@@ -1112,7 +1132,7 @@
                     <v6LangP>0</v6LangP>
                     <vShortEn>2</vShortEn>
                     <vShortWch>2</vShortWch>
-                    <v6Lto>2</v6Lto>
+                    <v6Lto>0</v6Lto>
                     <v6WtE>2</v6WtE>
                     <v6Rtti>2</v6Rtti>
                     <VariousControls>
@@ -1131,14 +1151,9 @@
               <FilePath>..\APPLICATION\src\MahonyAHRS.c</FilePath>
             </File>
             <File>
-              <FileName>flyStateCtr.c</FileName>
+              <FileName>ringBuffer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\APPLICATION\src\flyStateCtr.c</FilePath>
-            </File>
-            <File>
-              <FileName>flyRcCtr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\APPLICATION\src\flyRcCtr.c</FilePath>
+              <FilePath>..\APPLICATION\src\ringBuffer.c</FilePath>
             </File>
             <File>
               <FileName>motoCtr.c</FileName>
@@ -1151,9 +1166,14 @@
               <FilePath>..\APPLICATION\src\app.c</FilePath>
             </File>
             <File>
-              <FileName>fyFilter.c</FileName>
+              <FileName>w25qxx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\APPLICATION\src\fyFilter.c</FilePath>
+              <FilePath>..\APPLICATION\src\w25qxx.c</FilePath>
+            </File>
+            <File>
+              <FileName>saveParameter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APPLICATION\src\saveParameter.c</FilePath>
             </File>
           </Files>
         </Group>

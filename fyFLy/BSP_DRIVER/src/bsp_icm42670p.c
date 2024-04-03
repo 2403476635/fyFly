@@ -10,6 +10,8 @@ uint32_t step_cnt_ovflw;
 // This is used by the event callback (not object aware), declared static
 static inv_imu_sensor_event_t* event;
 
+
+
 int icm42670p_Init(void)
 {
 	struct inv_imu_serif icm_serif;
@@ -37,8 +39,17 @@ int icm42670p_Init(void)
   }
   if (who_am_i != INV_IMU_WHOAMI) {
     return -3;
-  }
+  }	
+	
 	return 0;
+}
+
+GYRO_CONFIG0_FS_SEL_t getGyroFsr = 0;
+ACCEL_CONFIG0_FS_SEL_t getAccelFsr = 0;
+void checkIcm4260pSettings(void)
+{
+	inv_imu_get_gyro_fsr(&icm_driver,&getGyroFsr);
+	inv_imu_get_accel_fsr(&icm_driver,&getAccelFsr);
 }
 
 static int spi_write(struct inv_imu_serif* serif, uint8_t reg,const uint8_t * wbuffer, uint32_t wlen)

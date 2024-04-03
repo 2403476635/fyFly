@@ -39,8 +39,8 @@ void paramterSettingWidget::windowInit()
     innerRingYawLabel->setGeometry(0, 40+40*2, 100, 40);
 
     innerRingPitchKpLineEdit->setGeometry(100+50*0+10*0, 40+40*0+10, 50, 20);
-    innerRingPitchKdLineEdit->setGeometry(100+50*1+10*1, 40+40*0+10, 50, 20);
-    innerRingPitchKiLineEdit->setGeometry(100+50*2+10*2, 40+40*0+10, 50, 20);
+    innerRingPitchKiLineEdit->setGeometry(100+50*1+10*1, 40+40*0+10, 50, 20);
+    innerRingPitchKdLineEdit->setGeometry(100+50*2+10*2, 40+40*0+10, 50, 20);
 
     innerRingRollKpLineEdit->setGeometry(100+50*0+10*0, 40+40*1+10, 50, 20);
     innerRingRollKiLineEdit->setGeometry(100+50*1+10*1, 40+40*1+10, 50, 20);

@@ -1,7 +1,5 @@
 #include "ringBuffer.h"
 
-_RingBuffer VCP_RxRingBuffer;
-
 /******************************************************************************环形缓冲区**************************************************************************************/
 /*初始化环形缓冲区*/
 void RingBuffer_Init(_RingBuffer *ringbuffer)
@@ -82,25 +80,5 @@ unsigned short GetDataLength(unsigned char *DataBuffer)
 	}
 	return DataLen;
 }
-/*帧校验*/
-unsigned char FrameDataCheck(unsigned char* OneFrameData)
-{
-	unsigned char sumcheck = 0;
-	unsigned char addcheck = 0;
-	unsigned char Len = OneFrameData[3];
-	
-	for(unsigned char i=0; i < Len + 4 ; i++)
-	{
-			sumcheck += OneFrameData[i]; //从帧头开始，对每一字节进行求和，直到DATA区结束
-			addcheck += sumcheck; //每一字节的求和操作，进行一次sumcheck的累加
-	}
-	
-	if(sumcheck == OneFrameData[Len + 4] && addcheck == OneFrameData[Len + 5])
-	{
-			return 1; //校验通过
-	}
-	else
-	{
-			return 0; //校验失败
-	}
-}
+
+

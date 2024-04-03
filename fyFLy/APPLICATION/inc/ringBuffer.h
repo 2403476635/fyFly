@@ -20,11 +20,6 @@ unsigned char WriteBytes(_RingBuffer *ringbuffer, unsigned char *Bytes,unsigned 
 unsigned char ReadOneByte_RingBuffer(_RingBuffer *ringbuffer,unsigned char *OneByteData);
 unsigned char ReadBytes(_RingBuffer *ringbuffer,unsigned char *ReadBuffer, unsigned short Len);
 unsigned short GetDataLength(unsigned char *DataBuffer);
-unsigned char FrameDataCheck(unsigned char* OneFrameData);
-
-
-/* 缓存内存地址在SRAM内存上，大小:16Kbytes */
-extern _RingBuffer VCP_RxRingBuffer __attribute__((at(0x2001C000))); 
 
 #endif /* __RINGBUFFER_H__ */
 
