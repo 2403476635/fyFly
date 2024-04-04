@@ -3,21 +3,22 @@
 settingWidget::settingWidget(QWidget *parent)
     : QWidget{parent}
 {
-    settingWindow = parent;
-    settingWindow->setStyleSheet("background-color: red;");
-    settingWindow->setWindowFlags(Qt::FramelessWindowHint); /* 设置窗口为无边框 */
-    settingWindow->hide();
+    this->setParent(parent);
+    this->setWindowTitle("设置");
+    this->setStyleSheet("background-color: red;");
+    this->setWindowFlags(Qt::FramelessWindowHint); /* 设置窗口为无边框 */
+    this->hide();
 
     /* 加载显示的图标 */
     waitOpenSerialPort.addFile("://images/state/waitConnetct.png");
     openSerialPortSuccess.addFile("://images/state/connectSuccess.png");
 
     /* 创建settingTabWidget */
-    settingTabWidget = new QTabWidget(settingWindow);
+    settingTabWidget = new QTabWidget(this);
     settingTabWidget->setTabShape(QTabWidget::Rounded);
     settingTabWidget->setTabPosition(QTabWidget::South);
     /* 创建connectSelectPageWidget连接设置界面 */
-    QWidget *connectSelectPageWidget = new QWidget(settingWindow);
+    QWidget *connectSelectPageWidget = new QWidget(this);
 
     connectSelectPageWidget->setStyleSheet("background-color: lightblue;"); /* 设置背景颜色，测试用 */
 
@@ -89,22 +90,7 @@ settingWidget::~settingWidget()
 
 void settingWidget::setWindowSize(int width, int height)
 {
-    settingWindow->resize(width, height);
-}
-
-void settingWidget::windowShow()
-{
-    settingWindow->show();
-}
-
-void settingWidget::windowHide()
-{
-    settingWindow->hide();
-}
-
-bool settingWidget::isHidden() const
-{
-    return settingWindow->isHidden();
+    this->resize(width, height);
 }
 
 void settingWidget::openSerialPortPushButton_clicked_slot()
@@ -138,6 +124,7 @@ void settingWidget::openSerialPortPushButton_clicked_slot()
         connect(serialPortTask,&SerialPortThread::flySystemInfoData_signal,this,&settingWidget::flySystemInfoData_signal); /* 串口接收的飞机信息数据 */
         connect(serialPortTask,&SerialPortThread::calibrationParameter_signal,this,&settingWidget::calibrationParameter_signal); /* 串口接收的测力计校准数据 */
         connect(serialPortTask,&SerialPortThread::pidParameter_signal,this,&settingWidget::pidParameter_signal);
+        connect(serialPortTask,&SerialPortThread::originalSensorForCalibrationData_signal,this,&settingWidget::originalSensorForCalibrationData_signal);
 
         connect(serialPortThread, &QThread::started, serialPortTask,&SerialPortThread::openSerialPort);                    /* 连接线程启动后的槽函数 */
 

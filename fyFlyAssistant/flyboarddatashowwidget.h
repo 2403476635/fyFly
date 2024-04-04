@@ -18,12 +18,6 @@ public:
     explicit flyBoardDataShowWidget(QWidget *parent = nullptr);
 
     void setWindowSize(int width, int height);      /* 设置窗口大小 */
-
-    void windowShow();                              /* 窗口显示 */
-
-    void windowHide();                              /* 窗口隐藏 */
-
-    bool isHidden() const;                          /* 当前的窗口状态 */
 signals:
 
 private:

@@ -10,6 +10,7 @@ waveWidget::waveWidget(QWidget *parent)
 
 void waveWidget::windowInit()
 {
+    this->setWindowTitle("波形");
     this->setMinimumSize(800, 600);
     waveShowPlot = new QCustomPlot(this);
     waveShowPlot->setOpenGl(true);                  /* 使能OPENGL的使用 */

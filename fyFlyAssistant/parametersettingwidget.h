@@ -44,9 +44,18 @@ private:
     QLabel *outerRingPitchLabel = nullptr;
     QLabel *outerRingRollLabel = nullptr;
     QLabel *outerRingYawLabel = nullptr;
-    QLineEdit *outerRingPitchLineEdit = nullptr;
-    QLineEdit *outerRingRollLineEdit = nullptr;
-    QLineEdit *outerRingYawLineEdit = nullptr;
+
+    QLineEdit *outerRingPitchKpLineEdit = nullptr;
+    QLineEdit *outerRingPitchKiLineEdit = nullptr;
+    QLineEdit *outerRingPitchKdLineEdit = nullptr;
+
+    QLineEdit *outerRingRollKpLineEdit = nullptr;
+    QLineEdit *outerRingRollKiLineEdit = nullptr;
+    QLineEdit *outerRingRollKdLineEdit = nullptr;
+
+    QLineEdit *outerRingYawKpLineEdit = nullptr;
+    QLineEdit *outerRingYawKiLineEdit = nullptr;
+    QLineEdit *outerRingYawKdLineEdit = nullptr;
 
     QPushButton *readParameterButton = nullptr;     /* 读取参数按键 */
     QPushButton *setParameterButton = nullptr;      /* 设置参数按键 */

@@ -9,14 +9,24 @@ paramterSettingWidget::paramterSettingWidget(QWidget *parent)
 
 void paramterSettingWidget::windowInit()
 {
+    this->setWindowTitle("参数配置");
     titleLabel1 = new QLabel(this);
     titleLabel1->setText("第一组参数");
     titleLabel1->setGeometry(0, 40*0, 100, 40);
     titleLabel1->show();
 
+    titleLabel2 = new QLabel(this);
+    titleLabel2->setText("第二组参数");
+    titleLabel2->setGeometry(0, 40*4, 100, 40);
+    titleLabel2->show();
+
     innerRingPitchLabel = new QLabel(this);
     innerRingRollLabel = new QLabel(this);
     innerRingYawLabel = new QLabel(this);
+
+    outerRingPitchLabel = new QLabel(this);
+    outerRingRollLabel = new QLabel(this);
+    outerRingYawLabel = new QLabel(this);
 
     innerRingPitchKpLineEdit = new QLineEdit(this);
     innerRingPitchKiLineEdit = new QLineEdit(this);
@@ -30,13 +40,34 @@ void paramterSettingWidget::windowInit()
     innerRingYawKiLineEdit = new QLineEdit(this);
     innerRingYawKdLineEdit = new QLineEdit(this);
 
+    outerRingPitchKpLineEdit = new QLineEdit(this);
+    outerRingPitchKiLineEdit = new QLineEdit(this);
+    outerRingPitchKdLineEdit = new QLineEdit(this);
+
+    outerRingRollKpLineEdit = new QLineEdit(this);
+    outerRingRollKiLineEdit = new QLineEdit(this);
+    outerRingRollKdLineEdit = new QLineEdit(this);
+
+    outerRingYawKpLineEdit = new QLineEdit(this);
+    outerRingYawKiLineEdit = new QLineEdit(this);
+    outerRingYawKdLineEdit = new QLineEdit(this);
+
     innerRingPitchLabel->setText("Pitch:");
     innerRingRollLabel->setText("Roll:");
     innerRingYawLabel->setText("Yaw:");
+
+    outerRingPitchLabel->setText("Pitch:");
+    outerRingRollLabel->setText("Roll:");
+    outerRingYawLabel->setText("Yaw:");
+
     /* 设置坐标 */
     innerRingPitchLabel->setGeometry(0, 40+40*0, 100, 40);
     innerRingRollLabel->setGeometry(0, 40+40*1, 100, 40);
     innerRingYawLabel->setGeometry(0, 40+40*2, 100, 40);
+
+    outerRingPitchLabel->setGeometry(0, 40*5+40*0, 100, 40);
+    outerRingRollLabel->setGeometry(0, 40*5+40*1, 100, 40);
+    outerRingYawLabel->setGeometry(0, 40*5+40*2, 100, 40);
 
     innerRingPitchKpLineEdit->setGeometry(100+50*0+10*0, 40+40*0+10, 50, 20);
     innerRingPitchKiLineEdit->setGeometry(100+50*1+10*1, 40+40*0+10, 50, 20);
@@ -49,6 +80,18 @@ void paramterSettingWidget::windowInit()
     innerRingYawKpLineEdit->setGeometry(100+50*0+10*0, 40+40*2+10, 50, 20);
     innerRingYawKiLineEdit->setGeometry(100+50*1+10*1, 40+40*2+10, 50, 20);
     innerRingYawKdLineEdit->setGeometry(100+50*2+10*2, 40+40*2+10, 50, 20);
+
+    outerRingPitchKpLineEdit->setGeometry(100+50*0+10*0, 40*5+40*0+10, 50, 20);
+    outerRingPitchKiLineEdit->setGeometry(100+50*1+10*1, 40*5+40*0+10, 50, 20);
+    outerRingPitchKdLineEdit->setGeometry(100+50*2+10*2, 40*5+40*0+10, 50, 20);
+
+    outerRingRollKpLineEdit->setGeometry(100+50*0+10*0, 40*5+40*1+10, 50, 20);
+    outerRingRollKiLineEdit->setGeometry(100+50*1+10*1, 40*5+40*1+10, 50, 20);
+    outerRingRollKdLineEdit->setGeometry(100+50*2+10*2, 40*5+40*1+10, 50, 20);
+
+    outerRingYawKpLineEdit->setGeometry(100+50*0+10*0, 40*5+40*2+10, 50, 20);
+    outerRingYawKiLineEdit->setGeometry(100+50*1+10*1, 40*5+40*2+10, 50, 20);
+    outerRingYawKdLineEdit->setGeometry(100+50*2+10*2, 40*5+40*2+10, 50, 20);
 
     /* 设置参数按键 */
     setParameterButton = new QPushButton(this);
@@ -87,24 +130,36 @@ void paramterSettingWidget::windowInit()
     connect(setParameterButton,&QPushButton::clicked,this,&paramterSettingWidget::setParameterButton_clicked_slot);
     connect(clearDataShowButton,&QPushButton::clicked,this,&paramterSettingWidget::clearDataShowButton_clicked_slot);
 
-    this->show();
+    this->hide();
 }
 
 void paramterSettingWidget::pidParameterShow_slot(QList<_pid> data)
 {
     /* 数据都被扩大1000倍显示 */
+    /* 内环 */
     innerRingPitchKpLineEdit->setText(QString::number(data.at(0).kp));
     innerRingPitchKiLineEdit->setText(QString::number(data.at(0).ki));
-    innerRingPitchKdLineEdit->setText(QString::number(data.at(0).kd_feedback));
+    innerRingPitchKdLineEdit->setText(QString::number(data.at(0).kd));
 
     innerRingRollKpLineEdit->setText(QString::number(data.at(1).kp));
     innerRingRollKiLineEdit->setText(QString::number(data.at(1).ki));
-    innerRingRollKdLineEdit->setText(QString::number(data.at(1).kd_feedback));
+    innerRingRollKdLineEdit->setText(QString::number(data.at(1).kd));
 
     innerRingYawKpLineEdit->setText(QString::number(data.at(2).kp));
     innerRingYawKiLineEdit->setText(QString::number(data.at(2).ki));
-    innerRingYawKdLineEdit->setText(QString::number(data.at(2).kd_feedback));
+    innerRingYawKdLineEdit->setText(QString::number(data.at(2).kd));
+    /* 外环 */
+    outerRingPitchKpLineEdit->setText(QString::number(data.at(3).kp));
+    outerRingPitchKiLineEdit->setText(QString::number(data.at(3).ki));
+    outerRingPitchKdLineEdit->setText(QString::number(data.at(3).kd));
 
+    outerRingRollKpLineEdit->setText(QString::number(data.at(4).kp));
+    outerRingRollKiLineEdit->setText(QString::number(data.at(4).ki));
+    outerRingRollKdLineEdit->setText(QString::number(data.at(4).kd));
+
+    outerRingYawKpLineEdit->setText(QString::number(data.at(5).kp));
+    outerRingYawKiLineEdit->setText(QString::number(data.at(5).ki));
+    outerRingYawKdLineEdit->setText(QString::number(data.at(5).kd));
 }
 
 void paramterSettingWidget::readParameterButton_clicked_slot()
@@ -118,8 +173,8 @@ void paramterSettingWidget::setParameterButton_clicked_slot()
     int32_t tempNumber = 0;
     uint8_t cnt = 0;
 
-    tempdata.resize(36);
-
+    tempdata.resize(36+36);
+    /* 内环 */
     tempNumber = innerRingPitchKpLineEdit->text().toInt();
     tempdata[cnt++] = tempNumber;
     tempdata[cnt++] = tempNumber>>8;
@@ -173,7 +228,60 @@ void paramterSettingWidget::setParameterButton_clicked_slot()
     tempdata[cnt++] = tempNumber>>8;
     tempdata[cnt++] = tempNumber>>16;
     tempdata[cnt++] = tempNumber>>24;
+    /* 外环 */
+    tempNumber = outerRingPitchKpLineEdit->text().toInt();
+    tempdata[cnt++] = tempNumber;
+    tempdata[cnt++] = tempNumber>>8;
+    tempdata[cnt++] = tempNumber>>16;
+    tempdata[cnt++] = tempNumber>>24;
 
+    tempNumber = outerRingPitchKiLineEdit->text().toInt();
+    tempdata[cnt++] = tempNumber;
+    tempdata[cnt++] = tempNumber>>8;
+    tempdata[cnt++] = tempNumber>>16;
+    tempdata[cnt++] = tempNumber>>24;
+
+    tempNumber = outerRingPitchKdLineEdit->text().toInt();
+    tempdata[cnt++] = tempNumber;
+    tempdata[cnt++] = tempNumber>>8;
+    tempdata[cnt++] = tempNumber>>16;
+    tempdata[cnt++] = tempNumber>>24;
+
+    tempNumber = outerRingRollKpLineEdit->text().toInt();
+    tempdata[cnt++] = tempNumber;
+    tempdata[cnt++] = tempNumber>>8;
+    tempdata[cnt++] = tempNumber>>16;
+    tempdata[cnt++] = tempNumber>>24;
+
+    tempNumber = outerRingRollKiLineEdit->text().toInt();
+    tempdata[cnt++] = tempNumber;
+    tempdata[cnt++] = tempNumber>>8;
+    tempdata[cnt++] = tempNumber>>16;
+    tempdata[cnt++] = tempNumber>>24;
+
+    tempNumber = outerRingRollKdLineEdit->text().toInt();
+    tempdata[cnt++] = tempNumber;
+    tempdata[cnt++] = tempNumber>>8;
+    tempdata[cnt++] = tempNumber>>16;
+    tempdata[cnt++] = tempNumber>>24;
+
+    tempNumber = outerRingYawKpLineEdit->text().toInt();
+    tempdata[cnt++] = tempNumber;
+    tempdata[cnt++] = tempNumber>>8;
+    tempdata[cnt++] = tempNumber>>16;
+    tempdata[cnt++] = tempNumber>>24;
+
+    tempNumber = outerRingYawKiLineEdit->text().toInt();
+    tempdata[cnt++] = tempNumber;
+    tempdata[cnt++] = tempNumber>>8;
+    tempdata[cnt++] = tempNumber>>16;
+    tempdata[cnt++] = tempNumber>>24;
+
+    tempNumber = outerRingYawKdLineEdit->text().toInt();
+    tempdata[cnt++] = tempNumber;
+    tempdata[cnt++] = tempNumber>>8;
+    tempdata[cnt++] = tempNumber>>16;
+    tempdata[cnt++] = tempNumber>>24;
     emit sendParameterData_signal(setSerialPortStringDataFormat(0xAA,PC,CMD_SET_PID_PARAMETER,tempdata));
 }
 
@@ -190,6 +298,18 @@ void paramterSettingWidget::clearDataShowButton_clicked_slot()
     innerRingYawKpLineEdit->setText(QString::number(0));
     innerRingYawKiLineEdit->setText(QString::number(0));
     innerRingYawKdLineEdit->setText(QString::number(0));
+
+    outerRingPitchKpLineEdit->setText(QString::number(0));
+    outerRingPitchKiLineEdit->setText(QString::number(0));
+    outerRingPitchKdLineEdit->setText(QString::number(0));
+
+    outerRingRollKpLineEdit->setText(QString::number(0));
+    outerRingRollKiLineEdit->setText(QString::number(0));
+    outerRingRollKdLineEdit->setText(QString::number(0));
+
+    outerRingYawKpLineEdit->setText(QString::number(0));
+    outerRingYawKiLineEdit->setText(QString::number(0));
+    outerRingYawKdLineEdit->setText(QString::number(0));
 }
 
 QByteArray paramterSettingWidget::setSerialPortStringDataFormat(uint8_t frameHead, uint8_t frameAddress, uint8_t frameID, QByteArray data)

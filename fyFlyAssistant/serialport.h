@@ -57,9 +57,9 @@ signals:
 
     void imuData_signal(_imuDataStruct imuData);        /* 传感器的数据 */
     void flySystemInfoData_signal(_systemInfoStruct systemInfo);  /* 飞机的系统信息 */
-    void calibrationParameter_signal(QList<double> data);   /* 磁力计校准参数 */
     void pidParameter_signal(QList<_pid> data);
-
+    void calibrationParameter_signal(QList<double> data);   /* 磁力计校准参数 */
+    void originalSensorForCalibrationData_signal(_originalSensorForCalibrationData data); /* 传递用于校准的传感器原始数据 */
 private:
     QString mPortName;
     int mBaudRate;
@@ -94,6 +94,7 @@ private:
     void CMD_IMU_GYRO_DATA_handle(QByteArray &tempData);
     void CMD_READ_CORRECT_PARAMETER_handle(QByteArray &tempData);
     void CMD_READ_PID_PARAMETER_handle(QByteArray &tempData);
+    void CMD_SEND_SENSOR_DATA_handle(QByteArray &tempData);
 };
 
 

@@ -142,6 +142,12 @@ void SerialPortThread::DataRead()
                                     CMD_IMU_GYRO_DATA_handle(tempData);
                                     break;
                                 }
+                                case CMD_SEND_SENSOR_DATA:      /* 飞控发送的用于校准的传感器数据 */
+                                {
+                                    QByteArray tempData = frameData.mid(4,frameData.at(3));
+                                    CMD_SEND_SENSOR_DATA_handle(tempData);
+                                    break;
+                                }
                                 case CMD_FLY_INFO:
                                 {
                                     QByteArray tempData = frameData.mid(4,frameData.at(3));
@@ -449,13 +455,29 @@ void SerialPortThread::CMD_READ_CORRECT_PARAMETER_handle(QByteArray &tempData)
     int32_t temp = 0;
     uint16_t index = 0;
     QList<double> data;
-    for(uint8_t i=0;i<12;i++)
+
+    if(GYRO_CALIBRATION_MODE == (uint8_t)tempData.at(0))    /* 加速度数据只有三个零偏的数据 */
     {
-        temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
-               (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
-        data.append((double)temp/1000000.0f);
-        index += 4;
+        for(uint8_t i=0;i<3;i++)
+        {
+            temp = (uint8_t)tempData.at(index+1)     | (uint8_t)tempData.at(index+2)<<8 |
+                   (uint8_t)tempData.at(index+3)<<16 | (uint8_t)tempData.at(index+4)<<24;
+            data.append((double)temp/1000000.0f);
+            qDebug() << "temp = " << temp;
+            index += 4;
+        }
     }
+    else if(MAG_CALIBRATION_MODE == (uint8_t)tempData.at(0) || ACCEL_CALIBRATION_MODE == (uint8_t)tempData.at(0))
+    {
+        for(uint8_t i=0;i<12;i++)
+        {
+            temp = (uint8_t)tempData.at(index+1)     | (uint8_t)tempData.at(index+2)<<8 |
+                   (uint8_t)tempData.at(index+3)<<16 | (uint8_t)tempData.at(index+4)<<24;
+            data.append((double)temp/1000000.0f);
+            index += 4;
+        }
+    }
+
     emit calibrationParameter_signal(data);
 }
 
@@ -466,7 +488,7 @@ void SerialPortThread::CMD_READ_PID_PARAMETER_handle(QByteArray &tempData)
 
     _pid tempPidParameter;
     QList<_pid> data;
-
+    /* 内环 */
     temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
            (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
     tempPidParameter.kp = (float)temp;
@@ -479,7 +501,7 @@ void SerialPortThread::CMD_READ_PID_PARAMETER_handle(QByteArray &tempData)
 
     temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
            (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
-    tempPidParameter.kd_feedback = (float)temp;
+    tempPidParameter.kd = (float)temp;
     index += 4;
     data.append(tempPidParameter);
 
@@ -495,7 +517,7 @@ void SerialPortThread::CMD_READ_PID_PARAMETER_handle(QByteArray &tempData)
 
     temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
            (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
-    tempPidParameter.kd_feedback = (float)temp;
+    tempPidParameter.kd = (float)temp;
     index += 4;
     data.append(tempPidParameter);
 
@@ -511,9 +533,82 @@ void SerialPortThread::CMD_READ_PID_PARAMETER_handle(QByteArray &tempData)
 
     temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
            (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
-    tempPidParameter.kd_feedback = (float)temp;
+    tempPidParameter.kd = (float)temp;
+    index += 4;
     data.append(tempPidParameter);
+    /* 外环 */
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    tempPidParameter.kp = (float)temp;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    tempPidParameter.ki = (float)temp;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    tempPidParameter.kd = (float)temp;
+    index += 4;
+    data.append(tempPidParameter);
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    tempPidParameter.kp = (float)temp;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    tempPidParameter.ki = (float)temp;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    tempPidParameter.kd = (float)temp;
+    index += 4;
+    data.append(tempPidParameter);
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    tempPidParameter.kp = (float)temp;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    tempPidParameter.ki = (float)temp;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    tempPidParameter.kd = (float)temp;
+    index += 4;
+    data.append(tempPidParameter);
+
     emit pidParameter_signal(data);
+}
+
+void SerialPortThread::CMD_SEND_SENSOR_DATA_handle(QByteArray &tempData)
+{
+    int32_t temp = 0;
+    uint16_t index = 0;
+    _originalSensorForCalibrationData sendData;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    sendData.dataX = (float)temp/1000.0f;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    sendData.dataY = (float)temp/1000.0f;
+    index += 4;
+
+    temp = (uint8_t)tempData.at(index+0)     | (uint8_t)tempData.at(index+1)<<8 |
+           (uint8_t)tempData.at(index+2)<<16 | (uint8_t)tempData.at(index+3)<<24;
+    sendData.dataZ = (float)temp/1000.0f;
+
+    emit originalSensorForCalibrationData_signal(sendData);
 }
 
 

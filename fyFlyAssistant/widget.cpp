@@ -30,11 +30,11 @@ void Widget::settingButton_clicked_slot()
 {
     if(true == mSettingWindow->isHidden())
     {
-        mSettingWindow->windowShow();
+        mSettingWindow->show();
     }
     else
     {
-        mSettingWindow->windowHide();
+        mSettingWindow->hide();
     }
 }
 
@@ -42,15 +42,27 @@ void Widget::flyBoardDataShowButton_clicked_slot()
 {
     if(true == mflyBoardDataShowWidget->isHidden())
     {
-        mflyBoardDataShowWidget->windowShow();
+        mflyBoardDataShowWidget->show();
     }
     else
     {
-        mflyBoardDataShowWidget->windowHide();
+        mflyBoardDataShowWidget->hide();
     }
 }
 
-void Widget::flyModelShowShowButton_clicked_slot()
+void Widget::setFlyParameterShowButton_clicked_slot()
+{
+    if(true == mParamterSettingWidget->isHidden())
+    {
+        mParamterSettingWidget->show();
+    }
+    else
+    {
+        mParamterSettingWidget->hide();
+    }
+}
+
+void Widget::flyModelShowButton_clicked_slot()
 {
     if(true == modelWidget->isHidden())
     {
@@ -62,7 +74,7 @@ void Widget::flyModelShowShowButton_clicked_slot()
     }
 }
 
-void Widget::dataWaveShowShowButton_clicked_slot()
+void Widget::dataWaveShowButton_clicked_slot()
 {
     if(mWaveWindow->isHidden())
     {
@@ -74,7 +86,7 @@ void Widget::dataWaveShowShowButton_clicked_slot()
     }
 }
 
-void Widget::ellipsoidfitShowShowButton_clicked_slot()
+void Widget::ellipsoidfitShowButton_clicked_slot()
 {
     if(mEllipsoidfitWidget->isHidden())
     {
@@ -219,79 +231,74 @@ void Widget::windowInit()
 //        modelWidget->show();
 //    }
 
-
+/********************************************************按键的设置***********************************************************************/
     /*设置按钮 */
     settingButton = new QPushButton(this);
     QIcon settingButtonIcon("://images/button/settingButton.png");
     settingButton->setIconSize(QSize(32,32));
-    settingButton->move(800-32,600-32);
+    settingButton->move(800-32*1,600-32);
     settingButton->setIcon(settingButtonIcon);
     settingButton->setStyleSheet( "QPushButton{border:0px;background:white;}"
                                   "QPushButton:hover{border:0px;background:blue;}"
                                   "QPushButton:pressed{border:0px;background:red;}");
-
+    connect(settingButton, &QPushButton::clicked,this,&Widget::settingButton_clicked_slot);   /* 连接设置按键的单击信号和槽 */
     /* 飞控数据显示按钮 */
     flyBoardDataShowButton = new QPushButton(this);
     QIcon flyBoardDataShowIcon("://images/button/flyBoardDataButton.png");
     flyBoardDataShowButton->setIconSize(QSize(32,32));
-    flyBoardDataShowButton->move(800-64,600-32);
+    flyBoardDataShowButton->move(800-32*2,600-32);
     flyBoardDataShowButton->setIcon(flyBoardDataShowIcon);
     flyBoardDataShowButton->setStyleSheet( "QPushButton{border:0px;background:white;}"
                                   "QPushButton:hover{border:0px;background:blue;}"
                                   "QPushButton:pressed{border:0px;background:red;}");
-
+    connect(flyBoardDataShowButton, &QPushButton::clicked,this,&Widget::flyBoardDataShowButton_clicked_slot);/* 连接飞控数据显示按键的单击信号和槽 */
     /* 飞机模型显示按钮 */
     flyModelShowButton = new QPushButton(this);
     QIcon flyModelShowShowIcon("://images/button/flyModelButton.png");
     flyModelShowButton->setIconSize(QSize(32,32));
-    flyModelShowButton->move(800-96,600-32);
+    flyModelShowButton->move(800-32*3,600-32);
     flyModelShowButton->setIcon(flyModelShowShowIcon);
     flyModelShowButton->setStyleSheet( "QPushButton{border:0px;background:white;}"
                                   "QPushButton:hover{border:0px;background:blue;}"
                                   "QPushButton:pressed{border:0px;background:red;}");
-
+    connect(flyModelShowButton, &QPushButton::clicked,this,&Widget::flyModelShowButton_clicked_slot);   /* 连接飞控模型显示按键的单击信号和槽 */
+    /* 参数设置显示按钮 */
+    setFlyParameterShowButton = new QPushButton(this);
+    setFlyParameterShowButton->resize(32,32);
+    setFlyParameterShowButton->setText("P");
+    setFlyParameterShowButton->move(800-32*4,600-32);
+    connect(setFlyParameterShowButton, &QPushButton::clicked,this,&Widget::setFlyParameterShowButton_clicked_slot);
     /* 显示数据波形按键 */
     dataWaveShowButton = new QPushButton(this);
     dataWaveShowButton->resize(32,32);
     dataWaveShowButton->setText("W");
     dataWaveShowButton->move(800-32*5,600-32);
-    connect(dataWaveShowButton, &QPushButton::clicked,this,&Widget::dataWaveShowShowButton_clicked_slot);
+    connect(dataWaveShowButton, &QPushButton::clicked,this,&Widget::dataWaveShowButton_clicked_slot);
     /* 椭球拟合显示按钮 */
     ellipsoidfitShowButton = new QPushButton(this);
     ellipsoidfitShowButton->resize(32,32);
     ellipsoidfitShowButton->setText("E");
     ellipsoidfitShowButton->move(800-32*6,600-32);
-    connect(ellipsoidfitShowButton, &QPushButton::clicked,this,&Widget::ellipsoidfitShowShowButton_clicked_slot);
-    /* 参数设置显示按钮 */
-    setFlyParameterShowButton = new QPushButton(this);
-    ellipsoidfitShowButton->resize(32,32);
-    ellipsoidfitShowButton->setText("E");
-    ellipsoidfitShowButton->move(800-32*6,600-32);
+    connect(ellipsoidfitShowButton, &QPushButton::clicked,this,&Widget::ellipsoidfitShowButton_clicked_slot);
 /********************************************************窗口的设置***********************************************************************/
     /* 新建设置窗口 */
-    settingWindow = new QWidget(this);
-    mSettingWindow = new settingWidget(settingWindow);
+    mSettingWindow = new settingWidget(this);
     mSettingWindow->setWindowSize(800,300);
     /* 新建飞控数据显示窗口 */
-    flyDataShowWindow = new QWidget(this);
-    mflyBoardDataShowWidget = new flyBoardDataShowWidget(flyDataShowWindow);
+    mflyBoardDataShowWidget = new flyBoardDataShowWidget(this);
     mflyBoardDataShowWidget->setWindowSize(800,300);
-
     /* 新建数据波形显示窗口 */
     mWaveWindow = new waveWidget();
     mWaveWindow->windowInit();
     mWaveWindow->resize(800,600);
-
     /* 新建参数设置窗口 */
     mParamterSettingWidget = new paramterSettingWidget();
     mParamterSettingWidget->windowInit();
     mParamterSettingWidget->resize(800,600);
-
     /* 新建椭球拟合显示窗口 */
     mEllipsoidfitWidget = new ellipsoidfitWidget();
     mEllipsoidfitWidget->windowInit();
     mEllipsoidfitWidget->resize(800,600);
-
 
     /* 创建QTextEdit对象 */
     logTextEdit = new QTextEdit(this);
@@ -338,25 +345,27 @@ void Widget::windowInit()
     connect(mParamterSettingWidget,&paramterSettingWidget::sendParameterData_signal,mSettingWindow,&settingWidget::sendSerialPortData);     /* 连接参数设置窗口的数据发送信号到设置串口窗口的数据发送信号 */
 
     connect(mSettingWindow,&settingWidget::calibrationParameter_signal,mEllipsoidfitWidget,&ellipsoidfitWidget::showFlyBoardCalibrationParameter_slot); /* 飞控发送回来的校准参数 */
+    connect(mSettingWindow,&settingWidget::originalSensorForCalibrationData_signal,mEllipsoidfitWidget,&ellipsoidfitWidget::originalSensorForCalibrationData_slot); /* 飞控发回的用于校准的传感器数据 */
     connect(mSettingWindow,&settingWidget::appLogMessage_signal,this,&Widget::showLogMessage_slot);             /* 连接log信息打印的信号,信号发出者:mSettingWindow */
     connect(mSettingWindow,&settingWidget::imuData_signal,this,&Widget::imuDataDeal_slot);                      /* mSettingWindow中创建的串口线程发送的传感器数据到主界面串口进行显示 */
     connect(mSettingWindow,&settingWidget::imuData_signal,mWaveWindow,&waveWidget::imuDataDeal_slot);           /* mSettingWindow中创建的串口线程发送的传感器数据到波形窗口进行显示 */
     connect(mSettingWindow,&settingWidget::flySystemInfoData_signal,this,&Widget::flySystemInfoData_slot);      /* mSettingWindow中创建的串口线程发送的飞控数据到主界面串口进行显示 */
     connect(mSettingWindow,&settingWidget::pidParameter_signal,mParamterSettingWidget,&paramterSettingWidget::pidParameterShow_slot);            /* 飞控发回的PID参数 */
-
-    connect(settingButton, &QPushButton::clicked,this,&Widget::settingButton_clicked_slot);                     /* 连接设置按键的单击信号和槽 */
-    connect(flyBoardDataShowButton, &QPushButton::clicked,this,&Widget::flyBoardDataShowButton_clicked_slot);   /* 连接飞控数据显示按键的单击信号和槽 */
-    connect(flyModelShowButton, &QPushButton::clicked,this,&Widget::flyModelShowShowButton_clicked_slot);   /* 连接飞控模型显示按键的单击信号和槽 */
 }
 
 void Widget::resizeEvent(QResizeEvent *event)
 {
     Q_UNUSED(event);
 
-    settingButton->move(this->width()-32,this->height()-32);
-    flyBoardDataShowButton->move(this->width()-64,this->height()-32);
-    flyModelShowButton->move(this->width()-96,this->height()-32);
+    /* 重设按键的位置 */
+    settingButton->move(this->width()-32*1,this->height()-32);
+    flyBoardDataShowButton->move(this->width()-32*2,this->height()-32);
+    flyModelShowButton->move(this->width()-32*3,this->height()-32);
+    setFlyParameterShowButton->move(this->width()-32*4,this->height()-32);
+    dataWaveShowButton->move(this->width()-32*5,this->height()-32);
+    ellipsoidfitShowButton->move(this->width()-32*6,this->height()-32);
 
+    /* 重设主界面窗口的位置 */
     mSettingWindow->setWindowSize(this->width(),300);
     mflyBoardDataShowWidget->setWindowSize(this->width(),300);
 }

@@ -26,12 +26,6 @@ public:
 
     void setWindowSize(int width, int height);      /* 设置窗口大小 */
 
-    void windowShow();                              /* 窗口显示 */
-
-    void windowHide();                              /* 窗口隐藏 */
-
-    bool isHidden() const;                          /* 当前的窗口状态 */
-
     void searchSerialPort();                        /* 执行一次串口扫描 */
 
     void closeSerialPort();                         /* 关闭串口 */
@@ -49,8 +43,9 @@ signals:
 
     void imuData_signal(_imuDataStruct imuData);     /* 传感器的数据 */
     void flySystemInfoData_signal(_systemInfoStruct systemInfo);  /* 飞机的系统信息 */
-    void calibrationParameter_signal(QList<double> data);   /* 磁力计校准参数 */
     void pidParameter_signal(QList<_pid> data);             /* PID参数 */
+    void originalSensorForCalibrationData_signal(_originalSensorForCalibrationData data); /* 传递用于校准的传感器原始数据 */
+    void calibrationParameter_signal(QList<double> data);   /* 磁力计校准参数 */
 private:
     QIcon openSerialPortSuccess;         /* 串口连接成功显示的图标 */
     QIcon waitOpenSerialPort;            /* 等待串口连接时显示的图标 */

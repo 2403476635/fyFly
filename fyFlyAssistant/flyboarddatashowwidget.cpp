@@ -3,11 +3,11 @@
 flyBoardDataShowWidget::flyBoardDataShowWidget(QWidget *parent)
     : QWidget{parent}
 {
-    flyBoardDataShowWindow = parent;
-    flyBoardDataShowWindow->setWindowFlags(Qt::FramelessWindowHint); /* 设置窗口为无边框 */
-    flyBoardDataShowWindow->hide();
+    this->setParent(parent);
+    this->setWindowFlags(Qt::FramelessWindowHint); /* 设置窗口为无边框 */
+    this->hide();
 
-    flyBoardDataTreeWidget = new QTreeWidget(flyBoardDataShowWindow);
+    flyBoardDataTreeWidget = new QTreeWidget(this);
     flyBoardDataTreeWidget->resize(QSize(800,300));
     flyBoardDataTreeWidget->setStyle(QStyleFactory::create("windows"));                           /*设置让节点之间显示连线*/
 //    flyBoardDataTreeWidget->setStyleSheet(QString(                                  /*设置TreeWidget的样式*/
@@ -92,21 +92,6 @@ flyBoardDataShowWidget::flyBoardDataShowWidget(QWidget *parent)
 
 void flyBoardDataShowWidget::setWindowSize(int width, int height)
 {
-    flyBoardDataShowWindow->resize(width, height);
+    this->resize(width, height);
 
-}
-
-void flyBoardDataShowWidget::windowShow()
-{
-    flyBoardDataShowWindow->show();
-}
-
-void flyBoardDataShowWidget::windowHide()
-{
-    flyBoardDataShowWindow->hide();
-}
-
-bool flyBoardDataShowWidget::isHidden() const
-{
-    return flyBoardDataShowWindow->isHidden();
 }

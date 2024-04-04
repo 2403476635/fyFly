@@ -31,9 +31,10 @@ public:
 private slots:
     void settingButton_clicked_slot();                          /* 设置按键的单击的响应槽函数 */
     void flyBoardDataShowButton_clicked_slot();                 /* 飞控数据显示按键的单击响应槽函数 */
-    void flyModelShowShowButton_clicked_slot();                 /* 飞控模型显示按键的单击响应槽函数 */
-    void dataWaveShowShowButton_clicked_slot();                 /* 数据波形显示按键的单击响应槽函数 */
-    void ellipsoidfitShowShowButton_clicked_slot();             /* 矫正窗口显示按键的单击响应槽函数 */
+    void flyModelShowButton_clicked_slot();                     /* 飞控模型显示按键的单击响应槽函数 */
+    void dataWaveShowButton_clicked_slot();                     /* 数据波形显示按键的单击响应槽函数 */
+    void ellipsoidfitShowButton_clicked_slot();                 /* 矫正窗口显示按键的单击响应槽函数 */
+    void setFlyParameterShowButton_clicked_slot();              /* 矫正窗口显示按键的单击响应槽函数 */
 
     void showLogMessage_slot(QByteArray logMessage);            /* 显示输出log信息的槽函数 */
 
@@ -50,16 +51,13 @@ private:
 
     QPushButton *settingButton = nullptr;               /* 设置按钮 */
     QPushButton *flyBoardDataShowButton = nullptr;      /* 飞控数据显示按钮 */
-    QPushButton *flyModelShowButton = nullptr;      /* 飞控姿态模型显示按钮 */
+    QPushButton *flyModelShowButton = nullptr;          /* 飞控姿态模型显示按钮 */
     QPushButton *dataWaveShowButton = nullptr;          /* 数据波形显示按钮 */
     QPushButton *ellipsoidfitShowButton = nullptr;      /* 矫正窗口按键 */
     QPushButton *setFlyParameterShowButton = nullptr;   /* 参数设置窗口按键 */
 
     QLabel *imuDataShowLabel = nullptr;                 /* 显示传感器的数据 */
     QLabel *flySystemInfoDataShowLabel = nullptr;       /* 显示飞控系统的数据 */
-
-    QWidget *settingWindow = nullptr;                   /* 设置窗口 */
-    QWidget *flyDataShowWindow = nullptr;               /* 飞控数据显示窗口 */
 
     settingWidget *mSettingWindow = nullptr;                    /* 设置窗口的各项功能的具体实现 */
     flyBoardDataShowWidget *mflyBoardDataShowWidget = nullptr;  /* 飞控数据显示窗口的各项功能的具体实现 */

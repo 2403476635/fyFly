@@ -21,11 +21,11 @@ enum ENUM_FLY_STATE
     MOTO_IDING,									/* 怠速 */
     LANDING_ING,								/* 正在降落 */
     LANDING_DONE,								/* 降落完成 */
-    WAIT_TAKE_OFF,							/* 等待起飞 */
+    WAIT_TAKE_OFF,                              /* 等待起飞 */
     TAKE_OFF_ING,								/* 正在起飞 */
-    TAKE_OFF_DONE,							/* 起飞完成 */
-    ELECTRICAL_CAIBRATION,			/* 电调校准 */
-    EMERGENCY_STOP							/* 急停 */
+    TAKE_OFF_DONE,                              /* 起飞完成 */
+    ELECTRICAL_CAIBRATION,                      /* 电调校准 */
+    EMERGENCY_STOP                              /* 急停 */
 };
 
 typedef struct
@@ -108,10 +108,12 @@ enum frameCmd
     CMD_ORIGINAL_IMU_DATA = 0,                          /* 发送IMU的原始数据 */
     CMD_IMU_ACCEL_DATA,									/* 发送加速度转换后的值 */
     CMD_IMU_GYRO_DATA,									/* 发送角速度转换后的值 */
-    CMD_READ_CORRECT_PARAMETER,                         /* 读取磁力计校正数据 */
-    CMD_SEND_CORRECT_PARAMETER,                         /* 发送磁力计校正数据 */
+    CMD_READ_CORRECT_PARAMETER,                         /* 读取传感器的校正数据 */
+    CMD_SEND_CORRECT_PARAMETER,                         /* 发送传感器的校正数据 */
     CMD_READ_PID_PARAMETER,                             /* 读取PID参数信息 */
     CMD_SET_PID_PARAMETER,                              /* 设置PID参数信息 */
+    CMD_SET_CALIBRATION_MODE,                           /* 设置校准模式 */
+    CMD_SEND_SENSOR_DATA,								/* 发送用于校准的传感器数据 */
     CMD_FLY_INFO,										/* 飞行信息 */
     CMD_RESET_DEVICE,                                   /* 设备复位 */
     CMD_SEND_BIN_FILE_SIZE,                             /* 发送的固件文件大小 */
@@ -124,24 +126,25 @@ enum frameCmd
     CMD_SHOW_DEVICE_INFO,
     CMD_ACK                                             /* 响应 */
 };
-
+/* 校准模式 */
+enum calibrationMode
+{
+    ACCEL_CALIBRATION_MODE = 1,					/* 加速度计校准模式 */
+    GYRO_CALIBRATION_MODE,                      /* 陀螺仪校准模式 */
+    MAG_CALIBRATION_MODE						/* 磁力计校准模式 */
+};
+/* PID参数结构体 */
 typedef struct
 {
     float kp;								/* 比例系数 */
-    float kp_feedforward;		/* 前馈比例系数 */
     float ki;								/* 积分项系数 */
-    float kd_feedback;			/* 微分先行 反馈量的系数 */
-
-    float thisError;				/* 当前误差 */
-    float lastError;				/* 上次的误差 */
-    float lastFeedforward;	/* 上次的反馈量 */
-    float integralError;		/* 积分误差 */
-
-    float kpOutValue;				/* 计算的微分 */
-    float kiOutValue;				/* 计算的积分 */
-    float kdOutValue;				/* 计算的微分 */
-
-    float pidOutValue;			/* PID总输出 */
+    float kd;                               /* 微分先行 反馈量的系数 */
 }_pid;
 
+typedef struct
+{
+    double dataX;
+    double dataY;
+    double dataZ;
+}_originalSensorForCalibrationData;
 #endif // COMMON_H
