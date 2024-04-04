@@ -96,7 +96,7 @@ void ellipsoidfitWidget::originalSensorForCalibrationData_slot(_originalSensorFo
     if(isRecordFlag)
     {
         qDebug()  << originalSensorData.count();
-        if(originalSensorData.count() < readDataCount)     /*  */
+        if(originalSensorData.count() < readDataCount)     /*小于数据量开始记录  */
         {
             originalSensorData.append(data);                /* 记录数据 */
         }
