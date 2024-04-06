@@ -31,7 +31,7 @@ uint8_t SPI_ReadWriteByte(uint8_t TxData)
 }
 													 
 //初始化SPI FLASH的IO口
-void W25QXX_Init(void)
+void w25qxxInit(void)
 { 
    uint8_t temp;
     

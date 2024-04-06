@@ -66,7 +66,7 @@ extern uint16_t W25QXX_TYPE;					//定义W25QXX芯片型号
 #define W25X_Enable4ByteAddr    0xB7
 #define W25X_Exit4ByteAddr      0xE9
 
-void W25QXX_Init(void);
+void w25qxxInit(void);
 uint16_t  W25QXX_ReadID(void);  	    		//读取FLASH ID
 uint8_t W25QXX_ReadSR(uint8_t regno);             //读取状态寄存器 
 void W25QXX_4ByteAddr_Enable(void);     //使能4字节地址模式

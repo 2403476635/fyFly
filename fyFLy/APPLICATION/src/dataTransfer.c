@@ -252,11 +252,7 @@ void sendImuData(const _imuDataStruct data)
 	uartSendData(0xAA,MCU,CMD_ORIGINAL_IMU_DATA,sendDataBuffer,cnt);
 #endif
 }
-void sendAccelData(const _imuDataStruct data)
-{
-
-}
-void sendGyroData(const _imuDataStruct data)
+void sendSensorGyroData(const _imuDataStruct data)
 {
 	uint8_t sendDataBuffer[100];
 	int32_t temp  = 0;	/* 临时存放的数据 */
@@ -269,13 +265,48 @@ void sendGyroData(const _imuDataStruct data)
 	sendDataBuffer[cnt++] = temp>>16;
 	sendDataBuffer[cnt++] = temp>>24;
 	/* float 数据会被放大1000倍 */
-	temp = angularVelocityPitchPid.kiOutValue*1000;	
+	temp = data.gyro_y_filter*1000;	
 	sendDataBuffer[cnt++] = temp;
 	sendDataBuffer[cnt++] = temp>>8;
 	sendDataBuffer[cnt++] = temp>>16;
 	sendDataBuffer[cnt++] = temp>>24;
 	/* float 数据会被放大1000倍 */
-	temp = angularVelocityPitchPid.pidOutValue*1000;	
+	temp = data.gyro_z_filter*1000;	
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+#if defined(USB_DEBUG)
+	vcpSendData(0xAA,MCU,CMD_IMU_GYRO_DATA,sendDataBuffer,cnt);
+#endif
+#if defined(WIRELESS_DEBUG)
+	uartSendData(0xAA,MCU,CMD_SEND_SENSOR_DATA,sendDataBuffer,cnt);
+#endif
+}
+void sendAccelData(const _imuDataStruct data)
+{
+
+}
+void sendGyroData(const _imuDataStruct data)
+{
+	uint8_t sendDataBuffer[100];
+	int32_t temp  = 0;	/* 临时存放的数据 */
+	uint8_t cnt = 0;
+	
+	/* float 数据会被放大1000倍 */
+	temp = angleRollPid.pidOutValue*1000;	
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	/* float 数据会被放大1000倍 */
+	temp = data.gyro_y_filter*1000;	
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	/* float 数据会被放大1000倍 */
+	temp = data.yaw*1000;	
 	sendDataBuffer[cnt++] = temp;
 	sendDataBuffer[cnt++] = temp>>8;
 	sendDataBuffer[cnt++] = temp>>16;
@@ -318,117 +349,17 @@ void sendOriginalAndFilterData(void)
 {
 		
 }
-/* 发送PID参数 */
-void sendPidParameter(void)
-{
-	uint8_t sendDataBuffer[100];
-	int32_t temp  = 0;	/* 临时存放的数据 */
-	uint8_t cnt = 0;
-	
-	/* float 数据会被放大1000倍 */
-	temp = angularVelocityPitchPid.kp*1000;
-	sendDataBuffer[cnt++] = temp;
-	sendDataBuffer[cnt++] = temp>>8;
-	sendDataBuffer[cnt++] = temp>>16;
-	sendDataBuffer[cnt++] = temp>>24;
-	
-	temp = angularVelocityPitchPid.ki*1000;
-	sendDataBuffer[cnt++] = temp;
-	sendDataBuffer[cnt++] = temp>>8;
-	sendDataBuffer[cnt++] = temp>>16;
-	sendDataBuffer[cnt++] = temp>>24;
-	
-	temp = angularVelocityPitchPid.kd*1000;
-	sendDataBuffer[cnt++] = temp;
-	sendDataBuffer[cnt++] = temp>>8;
-	sendDataBuffer[cnt++] = temp>>16;
-	sendDataBuffer[cnt++] = temp>>24;
-	
-	temp = angularVelocityRollPid.kp*1000;
-	sendDataBuffer[cnt++] = temp;
-	sendDataBuffer[cnt++] = temp>>8;
-	sendDataBuffer[cnt++] = temp>>16;
-	sendDataBuffer[cnt++] = temp>>24;
-	
-	temp = angularVelocityRollPid.ki*1000;
-	sendDataBuffer[cnt++] = temp;
-	sendDataBuffer[cnt++] = temp>>8;
-	sendDataBuffer[cnt++] = temp>>16;
-	sendDataBuffer[cnt++] = temp>>24;
-	
-	temp = angularVelocityRollPid.kd*1000;
-	sendDataBuffer[cnt++] = temp;
-	sendDataBuffer[cnt++] = temp>>8;
-	sendDataBuffer[cnt++] = temp>>16;
-	sendDataBuffer[cnt++] = temp>>24;
-	
-	temp = angularVelocityYawPid.kp*1000;
-	sendDataBuffer[cnt++] = temp;
-	sendDataBuffer[cnt++] = temp>>8;
-	sendDataBuffer[cnt++] = temp>>16;
-	sendDataBuffer[cnt++] = temp>>24;
-	
-	temp = angularVelocityYawPid.ki*1000;
-	sendDataBuffer[cnt++] = temp;
-	sendDataBuffer[cnt++] = temp>>8;
-	sendDataBuffer[cnt++] = temp>>16;
-	sendDataBuffer[cnt++] = temp>>24;
-	
-	temp = angularVelocityYawPid.kd*1000;
-	sendDataBuffer[cnt++] = temp;
-	sendDataBuffer[cnt++] = temp>>8;
-	sendDataBuffer[cnt++] = temp>>16;
-	sendDataBuffer[cnt++] = temp>>24;
-	
-#if defined(USB_DEBUG)
-	vcpSendData(0xAA,MCU,CMD_READ_PID_PARAMETER,sendDataBuffer,cnt);
-#endif
-#if defined(WIRELESS_DEBUG)
-	uartSendData(0xAA,MCU,CMD_READ_PID_PARAMETER,sendDataBuffer,cnt);
-#endif
-}
-static void sendCalibrationParameter(void)
-{
-	uint8_t sendDataBuffer[100];
-	int32_t temp  = 0;	/* 临时存放的数据 */
-	uint8_t cnt = 0;
-	
-	for(uint8_t i=0;i<3;i++)
-	{
-		temp = magOffset[i]*1000000;
-		sendDataBuffer[cnt++] = temp;
-		sendDataBuffer[cnt++] = temp>>8;
-		sendDataBuffer[cnt++] = temp>>16;
-		sendDataBuffer[cnt++] = temp>>24;
-	}
-	for(uint8_t i=0;i<9;i++)
-	{
-		temp = magCalibrationMatrix3x3[i]*1000000;
-		sendDataBuffer[cnt++] = temp;
-		sendDataBuffer[cnt++] = temp>>8;
-		sendDataBuffer[cnt++] = temp>>16;
-		sendDataBuffer[cnt++] = temp>>24;
-	}
-#if defined(USB_DEBUG)
-	vcpSendData(0xAA,MCU,CMD_READ_CORRECT_PARAMETER,sendDataBuffer,cnt);
-#endif
-#if defined(WIRELESS_DEBUG)
-	uartSendData(0xAA,MCU,CMD_READ_CORRECT_PARAMETER,sendDataBuffer,cnt);
-#endif
-}
-
 /* 基本收发实现逻辑 */
 void uartMessageBufferInit(void)
 {
 	uart2RxStreamBuffer = xStreamBufferCreate(2048,1);
 }
-uint32_t heapLen = 0;
+/* 串口接收后解析数据，此段不在中断中执行 */
 void uartMessageBufferReceiveAndAnalysis(void)
 {
 	uint16_t uart2BufferCanReadLen = xStreamBufferBytesAvailable(uart2RxStreamBuffer);
 	if(uart2BufferCanReadLen)
 	{
-		heapLen = xPortGetFreeHeapSize();
 		if(xPortGetFreeHeapSize() < uart2BufferCanReadLen)return;
 		uint8_t *bufferDataPtr = pvPortMalloc(uart2BufferCanReadLen);
 		xStreamBufferReceive(uart2RxStreamBuffer, bufferDataPtr, uart2BufferCanReadLen, 0);
@@ -537,7 +468,9 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 
 static void CMD_SET_PID_PARAMETER_handle(uint8_t *dataPtr);
 static void CMD_SEND_CORRECT_PARAMETER_handle(uint8_t *dataPtr);
-
+static void CMD_SET_CALIBRATION_MODE_handle(uint8_t *dataPtr);
+static void CMD_READ_CORRECT_PARAMETER_handle(uint8_t *dataPtr);
+static void CMD_READ_PID_PARAMETER_handle(uint8_t *dataPtr);
 /* 解析串口接收的数据 */
 static void uartDataAnalysis(uint8_t *dataBuffer, const uint16_t dataLen)
 {
@@ -565,7 +498,7 @@ static void uartDataAnalysis(uint8_t *dataBuffer, const uint16_t dataLen)
 						{
 							case CMD_READ_PID_PARAMETER:	/* 上位机读取PID参数 */
 							{
-								sendPidParameter();
+								CMD_READ_PID_PARAMETER_handle(dataPtr);
 								break;
 							}
 							case CMD_SET_PID_PARAMETER:		/* 上位机写入PID参数 */
@@ -573,15 +506,19 @@ static void uartDataAnalysis(uint8_t *dataBuffer, const uint16_t dataLen)
 								CMD_SET_PID_PARAMETER_handle(dataPtr);
 								break;
 							}
-							case CMD_READ_CORRECT_PARAMETER:
+							case CMD_READ_CORRECT_PARAMETER:	/* 上位机读取校准参数 */
 							{
-								sendCalibrationParameter();
+								CMD_READ_CORRECT_PARAMETER_handle(dataPtr);
 								break;
 							}
-							case CMD_SEND_CORRECT_PARAMETER:
+							case CMD_SEND_CORRECT_PARAMETER:	/* 接收上位机发送来的校准参数数据 */
 							{
 								CMD_SEND_CORRECT_PARAMETER_handle(dataPtr);
 								break;
+							}
+							case CMD_SET_CALIBRATION_MODE:	/* 上位机设置校准模式 */
+							{
+								CMD_SET_CALIBRATION_MODE_handle(dataPtr);
 							}
 							case CMD_SHOW_DEVICE_INFO:
 							{
@@ -653,66 +590,288 @@ static void CMD_SEND_CORRECT_PARAMETER_handle(uint8_t *dataPtr)
 {
 	int32_t tempData = 0;
 	uint8_t cnt = 0;
-	for(uint8_t i=0;i<3;i++)
+	if(GYRO_CALIBRATION_MODE == systemInfo.calibrationMode)					/* 校准的是陀螺仪的数据 */
 	{
-		tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
-		magOffset[i] = (float)tempData / 1000000.0f;
-		cnt += 4;
+		for(uint8_t i=0;i<3;i++)
+		{
+			tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
+			gyroOffset[i] = (float)tempData / 1000000.0f;
+			cnt += 4;
+		}
 	}
-	for(uint8_t i=0;i<9;i++)
+	else if(ACCEL_CALIBRATION_MODE == systemInfo.calibrationMode)		/* 校准的是加速度的数据 */
 	{
-		tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
-		magCalibrationMatrix3x3[i] = (float)tempData / 1000000.0f;
-		cnt += 4;
+		
 	}
+	else if(MAG_CALIBRATION_MODE == systemInfo.calibrationMode)			/* 校准的是磁力计的数据 */
+	{
+		for(uint8_t i=0;i<3;i++)
+		{
+			tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
+			magOffset[i] = (float)tempData / 1000000.0f;
+			cnt += 4;
+		}
+		for(uint8_t i=0;i<9;i++)
+		{
+			tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
+			magCalibrationMatrix3x3[i] = (float)tempData / 1000000.0f;
+			cnt += 4;
+		}
+	}
+	saveParameterHandle();
 }
 
 static void CMD_SET_PID_PARAMETER_handle(uint8_t *dataPtr)
 {
 	int32_t tempData = 0;
 	uint8_t cnt = 0;
-	_pid tempPidParameter;
 	
+	/* 角速度环参数 */
 	tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
-	tempPidParameter.kp = (float)tempData/1000.0f;
+	angularVelocityPitchPid.kp = (float)tempData/1000.0f;
 	cnt += 4;
 	
 	tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
-	tempPidParameter.ki = (float)tempData/1000.0f;
+	angularVelocityPitchPid.ki = (float)tempData/1000.0f;
 	cnt += 4;
 	
 	tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
-	tempPidParameter.kd = (float)tempData/1000.0f;
-	cnt += 4;
-	setPidParameter(&angularVelocityPitchPid,tempPidParameter);
-	
-	tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
-	tempPidParameter.kp = (float)tempData/1000.0f;
+	angularVelocityPitchPid.kd = (float)tempData/1000.0f;
 	cnt += 4;
 	
 	tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
-	tempPidParameter.ki = (float)tempData/1000.0f;
+	angularVelocityRollPid.kp = (float)tempData/1000.0f;
 	cnt += 4;
 	
 	tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
-	tempPidParameter.kd = (float)tempData/1000.0f;
-	cnt += 4;
-	setPidParameter(&angularVelocityRollPid,tempPidParameter);
-	
-	tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
-	tempPidParameter.kp = (float)tempData/1000.0f;
+	angularVelocityRollPid.ki = (float)tempData/1000.0f;
 	cnt += 4;
 	
 	tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
-	tempPidParameter.ki = (float)tempData/1000.0f;
+	angularVelocityRollPid.kd = (float)tempData/1000.0f;
 	cnt += 4;
 	
 	tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
-	tempPidParameter.kd = (float)tempData/1000.0f;
+	angularVelocityYawPid.kp = (float)tempData/1000.0f;
 	cnt += 4;
-	setPidParameter(&angularVelocityYawPid,tempPidParameter);/* 设置参数 */
+	
+	tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
+	angularVelocityYawPid.ki = (float)tempData/1000.0f;
+	cnt += 4;
+	
+	tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
+	angularVelocityYawPid.kd = (float)tempData/1000.0f;
+	cnt += 4;
+	/* 角度环参数 */
+	tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
+	anglePitchPid.kp = (float)tempData/1000.0f;
+	cnt += 4;
+	
+	tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
+	anglePitchPid.ki = (float)tempData/1000.0f;
+	cnt += 4;
+	
+	tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
+	anglePitchPid.kd = (float)tempData/1000.0f;
+	cnt += 4;
+	
+	tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
+	angleRollPid.kp = (float)tempData/1000.0f;
+	cnt += 4;
+	
+	tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
+	angleRollPid.ki = (float)tempData/1000.0f;
+	cnt += 4;
+	
+	tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
+	angleRollPid.kd = (float)tempData/1000.0f;
+	cnt += 4;
+	
+	tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
+	angleYawPid.kp = (float)tempData/1000.0f;
+	cnt += 4;
+	
+	tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
+	angleYawPid.ki = (float)tempData/1000.0f;
+	cnt += 4;
+	
+	tempData = dataPtr[cnt] | dataPtr[cnt+1] << 8 | dataPtr[cnt+2] << 16 | dataPtr[cnt+3] << 24;
+	angleYawPid.kd = (float)tempData/1000.0f;
+	cnt += 4;
+	
 	saveParameterHandle();
 }
+/* 发送PID参数 */
+static void CMD_READ_PID_PARAMETER_handle(uint8_t *dataPtr)
+{
+	uint8_t sendDataBuffer[100];
+	int32_t temp  = 0;	/* 临时存放的数据 */
+	uint8_t cnt = 0;
+	
+	/* float 数据会被放大1000倍 */
+	/* 内环 */
+	temp = angularVelocityPitchPid.kp*1000;
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	
+	temp = angularVelocityPitchPid.ki*1000;
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	
+	temp = angularVelocityPitchPid.kd*1000;
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	
+	temp = angularVelocityRollPid.kp*1000;
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	
+	temp = angularVelocityRollPid.ki*1000;
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	
+	temp = angularVelocityRollPid.kd*1000;
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	
+	temp = angularVelocityYawPid.kp*1000;
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	
+	temp = angularVelocityYawPid.ki*1000;
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	
+	temp = angularVelocityYawPid.kd*1000;
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	/* 外环 */
+	temp = anglePitchPid.kp*1000;
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	
+	temp = anglePitchPid.ki*1000;
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	
+	temp = anglePitchPid.kd*1000;
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	
+	temp = angleRollPid.kp*1000;
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	
+	temp = angleRollPid.ki*1000;
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	
+	temp = angleRollPid.kd*1000;
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	
+	temp = angleYawPid.kp*1000;
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	
+	temp = angleYawPid.ki*1000;
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+	
+	temp = angleYawPid.kd*1000;
+	sendDataBuffer[cnt++] = temp;
+	sendDataBuffer[cnt++] = temp>>8;
+	sendDataBuffer[cnt++] = temp>>16;
+	sendDataBuffer[cnt++] = temp>>24;
+#if defined(USB_DEBUG)
+	vcpSendData(0xAA,MCU,CMD_READ_PID_PARAMETER,sendDataBuffer,cnt);
+#endif
+#if defined(WIRELESS_DEBUG)
+	uartSendData(0xAA,MCU,CMD_READ_PID_PARAMETER,sendDataBuffer,cnt);
+#endif
+}
+static void CMD_SET_CALIBRATION_MODE_handle(uint8_t *dataPtr)
+{
+	systemInfo.calibrationMode = dataPtr[0];
+}
 
-
+static void CMD_READ_CORRECT_PARAMETER_handle(uint8_t *dataPtr)
+{
+	uint8_t sendDataBuffer[100];
+	int32_t temp  = 0;	/* 临时存放的数据 */
+	uint8_t cnt = 0;
+	
+	sendDataBuffer[cnt++] = systemInfo.calibrationMode;
+	
+	if(GYRO_CALIBRATION_MODE == systemInfo.calibrationMode)
+	{
+		for(uint8_t i=0;i<3;i++)
+		{
+			temp = gyroOffset[i]*1000000;
+			sendDataBuffer[cnt++] = temp;
+			sendDataBuffer[cnt++] = temp>>8;
+			sendDataBuffer[cnt++] = temp>>16;
+			sendDataBuffer[cnt++] = temp>>24;
+		}
+	}
+	else if(MAG_CALIBRATION_MODE == systemInfo.calibrationMode)
+	{
+		for(uint8_t i=0;i<3;i++)
+		{
+			temp = magOffset[i]*1000000;
+			sendDataBuffer[cnt++] = temp;
+			sendDataBuffer[cnt++] = temp>>8;
+			sendDataBuffer[cnt++] = temp>>16;
+			sendDataBuffer[cnt++] = temp>>24;
+		}
+		for(uint8_t i=0;i<9;i++)
+		{
+			temp = magCalibrationMatrix3x3[i]*1000000;
+			sendDataBuffer[cnt++] = temp;
+			sendDataBuffer[cnt++] = temp>>8;
+			sendDataBuffer[cnt++] = temp>>16;
+			sendDataBuffer[cnt++] = temp>>24;
+		}
+	}
+#if defined(USB_DEBUG)
+	vcpSendData(0xAA,MCU,CMD_READ_CORRECT_PARAMETER,sendDataBuffer,cnt);
+#endif
+#if defined(WIRELESS_DEBUG)
+	uartSendData(0xAA,MCU,CMD_READ_CORRECT_PARAMETER,sendDataBuffer,cnt);
+#endif
+}
 

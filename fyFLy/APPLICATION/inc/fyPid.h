@@ -25,7 +25,14 @@ typedef struct
 
 
 
-void pidCalculate(_pid *tempPid, float target, float feedforwardValue, float feedbackValue, float errorLimt, float integralLimt, float dt);
+void pidCalculate(	_pid *tempPid, 
+										float target, 					/* 期望值 */
+										float feedforwardValue, /* 前馈量 */
+										float feedbackValue,		/* 反馈量 */
+										float errorMinLimt,			/* 误差限幅 */
+										float errorMaxLimt,			/* 误差限幅 */
+										float integralLimt,			/* 积分限幅 */
+										float dt_s);						/* 周期 s */
 
 											
 #endif /* __FY_PID_H__ */

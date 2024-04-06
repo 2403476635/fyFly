@@ -108,6 +108,7 @@ void InitQuaternion(float *init_q4, inv_imu_sensor_event_t *evt);
 void readImuData(inv_imu_sensor_event_t *imuReadHandle,_imuDataStruct *imuData);
 void imuDataFilter(_imuDataStruct *tempImuData);
 void imuUpdate(_imuDataStruct *tempImuData);
+void sendOriginalDataProcess(const _imuDataStruct tempImuData);
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
@@ -229,6 +230,7 @@ void StartTaskFor250Hz(void *argument)
   /* Infinite loop */
   for(;;)
   {
+		angleControl(ch, imuData, 4);
     vTaskDelayUntil(&xLastWakeTime, xFrequency);
   }
   /* USER CODE END StartTaskFor250Hz */
@@ -267,7 +269,6 @@ void StartTaskFor500Hz(void *argument)
 	IMU_QuaternionEKF_Init(init_quaternion, 10, 0.001, 10000000, 1, 0.002f,0);
 #endif
 	accelAndGyroFilterInit();/* 滤波器 启动！ */
-	
   for(;;)
   {
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
@@ -275,16 +276,18 @@ void StartTaskFor500Hz(void *argument)
 		readImuData(&imu_event,&imuData);
 		/* 数据滤波 */
 		imuDataFilter(&imuData);
+		/* 校准模式下发送传感器的原始数据 */
+		sendOriginalDataProcess(imuData);
 		/* 姿态解算 */
 		imuUpdate(&imuData);
 		/* 角速度环 */
 		if(WAIT_TAKE_OFF == flyState.flyTakeOffState)
 		{	
 			angularVelocityControl(imuData,2);
-			outPwmValue[0] = 0 + angularVelocityPitchPid.pidOutValue - angularVelocityRollPid.pidOutValue + angularVelocityYawPid.pidOutValue + systemInfo.idleThrottleValue;
-			outPwmValue[1] = 0 + angularVelocityPitchPid.pidOutValue + angularVelocityRollPid.pidOutValue - angularVelocityYawPid.pidOutValue + systemInfo.idleThrottleValue;
-			outPwmValue[2] = 0 - angularVelocityPitchPid.pidOutValue + angularVelocityRollPid.pidOutValue + angularVelocityYawPid.pidOutValue + systemInfo.idleThrottleValue;
-			outPwmValue[3] = 0 - angularVelocityPitchPid.pidOutValue - angularVelocityRollPid.pidOutValue - angularVelocityYawPid.pidOutValue + systemInfo.idleThrottleValue;
+			outPwmValue[0] = ch[CH_THR]*3 + angularVelocityPitchPid.pidOutValue - angularVelocityRollPid.pidOutValue + angularVelocityYawPid.pidOutValue + systemInfo.idleThrottleValue;
+			outPwmValue[1] = ch[CH_THR]*3 + angularVelocityPitchPid.pidOutValue + angularVelocityRollPid.pidOutValue - angularVelocityYawPid.pidOutValue + systemInfo.idleThrottleValue;
+			outPwmValue[2] = ch[CH_THR]*3 - angularVelocityPitchPid.pidOutValue + angularVelocityRollPid.pidOutValue + angularVelocityYawPid.pidOutValue + systemInfo.idleThrottleValue;
+			outPwmValue[3] = ch[CH_THR]*3 - angularVelocityPitchPid.pidOutValue - angularVelocityRollPid.pidOutValue - angularVelocityYawPid.pidOutValue + systemInfo.idleThrottleValue;
 
 			outPwmValue[0] = LIMT(outPwmValue[0],0,PWM_MAX_RANGE);
 			outPwmValue[1] = LIMT(outPwmValue[1],0,PWM_MAX_RANGE);
@@ -297,9 +300,14 @@ void StartTaskFor500Hz(void *argument)
 			angularVelocityRollPid.integralError = 0;
 			angularVelocityYawPid.integralError = 0;
 		}
-		sendGyroData(imuData);
+		if(0 == systemInfo.calibrationMode)
+		{
+			sendGyroData(imuData);
+		}
 //		sendFlyInfo(systemInfo);
 //		sendImuData(imuData);
+		
+		
 		
 		motoPowerOut(outPwmValue[0], outPwmValue[1], outPwmValue[2], outPwmValue[3],&flyState);
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
@@ -321,9 +329,7 @@ void StartTaskFor100Hz(void *argument)
 	TickType_t xLastWakeTime;
 	const TickType_t xFrequency = pdMS_TO_TICKS(10);  // 定义任务的运行频率 100Hz
 	xLastWakeTime = xTaskGetTickCount();
-	
   /* Infinite loop */
-	
   for(;;)
   {
 		/* 更新遥控器接收的值 */

@@ -9,6 +9,7 @@
 //#define USB_DEBUG 
 
 #define LIMT(X,MIN,MAX) ( (X) < (MIN) ? (MIN) : ( (X) > (MAX) ? (MAX) : (X) ) )	/* 限幅 */
+#define ABS(x) ((x) < 0 ? -(x) : (x))
 
 #define USE_MAHONY_AHRS 
 //#define USE_EKF 
@@ -45,6 +46,7 @@ typedef struct
 	uint8_t accGyroSensorInitState;
 	uint8_t baroSensorInitState;
 	uint8_t magSensorInitState;
+	uint8_t calibrationMode;			/* 校准模式 */
 	float idleThrottlePercent;
 	uint16_t idleThrottleValue;
 	_flyStateStruct *flyState;
@@ -67,15 +69,17 @@ enum ENUM_FRAME_ADDRESS
 	PC = 0xA5,
 	MCU = 0xA6
 };
-enum ENUM_FRAME_CMD
+enum frameCmd
 {
     CMD_ORIGINAL_IMU_DATA = 0,                          /* 发送IMU的原始数据 */
-		CMD_IMU_ACCEL_DATA,																			/* 发送加速度转换后的值 */
-		CMD_IMU_GYRO_DATA,																			/* 发送角速度转换后的值 */
-    CMD_READ_CORRECT_PARAMETER,                         /* 读取磁力计校正数据 */
-    CMD_SEND_CORRECT_PARAMETER,                         /* 发送磁力计校正数据 */
+    CMD_IMU_ACCEL_DATA,																	/* 发送加速度转换后的值 */
+    CMD_IMU_GYRO_DATA,																	/* 发送角速度转换后的值 */
+    CMD_READ_CORRECT_PARAMETER,                         /* 读取传感器的校正数据 */
+    CMD_SEND_CORRECT_PARAMETER,                         /* 发送传感器的校正数据 */
     CMD_READ_PID_PARAMETER,                             /* 读取PID参数信息 */
     CMD_SET_PID_PARAMETER,                              /* 设置PID参数信息 */
+    CMD_SET_CALIBRATION_MODE,                     			/* 设置校准模式 */
+		CMD_SEND_SENSOR_DATA,																/* 发送用于校准的传感器数据 */
     CMD_FLY_INFO,																				/* 飞行信息 */
     CMD_RESET_DEVICE,                                   /* 设备复位 */
     CMD_SEND_BIN_FILE_SIZE,                             /* 发送的固件文件大小 */
@@ -88,7 +92,14 @@ enum ENUM_FRAME_CMD
     CMD_SHOW_DEVICE_INFO,
     CMD_ACK                                             /* 响应 */
 };
-
+/* 校准模式 */
+enum calibrationMode
+{
+	ACCEL_CALIBRATION_MODE = 1,			/* 加速度计校准模式 */
+	GYRO_CALIBRATION_MODE,					/* 陀螺仪校准模式 */
+	MAG_CALIBRATION_MODE						/* 磁力计校准模式 */
+};
+	
 /* 传感器数据 */
 typedef struct 
 {
@@ -152,7 +163,7 @@ enum ENUM_CH
 	CH_NUM
 }; 
 
-#define PI (3.141592654f)
+#define M_PI (3.14159265358979f)
 
 #define MAX_ANGULAR_VELOCITY (1500)
 #define MAX_ANGULAR_VELOCITY_PID_OUT (1500)

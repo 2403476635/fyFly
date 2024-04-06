@@ -1,14 +1,26 @@
 #include "fyCalibration.h"
+#include "saveParameter.h"
 
-//float32_t magOffset[3] = { -271.864, -35.8921, 108.058};
-float32_t magOffset[3] = { 0, 0, 0};
-//float32_t magCalibrationMatrix3x3[9] = 
-//{
-//	0.918419,		0.0207589, 		0.0464997, 
-//	0.0207589,	0.962683, 		-0.000712886,
-//	0.0464997,	-0.000712886, 0.969636 
-//};
-float32_t magCalibrationMatrix3x3[9] = {0,0,0,0,0,0,0,0,0};
+float gyroOffset[3] = {0, 0, 0};
+
+float32_t accelOffset[3] = {0, 0, 0};
+float32_t accelCalibrationMatrix3x3[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+
+void calibrationInit(void)
+{
+	for(uint8_t i=0;i<3;i++) gyroOffset[i] = saveParameter.gyroOffset[i];
+	
+	for(uint8_t i=0;i<3;i++) accelOffset[i] = saveParameter.accelOffset[i];
+	for(uint8_t i=0;i<9;i++) accelCalibrationMatrix3x3[i] = saveParameter.accelCalibrationMatrix3x3[i];
+	
+	for(uint8_t i=0;i<3;i++) magOffset[i] = saveParameter.magOffset[i];
+	for(uint8_t i=0;i<9;i++) magCalibrationMatrix3x3[i] = saveParameter.magCalibrationMatrix3x3[i];
+}
+
+float32_t magOffset[3] = {0, 0, 0};
+float32_t magCalibrationMatrix3x3[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+
 arm_matrix_instance_f32 mat3x1;
 arm_matrix_instance_f32 mat3x3;
 arm_matrix_instance_f32 resultMat3x1;

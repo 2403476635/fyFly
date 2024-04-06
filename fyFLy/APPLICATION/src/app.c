@@ -24,29 +24,21 @@ _saveParameter saveParameter;				/* 保存在flash中的信息 */
 
 void sensorInit(_systemInfoStruct *info);
 void infoConfig(void);
+void readInitParameter(void);
 
 void mainApp(void)
 {
-	W25QXX_Init();
-	infoConfig();
+	w25qxxInit();																										/* 板载FLASH初始化 */	
+	readInitParameter();																						/* 读取FLASH中的参数 */
+	infoConfig();																										/* 初始化系统状态信息 */	
 	systemInfo.systemClockFrequency = HAL_RCC_GetSysClockFreq();		/* 记录系统的时钟 */
 	
 	HAL_TIM_Base_Start(&htim5);																			/* 启动定时器 */
-	
 	uartMessageBufferInit();																				/* 缓冲区初始化 */
 	uartQueueInit();																								/* 串口队列初始化 */
 	uartDmaReceiveInit();																						/* 串口DMA接收 */
-	
-	if(0xEF16 == W25QXX_ReadID())/* 读取参数 */
-	{
-		W25QXX_Read((uint8_t *)&saveParameter,0x00,sizeof(_saveParameter));
-	}
-	else
-	{
-		memset(&saveParameter,0,sizeof(_saveParameter));
-	}
-	
 	sensorInit(&systemInfo);																				/* 初始化板子上的传感器 */
+	calibrationInit();																							/* 传感器校准参数初始化 */
 	pidInit();																											/* PID参数初始化 */
 	motoInit();																											/* PWM输出初始化 */
 }
@@ -186,6 +178,10 @@ void imuUpdate(_imuDataStruct *tempImuData)
 {
 	float magData[3];
 	float outMagData[3] = {0,0,0};
+	/* 数据校正 */
+	tempImuData->gyro_x_filter -= gyroOffset[0];	/* 陀螺仪执行的是零偏校正 */
+	tempImuData->gyro_y_filter -= gyroOffset[1];
+	tempImuData->gyro_z_filter -= gyroOffset[2];
 	
 	/* 单位转换 */
 #if(16 == ACCELRANGE)	
@@ -207,9 +203,12 @@ void imuUpdate(_imuDataStruct *tempImuData)
 	tempImuData->gyro_y_deg = tempImuData->gyro_y_filter /32.8f;
 	tempImuData->gyro_z_deg = tempImuData->gyro_z_filter /32.8f;
 #endif
-	tempImuData->gyro_x_rad = tempImuData->gyro_x_deg /(180.0f/PI);
-	tempImuData->gyro_y_rad = tempImuData->gyro_y_deg /(180.0f/PI);
-	tempImuData->gyro_z_rad = tempImuData->gyro_z_deg /(180.0f/PI);
+	tempImuData->gyro_x_rad = tempImuData->gyro_x_deg /(180.0f/M_PI);
+	tempImuData->gyro_y_rad = tempImuData->gyro_y_deg /(180.0f/M_PI);
+	tempImuData->gyro_z_rad = tempImuData->gyro_z_deg /(180.0f/M_PI);
+	
+	
+	
 #ifdef USE_MAHONY_AHRS
 	MahonyAHRSupdateIMU(tempImuData->gyro_x_rad,tempImuData->gyro_y_rad,tempImuData->gyro_z_rad,
 											tempImuData->accel_x_gss,tempImuData->accel_y_gss,tempImuData->accel_z_gss);
@@ -253,7 +252,36 @@ void imuUpdate(_imuDataStruct *tempImuData)
 	float XH = outMagData[0]*cos(degPitch)+outMagData[1]*sin(degRoll)*sin(degPitch)-outMagData[2]*cos(degRoll)*sin(degPitch);
 	float YH = outMagData[1]*cos(degRoll)+outMagData[2]*sin(degRoll);
 
-	tempImuData->yaw =  atan2(YH,XH) * 57.3f;
+//	tempImuData->yaw =  atan2(YH,XH) * 57.3f;
+	tempImuData->yaw =  0;
+}
+
+void sendOriginalDataProcess(const _imuDataStruct tempImuData)
+{
+	if(ACCEL_CALIBRATION_MODE == systemInfo.calibrationMode)
+	{
+		
+	}
+	else if(GYRO_CALIBRATION_MODE == systemInfo.calibrationMode)
+	{
+		sendSensorGyroData(tempImuData);
+	}
+	else if(MAG_CALIBRATION_MODE == systemInfo.calibrationMode)
+	{
+		
+	}
+}
+
+void readInitParameter(void)
+{
+	if(0xEF16 == W25QXX_ReadID())/* 读取参数 */
+	{
+		W25QXX_Read((uint8_t *)&saveParameter,0x00,sizeof(_saveParameter));
+	}
+	else
+	{
+		memset(&saveParameter,0,sizeof(_saveParameter));
+	}
 }
 
 

@@ -23,6 +23,7 @@ void uartDataWriteToQueue(UART_HandleTypeDef *huart, uint8_t *uartData, uint16_t
 
 void sendFlyInfo(const _systemInfoStruct info);	
 void sendImuData(const _imuDataStruct data);
+void sendSensorGyroData(const _imuDataStruct data);
 void sendGyroData(const _imuDataStruct data);
 #endif /* __DATA_TRANSFER_H__ */
 
